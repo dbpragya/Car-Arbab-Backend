@@ -3952,7 +3952,7 @@
 
                                 type="button" id="accordion-btn">
 
-                                Complete Car Auction History:
+                                Complete Car Auction Historyy:
 
                                 <div>
 
