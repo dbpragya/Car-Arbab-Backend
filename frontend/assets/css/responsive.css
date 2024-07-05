@@ -1,0 +1,762 @@
+@media (min-width: 1600px) {
+  .signin-section {
+    height: 100vh;
+  }
+}
+@media only screen and (max-width: 1400px) {
+  .pr-80 {
+    padding-right: 30px;
+  }
+  .pr-105 {
+    padding: 0px;
+  }
+  .pl-40 {
+    padding-left: 0px;
+  }
+
+  .head-menu li a {
+    font-size: 15px;
+  }
+
+  .hero-h1 {
+    font-size: 30px;
+  }
+  .img-hero {
+    object-fit: contain;
+  }
+
+  .heading {
+    font-size: 30px;
+  }
+  .title-p {
+    padding-top: 12px;
+    font-size: 15px;
+  }
+
+  .title-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .fillter-btn .btn-group {
+    gap: 10px;
+  }
+
+  .model-name {
+    font-size: 15px;
+  }
+
+  .how-it {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .hero-pera {
+    font-size: 15px;
+  }
+
+  .bg-howit {
+    padding: 70px 0px;
+  }
+
+  .section-heading {
+    font-size: 20px;
+  }
+
+  .section-subheading {
+    font-size: 18px;
+  }
+
+  .section-pera {
+    font-size: 15px;
+  }
+  .why-car {
+    font-size: 20px;
+  }
+
+  .number-box {
+    font-size: 35px;
+  }
+
+  span.name {
+    font-size: 16px;
+  }
+
+  .number-detail {
+    font-size: 16px;
+  }
+
+  .url-heading {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .pb-50 {
+    padding-bottom: 40px;
+  }
+
+  .pt-50 {
+    padding-top: 40px;
+  }
+
+  .mt-50 {
+    margin-top: 40px;
+  }
+
+  .fillter-btn .btn-primary.dropdown-toggle {
+    font-size: 15px !important;
+  }
+
+  .fillter-btn .btn-outline-primary {
+    font-size: 15px !important;
+  }
+  .brand-name {
+    font-size: 15px;
+  }
+  .amou {
+    font-size: 16px;
+  }
+  .footer-heading {
+    font-size: 16px;
+  }
+  .timer-box {
+    font-size: 20px;
+  }
+  .timer-section {
+    gap: 20px;
+  }
+
+  .fc-toolbar-title {
+    font-size: 24px !important;
+  }
+  .inquiries-list-desc {
+    font-size: 15px;
+  }
+
+  .font-20 {
+    font-size: 17px;
+  }
+  .since-text {
+    font-size: 15px;
+  }
+
+  .service-prise {
+    font-size: 15px;
+  }
+
+  .font-16 {
+    font-size: 15px;
+  }
+
+  .bank-account-text {
+    font-size: 17px;
+  }
+
+  .label-checkout {
+    font-size: 15px;
+  }
+
+  li.breadcrumb-item {
+    font-size: 15px;
+  }
+
+  .btn-usrhub {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+
+  .pl-50 {
+    padding-left: 2%;
+  }
+
+  .banner-text-section {
+    width: 724.9px;
+    margin-right: auto;
+  }
+
+  .year-text {
+    font-size: 100px;
+  }
+  .experience-text {
+    font-size: 20px;
+  }
+
+  .aboutus-banner-desc {
+    font-size: 15px;
+  }
+
+  .our-mission-text {
+    font-size: 16px;
+  }
+
+  .font-24 {
+    font-size: 20px;
+  }
+
+  .font-18 {
+    font-size: 16px;
+  }
+
+  .pricing-card-heding {
+    font-size: 25px;
+  }
+
+  .pricing-list {
+    font-size: 12px;
+  }
+
+  .card-group-pricing-plan {
+    margin-top: 70px;
+  }
+
+  .countdown-time {
+    font-size: 22.792px;
+  }
+
+  .countdown-number {
+    padding: 8px 2px;
+  }
+
+  .custom-list .top-tit {
+    font-size: 13px;
+  }
+
+  .custom-list .deta {
+    font-size: 16px;
+  }
+
+  ul.custom-list li {
+    padding-left: 5.5px;
+    padding-right: 6.5px;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .hero-h1 {
+    font-size: 25px;
+  }
+  .heading {
+    font-size: 25px;
+  }
+  .bg-howit {
+    padding: 50px 0px;
+  }
+  .number-box {
+    font-size: 30px;
+  }
+  .font-25 {
+    font-size: 22px;
+  }
+
+  .banner-text-section {
+    width: 626.9px;
+    margin-right: 7%;
+    padding: 70px 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .pl-50 {
+    padding-left: 0px;
+  }
+  .dashboard-vehicles {
+    padding: 10px 20px;
+  }
+
+  .table {
+    min-width: 1200px;
+  }
+
+  #accordion-body .table {
+    min-width: 100%;
+  }
+  .grid-container {
+    grid-template-columns: auto auto auto;
+  }
+
+  .bg-howit {
+    background-size: 1616px;
+  }
+
+  .mt-90 {
+    margin-top: 0px;
+  }
+
+  .scroll-x .ml-20 {
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .py-82 {
+    padding: 50px 0px;
+  }
+  .hero-h1 {
+    font-size: 22px;
+  }
+  .hero-pera {
+    font-size: 14px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .heading {
+    font-size: 26px;
+  }
+  .title-p {
+    font-size: 14px;
+    padding-top: 8px;
+  }
+  .fillter-btn .btn-primary.dropdown-toggle {
+    font-size: 14px !important;
+  }
+  .fillter-btn .btn-outline-primary {
+    font-size: 14px !important;
+  }
+  .how-it {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .title-section {
+    padding-top: 30px;
+  }
+
+  .how-it p {
+    font-size: 14px;
+    padding-top: 10px;
+  }
+
+  .bg-howit {
+    padding: 30px;
+  }
+
+  .section-heading {
+    font-size: 18px;
+  }
+
+  .section-subheading {
+    font-size: 16px;
+  }
+
+  .section-pera {
+    font-size: 14px;
+  }
+
+  .why-car {
+    font-size: 18px;
+  }
+
+  span.name {
+    font-size: 14px;
+  }
+
+  .number-box {
+    font-size: 27px;
+  }
+
+  .model-name {
+    font-size: 14px;
+  }
+  .brand-name {
+    font-size: 14px;
+  }
+
+  .amou {
+    font-size: 15px;
+  }
+
+  .pri {
+    font-size: 13px;
+  }
+
+  .car-value {
+    font-size: 13px;
+  }
+  .car-modal {
+    font-size: 13px;
+  }
+  ul.list-item li a {
+    font-size: 13px;
+  }
+  .footer-bootem {
+    font-size: 13px;
+  }
+
+  .heading {
+    line-height: 30px;
+  }
+  .inquiries-list-desc {
+    font-size: 14px;
+  }
+  .top-header .dropdown-menu {
+    left: -34px;
+  }
+  .font-20 {
+    font-size: 17px;
+  }
+  .since-text {
+    font-size: 14px;
+  }
+
+  .service-desc {
+    font-size: 13px;
+  }
+
+  .service-prise {
+    font-size: 14px;
+  }
+
+  .font-16 {
+    font-size: 14px;
+  }
+
+  .pb-50 {
+    padding-bottom: 30px;
+  }
+
+  .pt-50 {
+    padding-top: 30px;
+  }
+
+  .mt-50 {
+    margin-top: 30px;
+  }
+
+  .bank-account-text {
+    font-size: 16px;
+  }
+
+  .label-checkout {
+    font-size: 14px;
+  }
+
+  li.breadcrumb-item {
+    font-size: 16px;
+  }
+
+  .font-25 {
+    font-size: 19px;
+  }
+
+  .font-14 {
+    font-size: 13px !important;
+  }
+
+  .banner-text-section {
+    margin-right: 0px;
+    width: 100%;
+    max-width: 740px;
+    margin: 0 auto;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .banner-bottom-section {
+    margin-left: 0px;
+  }
+
+  .w-lg-75 {
+    width: 100%;
+  }
+
+  .year-text {
+    font-size: 70px;
+  }
+  .experience-text {
+    font-size: 18px;
+    padding-bottom: 10px;
+  }
+
+  .aboutus-banner-desc {
+    font-size: 14px;
+  }
+
+  .our-mission-text {
+    font-size: 15px;
+  }
+
+  .mission-desc {
+    font-size: 13px;
+  }
+
+  .header-checkout {
+    gap: 10px;
+    width: auto;
+  }
+
+  .font-24 {
+    font-size: 18px;
+  }
+
+  .font-18 {
+    font-size: 15px;
+  }
+  .font-20 {
+    font-size: 16px;
+  }
+
+  .announcements-sub-header {
+    max-width: 100%;
+  }
+
+  .table-body-award td {
+    font-size: 13px;
+  }
+
+  .pricing-card-heding {
+    font-size: 22px;
+  }
+
+  .most-popular {
+    margin-top: 0px;
+  }
+
+  .card-group-pricing-plan {
+    margin-top: 50px;
+  }
+
+  .scroll-lg-none {
+    overflow-x: scroll;
+  }
+
+  .bid-btn {
+    padding: 10px 25px;
+    font-size: 14px;
+  }
+  /* 
+  .bid-now {
+    padding: 10px 25px;
+    font-size: 14px;
+  } */
+
+  .place-bid-btn {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+
+  .fixed {
+    border-radius: 5px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .car-bid-detail-secion {
+    box-shadow: none;
+  }
+
+  .ico-b {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ico-b img {
+    height: 40px;
+    width: 40px;
+  }
+
+  .mt-35 {
+    margin-top: 15px;
+  }
+
+  .bg-howit {
+    background-size: 1229px;
+  }
+
+  .mb-35 {
+    margin-bottom: 15px;
+  }
+
+  .explore {
+    padding: 4px;
+  }
+
+  .pr-84 {
+    padding-right: 0px;
+  }
+
+  #accordion-body tbody tr td {
+    padding: 15px 6px !important;
+  }
+
+  .btn-car-history {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .banner-text-section {
+    max-width: 556px;
+  }
+
+  .right-side-text-banner {
+    max-width: 556px;
+    margin: 0 auto;
+  }
+
+  section.auction-timer {
+    overflow: hidden;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .logo {
+    width: 75px;
+  }
+  .pl-40 {
+    padding-left: 0px;
+  }
+  .number-box {
+    width: auto;
+  }
+  .banner-text-section {
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .right-side-text-banner {
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .img-hotspot {
+    width: 100%;
+  }
+
+  .p {
+    font-size: 14px;
+  }
+
+  .icon-box {
+    font-size: 16px;
+  }
+
+  .pr-80 {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .car-details-header-section {
+    border-radius: 0px;
+    margin-top: 25px;
+  }
+
+  .auction-timer .container {
+    width: auto;
+  }
+
+  .top-header {
+    border-radius: 100px 100px 100px 100px;
+    padding: 0px 15px;
+  }
+
+  .py-xs-1 {
+    padding: 5px 0px;
+  }
+
+  .countdown-text {
+    font-size: 8.5px;
+  }
+
+  .custom-list .top-tit {
+    font-size: 12px;
+  }
+
+  .footer-bootem {
+    text-align: left;
+  }
+
+  .bg-howit {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .hero-section {
+    min-height: 544px;
+    padding-top: 100px;
+  }
+
+  .offcanvas-start {
+    width: 300px;
+  }
+
+  /* .home-header {
+    background: #fff;
+  } */
+
+  .section-aboutus .heading {
+    font-size: 21px;
+  }
+
+  .expertise-section .heading {
+    font-size: 21px;
+  }
+
+  .model-licensesdocuments {
+    margin-right: 10px !important;
+    transform: translate(0, -1px) !important;
+  }
+
+  .section-pera {
+    width: 100%;
+  }
+
+  /* .sticky-field-livebidding .input-field {
+    max-width: 100%;
+    margin-right: -106px;
+    padding: 11px;
+  } */
+
+  .sub-header-text-livebidding {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .bid-now {
+    padding: 10px 15px;
+  }
+
+  .buy-now {
+    padding: 10px 15px;
+  }
+
+  .text-header {
+    font-size: 14px;
+  }
+
+  .sub-header-text-livebidding {
+    font-size: 13px;
+  }
+
+  .custom-list .top-tit {
+    font-size: 11px;
+  }
+  .custom-list .deta {
+    font-size: 13px;
+  }
+
+  .countdown-time {
+    font-size: 18px;
+  }
+}
+@media (max-width: 768px) {
+    .bt-combo {
+    display: flex;
+    padding: 0;
+    /* align-items: center; */
+    /* justify-content: start; */
+    white-space: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+.inner-box {
+    border-radius: 20px;
+    border: 2px solid #21e786;
+    background: #fff;
+    overflow: hidden;
+    height: 39em;
+}
+}
