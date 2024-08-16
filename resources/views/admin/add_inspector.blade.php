@@ -19,7 +19,6 @@
                         <div class="widget-stats-container d-flex">
                             <div class="widget-stats-content flex-fill">
                                 <form class="row g-3" action="{{ route('admin.store_inspector')}}" method="POST" enctype="multipart/form-data">
-                                    
                                     @csrf
                                     <div class="col-6">
                                         <label for="name" class="form-label">Name</label>

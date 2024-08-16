@@ -15,9 +15,7 @@
                             <div class="font-termina text-center font-500">
                                 Secure Your Account with OTP Verification
                             </div>
-                       
-                            <p class="otp-message">Your OTP is {{ $otp }}</p>
-
+                            
                             @if ($errors->any())
                                     <p class="alert alert-danger font-weight-bold" role="alert">
                                         {{ $errors->first('otp') }}
@@ -38,7 +36,8 @@
                                         class="otp-input form-control input-field-checkout input-field-signin fw-bold text-center">
                                 </div>
                                 <input type="hidden" name="user_id" value="{{ $userId }}">
-                           
+
+                                                 
                                 <div class="text-center pt-25">
                                     <button type="submit" class="btn place-bid-btn py-3 shadow-btn">
                                         Submit

@@ -8,11 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     use HasFactory;
-    
-    public function bidding()
-    {
-        return $this->hasMany(Bidding::class, 'car_id','id');
-    }
 
     public function vehiclemake()
     {
@@ -88,16 +83,7 @@ class Car extends Model
     {
         return $this->belongsTo(VehicleNoOfCylinder::class, 'no_of_cylinder');
     }
-    
-    public function carArbabExtendedWarranty()
-    {
-        return $this->belongsTo(CarArbabExtendedWarranty::class, 'car_arbab_extended_warranty');
-    }
 
-    public function carArbabRepair()
-    {
-        return $this->belongsTo(CarArbabRepair::class, 'car_arbab_repairs');
-    }
 
     public function vehicleInterior()
     {
@@ -114,14 +100,9 @@ class Car extends Model
         return $this->hasMany(Booking::class);
     }
     
-    public function chassisPerfect()
-    {
-        return $this->hasMany(CarChassisPerfect::class);
-    }
-    
     protected $fillable= [
 
-        'phone_code',
+        'country_code',
         'seller_phone_no',
         'seller_type_id',
         'user_id',
@@ -135,7 +116,7 @@ class Car extends Model
         'veh_year',
         'no_of_cylinder',
         'vehicle_engine_size',
-        'vehicle_engine_size_unit',
+        'auction_type',
         'car_title',
         'car_arbab_repairs',
         'car_arbab_extended_warranty',
@@ -150,6 +131,7 @@ class Car extends Model
         'car_color',
         'veh_mileage',
         'vehicle_transmission_id',
+        'cc',
         'veh_fueltype_id',
         'vehicle_interior', 
         'veh_vin_number',
@@ -160,9 +142,12 @@ class Car extends Model
         'signatureData',
         'repair_cost',
         'buy_now',
+        'estimated_market_value',
+        'reserve_price',
         'vehicle_condition_id',
         'passenger',
         'body_type',
+        
     ];
 
 }

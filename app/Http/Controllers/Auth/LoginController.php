@@ -39,9 +39,8 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-          
 
-   public function login(Request $request): RedirectResponse
+    public function login(Request $request): RedirectResponse
     {   
         $input = $request->all();
      
@@ -50,49 +49,75 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
      
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-            if (auth()->user()->type == 'admin') {
+        // if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))){
+        //     if (auth()->user()->type == 'admin') {
+        //         return redirect()->route('admin.dashboard');
 
-                return redirect()->route('admin.dashboard');
+        //     }elseif(auth()->user()->type =='inspector'){
 
-            }elseif(auth()->user()->type =='inspector'){
-
-                return redirect()->route('inspector.dashboard');
+        //         return redirect()->route('inspector.dashboard');
                 
-            } 
-            else{
+        //     } elseif (auth()->user()->type == 'user') {
+
+        //         return redirect()->route('user.home');
+        //     }
+        //     else{
+        //         return redirect()->route('home');
+        //     }
+        //  }else 
+        //  {
+        //     if ($input['email'] && $input['password']) {
+        //         return redirect()->route('user.login') 
+        //             ->withInput($request->only('email'))
+        //             ->withErrors([
+        //                 'email' => 'Email address or password is incorrect!.'
+        //             ]);
+        //         } else {
+         
+        //         return redirect()->route('login') 
+        //             ->withInput($request->only('email'))
+        //             ->withErrors([
+        //                 'email' => 'Please provide both email address and password!.'
+        //             ]);
+        //     }
+        // }
+
+        if (auth()->attempt(['email' => $input['email'], 'password' => $input['password']])) {
+            if (auth()->user()->type == 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif (auth()->user()->type == 'inspector') {
+                return redirect()->route('inspector.dashboard');
+            } elseif (auth()->user()->type == 'user') {
                 return redirect()->route('user.home');
+            } else {
+                return redirect()->route('home');
             }
-         }else {
-        $user = \App\Models\User::where('email', $input['email'])->first();
+        } else {
+            $user = \App\Models\User::where('email', $input['email'])->first();
         
-         
-          if ($user && $user->type == 'admin') {
+            if ($user && $user->type == 'admin') {
                 return redirect()->route('login')
                     ->withInput($request->only('email'))
                     ->withErrors([
                         'email' => 'Email address or password is incorrect!.'
                     ]);
             }
-
-            if ($user && $user->type == 'inspector') {
-                return redirect()->route('login')
-                    ->withInput($request->only('email'))
-                    ->withErrors([
-                        'email' => 'Email address or password is incorrect!.'
-                    ]);
-            }
-
-         
+        
             if ($input['email'] && $input['password']) {
                 return redirect()->route('user.login')
                     ->withInput($request->only('email'))
                     ->withErrors([
                         'email' => 'Email address or password is incorrect!.'
                     ]);
-            } 
+            } else {
+                return redirect()->route('login')
+                    ->withInput($request->only('email'))
+                    ->withErrors([
+                        'email' => 'Please provide both email address and password!.'
+                    ]);
+            }
         }
+        
           
     }
 }

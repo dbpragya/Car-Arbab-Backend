@@ -36,8 +36,9 @@ class ListController extends Controller
         $vehiclebodytype = VehicleBodyType::all();
 
         // $cars = Car::with('carMedia','carAuction')->take(6)->get();
-        $cars = Car::with('carMedia','carAuction')->where('status','1')->latest('created_at')->take(6)->get();
-        // dd($cars);
+
+        $cars = Car::with('carMedia','carAuction')->get();
+          
         //get unique carmodels dropdown
         $carmodels = $cars->pluck('veh_car_model')->unique();
 
@@ -50,41 +51,6 @@ class ListController extends Controller
         return view('frontend.list',compact('carenginesize','carmodels','cartrim','vehiclebodytype','vehiclecondition','vehicletypes','vehicleregionalspec','auctiontype','cars','vehiclemake' ,'vehfueltype','vehicleNoOfCylinder','vehicletransmission','drivetype'));
     }
 
-
-
-    //  public function LoadMoreProducts(Request $request){
-         
-    //      $lastCarId = $request->lastCarId;
-   
-    //      $cars = Car::with('carMedia', 'carAuction')
-    //               ->where('status', '1')
-    //               ->where('id', '<=', $lastCarId)
-    //                 ->orderByDesc('id')
-    //               ->take(6)
-    //               ->get();
-                    
-    //   return response()->json(['loadmore' => $cars]);
-    //  }
-    public function LoadMoreProducts(Request $request) {
-        $lastCarId = $request->lastCarId;
-    
-        // If lastCarId is not provided, return an empty response
-        if (!$lastCarId) {
-            return response()->json(['loadmore' => []]);
-        }
-    
-        $cars = Car::with('carMedia', 'carAuction','carmedia','vehicleregionalspec','vehicletransmission','vehiclenoofcylinder','vehiclemake')
-            ->where('status', '1')
-            ->where('id', '<', $lastCarId) // Fetch cars with IDs less than the last car ID
-            ->orderByDesc('id')
-            ->take(6)
-            ->get();
-    
-        return response()->json(['loadmore' => $cars]);
-    }
-
-     
-     
     //List sidebar select Filter
     public function filterMake(Request $request)
     {
@@ -99,7 +65,7 @@ class ListController extends Controller
         } else {
             $carsQuery->where($selectedId, $selectedValue);
         }
-        $filteredCars = $carsQuery->with('carmedia', 'carauction', 'vehicletype', 'vehiclecondition', 'vehiclemake', 'vehiclefueltype', 'drivetype', 'auctiontype', 'vehicletransmission', 'vehiclenoofcylinder', 'vehicleregionalspec')->where('status','1')->latest('created_at')->get();
+        $filteredCars = $carsQuery->with('carmedia', 'carauction', 'vehicletype', 'vehiclecondition', 'vehiclemake', 'vehiclefueltype', 'drivetype', 'auctiontype', 'vehicletransmission', 'vehiclenoofcylinder', 'vehicleregionalspec')->get();
         return response()->json(['filteredCars' => $filteredCars]);
     }
 
@@ -114,10 +80,7 @@ class ListController extends Controller
         $query = CarAuction::query()->with('car.carMedia','car','car.vehicleregionalspec','car.vehicletransmission','car.vehiclenoofcylinder','car.vehiclemake');
         $query->where( $selectedId , $selectedValue)->get();
       
-        $filteredauction = $query
-        ->whereHas('Car', function ($query) {
-            $query->where('status', '1');
-        })->latest('created_at')->get();      
+        $filteredauction = $query->get();      
         return response()->json(['filteredauction' => $filteredauction]);
     }
 
@@ -130,9 +93,7 @@ class ListController extends Controller
             
             $query->where($name, 1);
         }
-        $filteredSticker = $query ->whereHas('Car', function ($query) {
-            $query->where('status', '1');
-        })->latest('created_at')->get(); 
+        $filteredSticker = $query->get();
 
         return response()->json(['filteredSticker' => $filteredSticker]);
     }
@@ -146,7 +107,7 @@ class ListController extends Controller
         $query = Car::query()->with('carmedia','vehicleregionalspec','vehicletransmission','vehiclenoofcylinder','vehiclemake');
         $query->whereBetween($name,[$min, $max]);
 
-        $filteredMileagerange = $query->where('status','1')->latest('created_at')->get();
+        $filteredMileagerange = $query->get();
         return response()->json(['filteredMileagerange' => $filteredMileagerange]);
     }
 }

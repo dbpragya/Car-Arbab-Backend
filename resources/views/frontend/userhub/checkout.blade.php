@@ -4,7 +4,7 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('user.home') }}" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
                     <li class="breadcrumb-item"><a href="/cart.php" class="text-decoration-none">Cart</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="#">Checkout</a></li>
                 </ol>
@@ -213,7 +213,7 @@
             var userId = $('#user_id').val();
             var totalAmount = $('#total_amount').val();
             
-            
+            // alert(total_amount);
             $.ajax({
                 type: 'POST',
                 url: '{{ route('user.checkout-buy-car') }}',
@@ -225,7 +225,7 @@
                     
                 },
                     success: function(response) {
-                        
+                        alert(response.message);
                 },
                 error: function(xhr, status, error) {
                     console.log(error);

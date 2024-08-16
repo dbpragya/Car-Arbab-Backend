@@ -41,9 +41,12 @@
                                                 src="{{ asset('frontend/assets/images/icon/eye-closed.svg')}}" alt="Dropped Image"></div>
                                     </div>
                                 </div>
+                                <br>
+                                <!-- show error if any -->
                                 <div class="error-message">
-                                    {{ $errors->first('email') }}
+                                     {{ $errors->first('email') }}
                                 </div>
+
                                 <div class="d-flex justify-content-between pt-25">
                                     <div class="form-check ">
                                         <input class="form-check-input signin-check" type="checkbox" value=""
@@ -54,7 +57,7 @@
                                         </label>
                                     </div>
                                     <div class="">
-                                        <a href="{{ route('user.forgotpassword') }}"
+                                        <a href="/forgotpassword.php"
                                             class="font-montserrat font-500 font-14 text-white text-decoration-none">
                                             Forgot Password?
                                         </a>

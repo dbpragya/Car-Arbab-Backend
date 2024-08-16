@@ -19,7 +19,7 @@
                     <ul class="nav navbar-nav ml-auto w-100 justify-content-end head-menu">
                         <li class="nav-item"><a href="{{ route('user.home') }}" class="" id="home-link">Home</a></li>
                         <li class="nav-item"><a href="{{ route('list') }}" id="list-link" class="">Find Your Car</a></li>
-                        <!--<li class="nav-item"><a href="{{ route('calender') }}" id="calendar-link" class="">Calendar</a></li>-->
+                        <li class="nav-item"><a href="{{ route('calender') }}" id="calendar-link" class="">Calendar</a></li>
                         <li class="nav-item"><a href="{{ route('liveauction') }}" id="liveauction-link" class="">Live Auction</a>
                         </li>
                         <li class="nav-item"><a href="{{ route('aboutus') }}" id="aboutus-link" class="">About Us</a></li>

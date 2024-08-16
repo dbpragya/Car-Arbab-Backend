@@ -300,7 +300,7 @@
                             <div class="product-img-box">
                                 <!-- <img class="w-100" src="{{ asset('frontend/assets/images/product/product-5.png')}}" alt=""> -->
                                     @php
-                                        $carMedia = $car->carMedia->where('type', 'thmnail')->first(); 
+                                        $carMedia = $car->carMedia->where('type', 'image_form1')->first(); 
                                     @endphp
 
                                     @if($carMedia && $carMedia->images)
@@ -308,7 +308,7 @@
                                             $imagePaths = explode(',', $carMedia->images);
                                         @endphp
                                         @foreach($imagePaths as $image)
-                                            <img class="w-100" src="{{ asset('public/' .$image) }}" alt="">
+                                            <img class="w-100" src="{{ asset($image) }}" alt="">
                                             @break 
                                         @endforeach
                                     @else
@@ -325,7 +325,7 @@
 
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <div class="model-name">{{ $car->veh_car_model }}{{ $car->id }}</div>
+                                        <div class="model-name">{{ $car->veh_car_model }}</div>
                                         <div class="brand-name">{{ $car->vehicleMake->name?? '' }}</div>
                                     </div>
                                     <div>
@@ -462,8 +462,7 @@
             <div class="row px-0 mx-auto text-center mt-25 mb-25">
             <div class="col-lg-5 mx-auto  d-flex justify-content-center">
 
-                <button class="btn-load-more" id="loadMoreBtn"><i class="fa-solid fa-spinner"></i> &nbsp; More </button>
-                
+                <button class="btn-load-more"><i class="fa-solid fa-spinner"></i> &nbsp; More </button>
             </div>
         </div> 
 
@@ -542,7 +541,6 @@
         }
     </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--//addhere-->
 
     <!-- Extended action -->
     <script>
@@ -563,9 +561,9 @@
                 var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';
                 if (car.car_media && car.car_media.length > 0) {
                     for (var i = 0; i < car.car_media.length; i++) {
-                        if (car.car_media[i].type === 'thmnail') {
+                        if (car.car_media[i].type === 'image_form1') {
                             var imagePaths = car.car_media[i].images.split(',');
-                            imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                            imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                             break;
                         }
                     }   
@@ -628,14 +626,14 @@
                                 <div class="col-6 cost-box">
                                     <div class="pri">Repair Cost:</div>
                                     <div class="amou d-flex justify-content-between">
-                                        AED ${car.car_auction ? car.car_auction.estimated_repair_cost : ''}
+                                        AED ${car.carauction ? car.carauction.estimated_repair_cost : ''}
                                     </div>
                                 </div>
 
                                 <div class="col-6 cost-box">
                                     <div class="pri">Current Bid Price:</div>
                                     <div class="amou d-flex justify-content-between">
-                                        AED ${car.car_auction ? car.car_auction.current_bid_price : ''}
+                                        AED ${car.carauction ? car.carauction.current_bid_price : ''}
                                     </div>
                                 </div>
 
@@ -744,9 +742,9 @@
                 var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';
                 if (car.car_media && car.car_media.length > 0) {
                     for (var i = 0; i < car.car_media.length; i++) {
-                        if (car.car_media[i].type === 'thmnail') {
+                        if (car.car_media[i].type === 'image_form1') {
                             var imagePaths = car.car_media[i].images.split(',');
-                            imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                            imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                             break;
                         }
                     }   
@@ -787,18 +785,18 @@
                                 </div>
                                 <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
-                                        <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}">${car.vehicleregionalspec ? car.vehicleregionalspec.name : ''}  
+                                        <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}"> ${car.vehicleregionalspec ? car.vehicleregionalspec.name : ''}  
                                     </span>
                                 </div>
                                 <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
-                                        <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}">${car.vehicletransmission ? car.vehicletransmission.name : ''}
+                                        <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> ${car.vehicletransmission ? car.vehicletransmission.name : ''}
                                     </span>
                                 </div>
 
                                 <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
-                                        <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}">${car.vehiclenoofcylinder ? car.vehiclenoofcylinder.size : ''}
+                                        <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}"> ${car.vehiclenoofcylinder ? car.vehiclenoofcylinder.size : ''}
                                     </span>
                                 </div>
 
@@ -809,15 +807,14 @@
                                 <div class="col-6 cost-box">
                                     <div class="pri">Repair Cost:</div>
                                     <div class="amou d-flex justify-content-between">
-                                        AED ${car.car_auction ? car.car_auction.estimated_repair_cost : ''}
-                                     
+                                        AED ${car.carauction ? car.carauction.estimated_repair_cost : ''}
                                     </div>
                                 </div>
 
                                 <div class="col-6 cost-box">
                                     <div class="pri">Current Bid Price:</div>
                                     <div class="amou d-flex justify-content-between">
-                                        AED ${car.car_auction ? car.car_auction.current_bid_price : ''}
+                                        AED ${car.carauction ? car.carauction.current_bid_price : ''}
                                     </div>
                                 </div>
 
@@ -933,9 +930,9 @@
                                 
                                 
                                     for (var i = 0; i < carauction.car.car_media.length; i++) {
-                                        if (carauction.car.car_media[i].type === 'thmnail') {
+                                        if (carauction.car.car_media[i].type === 'image_form1') {
                                         var imagePaths = carauction.car.car_media[i].images.split(',');
-                                        imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                                        imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                                         break;
                                         }
                                     }   
@@ -1038,7 +1035,6 @@
                                                     </div>
                                                     <div>
                                                         <div class="timer-box">
-                                                            
                                                             <span class="seconds countdown-time"></span>
                                                         </div>
                                                         <div
@@ -1066,7 +1062,6 @@
                                     </div>`;
                                 $('#carListing').append(carHtml);
 
-                                //
                                 var auctionDate = carauction.auction_date; 
                                 var auctionTime = carauction.auction_time; 
                                 var auctionDateTime = auctionDate + 'T' + auctionTime;
@@ -1079,7 +1074,7 @@
                         }
                     },
                     error: function(error) {
-                        console.error('AJAX error:', error); // Debugging: Check for AJAX errors
+                        console.error('AJAX error:', error); 
                     }
                 });
             });
@@ -1089,13 +1084,12 @@
     <!--sidebar filters -->
 
     <script>
-         $(document).on('click', '.redirect-livebidding', function() {
+          $(document).on('click', '.redirect-livebidding', function() {
             var carId = $(this).data('car-id');
             var detailsUrl = "{{ route('livebidding', ':id') }}".replace(':id', carId);
             window.location.href = detailsUrl;
         });
 
-    
         $('.car-select').on('change', function() {
         var selectedDropdownId = $(this).attr('id'); 
         var selectedValue = $(this).val();
@@ -1120,9 +1114,9 @@
                     var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';
                     if (car.carmedia && car.carmedia.length > 0) {
                         for (var i = 0; i < car.carmedia.length; i++) {
-                            if (car.carmedia[i].type === 'thmnail') {
+                            if (car.carmedia[i].type === 'image_form1') {
                                 var imagePaths = car.carmedia[i].images.split(',');
-                                imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                                imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                                 break;
                             }
                         }   
@@ -1258,7 +1252,7 @@
                             </div>
                         </div>
                     </div>`;
-                     
+                        // Append the car HTML to the car listing container
                         $('#carListing').append(carHtml);
 
                         var auctionDate = car.carauction.auction_date; 
@@ -1300,6 +1294,7 @@
             }, 
             success: function(response) {
     
+                // alert(response);
                 $('#carListing').empty();
                 if(response.filterederange && response.filterederange.length > 0) {
                 $.each(response.filterederange, function(index, car) {
@@ -1307,9 +1302,9 @@
                 var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';
                 if (car.carmedia && car.carmedia.length > 0) {
                     for (var i = 0; i < car.carmedia.length; i++) {
-                        if (car.carmedia[i].type === 'thmnail') {
+                        if (car.carmedia[i].type === 'image_form1') {
                             var imagePaths = car.carmedia[i].images.split(',');
-                            imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                            imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                             break;
                         }
                     }   
@@ -1318,12 +1313,12 @@
                 var carHtml = `
                 <div class="col-lg-4 col-md-6 mt-25 position-relative">
                         
-                        <div class="inner-box redirect-livebidding" data-car-id="${car.id}">
+                        <div class="inner-box redirect-details" data-car-id="${car.id}">
                             <div class="car-modal tag">MUV</div>
                             <div class="product-img-box">
                                     <img class="w-100" src="${imageUrl}" alt="">
                                 <div class="car-value tag">Estimated Market Value: <span class="text-black">AED
-                                    ${car.carauction ? car.carauction.estimated_market_value: ''} </span>
+                                    ${car.carauction ? car.carauction.estimated_market_value: ''}</span>
                                 </div>
                             </div>
 
@@ -1443,7 +1438,7 @@
                         </div>
                     </div>`;
                 
-                   
+                    // Append the car HTML to the car listing container
                     $('#carListing').append(carHtml);
 
                     var auctionDate = car.carauction.auction_date; 
@@ -1460,198 +1455,9 @@
             error: function(error) {
                 console.error(error); 
             }
+            });
         });
-    });
     </script> 
     <!--auction type -->
-    
-    
-    <!--//load more btton implement fnctionality-->
-<!--    <script>-->
-<!--    $(document).ready(function() {-->
-<!--    var lastCarId = null;-->
-    
-<!--    $('#loadMoreBtn').click(function() {-->
-<!--        loadMoreCars();-->
-<!--    });-->
-
-<!--    function loadMoreCars() {-->
-<!--        lastCarId = $('.inner-box:last').data('car-id'); -->
-
-<!--        $.ajax({-->
-<!--            url: "{{ route('load_more_auction_cars') }}",-->
-<!--            type: 'GET',-->
-<!--            data: { lastCarId: lastCarId },-->
-<!--            success: function(response) {-->
-                
-<!--                if (response.loadmore && response.loadmore.length > 0) {-->
-<!--                    $.each(response.loadmore, function(index, car) {-->
-<!--                        var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';-->
-<!--                        if (car.car_media && car.car_media.length > 0) {-->
-<!--                            for (var i = 0; i < car.car_media.length; i++) {-->
-<!--                                if (car.car_media[i].type === 'thmnail') {-->
-<!--                                    var imagePaths = car.car_media[i].images.split(',');-->
-<!--                                    imageUrl = '{{ asset('public/' . ':imagePath') }}'.replace(':imagePath', imagePaths[0]);-->
-<!--                                    break;-->
-<!--                                }-->
-<!--                            }-->
-<!--                        }-->
-
-<!--                        var carHtml = `-->
-<!--                                  <div class="col-lg-4 col-md-6 mt-25 position-relative">-->
-                        
-<!--                        <div class="inner-box redirect-livebidding" data-car-id="${car.id}">-->
-<!--                            <div class="car-modal tag">MUV</div>-->
-<!--                            <div class="product-img-box">-->
-<!--                                    <img class="w-100" src="${imageUrl}" alt="">-->
-<!--                                <div class="car-value tag">Estimated Market Value: <span class="text-black">AED-->
-<!--                                    ${car.car_auction ? car.car_auction.estimated_market_value: ''} </span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <div class="details">-->
-<!--                                <div class="model-name">${car.veh_car_model ? car.veh_car_model : ''} </div>-->
-<!--                                <div class="brand-name">${car.vehiclemake ? car.vehiclemake.name : ''}</div>-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-6">-->
-<!--                                        <span class="d-flex align-items-center icon-box">-->
-<!--                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">${car.veh_year ?car.veh_year:'' } -->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-6">-->
-<!--                                        <span class="d-flex align-items-center icon-box">-->
-<!--                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">${car.veh_mileage ?car.veh_mileage:'' }  KM-->
-                                            
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-6">-->
-<!--                                        <span class="d-flex align-items-center icon-box">-->
-<!--                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">${car.title ?car.title:'' } -->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-6">-->
-<!--                                        <span class="d-flex align-items-center icon-box">-->
-<!--                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}"> ${car.vehicleregionalspec ? car.vehicleregionalspec.name : ''}  -->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-6">-->
-<!--                                        <span class="d-flex align-items-center icon-box">-->
-<!--                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> ${car.vehicletransmission ? car.vehicletransmission.name : ''}-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-
-<!--                                    <div class="col-6">-->
-<!--                                        <span class="d-flex align-items-center icon-box">-->
-<!--                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}"> ${car.vehiclenoofcylinder ? car.vehiclenoofcylinder.size : ''}-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-
-<!--                                    <div class="col-12 m-auto">-->
-<!--                                        <div class="divider"> </div>-->
-<!--                                    </div>-->
-
-<!--                                    <div class="col-6 cost-box">-->
-<!--                                        <div class="pri">Repair Cost:</div>-->
-<!--                                        <div class="amou d-flex justify-content-between">-->
-<!--                                            AED ${car.car_auction ? car.car_auction.estimated_repair_cost : ''}-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-
-<!--                                    <div class="col-6 cost-box">-->
-<!--                                        <div class="pri">Current Bid Price:</div>-->
-<!--                                        <div class="amou d-flex justify-content-between">-->
-<!--                                            AED ${car.carauction ? car.carauction.current_bid_price : ''}-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-                                    
-<!--                                    <div class="col-12">-->
-<!--                                        <div class="d-flex timer-section countdown" id="countdown_${car.id}">-->
-<!--                                            <div>-->
-<!--                                                <div class="timer-box">        -->
-<!--                                                    <span class="days countdown-time"></span>-->
-<!--                                                </div>-->
-<!--                                                    <div-->
-<!--                                                        class="mt-10 text-black text-center font-14 font-500 font-montserrat">-->
-<!--                                                        DAYS-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                                <div>-->
-<!--                                                    <div class="timer-box">-->
-                                                        
-<!--                                                        <span class="hours countdown-time"></span>-->
-<!--                                                    </div>-->
-<!--                                                    <div-->
-<!--                                                        class="mt-10 text-black text-center font-14 font-500 font-montserrat">-->
-<!--                                                        HOURS-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                                <div>-->
-<!--                                                    <div class="timer-box">-->
-                                                        
-<!--                                                        <span class="minutes countdown-time"></span>-->
-<!--                                                    </div>-->
-<!--                                                    <div-->
-<!--                                                        class="mt-10 text-black text-center font-14 font-500 font-montserrat">-->
-<!--                                                        MINS-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                                <div>-->
-<!--                                                    <div class="timer-box">-->
-                                                        
-<!--                                                        <span class="seconds countdown-time"></span>-->
-<!--                                                    </div>-->
-<!--                                                    <div-->
-<!--                                                        class="mt-10 text-black text-center font-14 font-500 font-montserrat">-->
-<!--                                                        SECS-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-                                    
-                                    
-<!--                                    <div class="col-12">-->
-<!--                                        <input type="hidden" name="car_id" id="car_id_${car.id}" value="${car.id}">-->
-<!--                                        <a href="{{ url('livebidding') }}/${car.id}" class="btn bid-btn">Join Live Auction</a>-->
-<!--                                    </div>-->
-
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="like-car">-->
-<!--                             <div class="form-check">-->
-<!--                                <input type="checkbox" id="customCheckbox-13" class="custom-checkbox form-check-input">-->
-<!--                            <label for="customCheckbox-13" class="form-check-label"></label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>`;-->
-                        
-                       
-<!--                    $('#carListing').append(carHtml);-->
-
-<!--                    var auctionDate = car.car_auction.auction_date; -->
-<!--                    var auctionTime = car.car_auction.auction_time; -->
-<!--                    var auctionDateTime = auctionDate + 'T' + auctionTime;-->
-                
-<!--                    var endTime = parseAuctionTime(auctionDateTime);-->
-                 
-<!--                    initializeClock(`countdown_${car.id}`, endTime);  -->
-            
-
-<!--                });-->
-                    
-<!--                    lastCarId = response.loadmore[response.loadmore.length - 1].id; -->
-                
-<!--                } else {-->
-<!--                    $('#loadMoreBtn').hide();-->
-<!--                }-->
-<!--            }-->
-<!--        });-->
-<!--    }-->
-<!--});-->
-<!--</script>-->
-
-   
-   
-   
    
 @endsection

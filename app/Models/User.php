@@ -13,14 +13,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function bid()
-    {
-        return $this->hasMany(Bidding::class, 'user_id','id');
-    }
+    
     public function car()
     {
         return $this->hasMany(User::class, 'user_id');
     }
+
     public function userDocuments()
     {
         return $this->hasOne(UserDocument::class);

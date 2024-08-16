@@ -1,7 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 .green .dial {
 /* Your green color styling here */
@@ -12,41 +10,12 @@ background-color: green;
     color: #fff;
 }
 .Sbmit-btn {
-    font-size: 13px;
+font-size: 13px;
     padding: 8px 24px;
     border: none;
     border-radius: 4px;
     margin-top: 30px;
 
-}
- #canvasContainer{
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-#baseImageCanvas {
-    width: 100%;
-    border: 1px solid #000;
-}
-
-.hover-image {
-    position: absolute;
-    display: none;
-    border: 2px solid #000;
-    border-radius: 8px;
-    transition: all 0.2s ease-in-out;
-}
-
-.hover-image img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-#fileInput {
-    display: none;
 }
 </style>
 <div class="content-wrapper">
@@ -203,30 +172,6 @@ background-color: green;
                                         });
                                 </script>
                             @endif
-
-
-                        <!--@if(session()->has('success7'))-->
-                                <!-- <div class="alert alert-success">
-                        <!--            {{ session()->get('success6') }}-->
-                        <!--        </div> -->-->
-                        <!--        <script>-->
-                        <!--                $(document).ready(function() {-->
-                        <!--                @if($car && $car->veh_fueltype_id == '3') -->
-                                            // window.location.href = '#step8';
-                        <!--                    $('.nav-tabs li').removeClass('active');-->
-                        <!--                    $('.nav-tabs li:nth-child(6)').addClass('active');-->
-                        <!--                    $('.tab-pane').removeClass('active');-->
-                        <!--                    $('#step7').addClass('active');-->
-                        <!--                    @else-->
-                                            // window.location.href = '#step8';
-                        <!--                    $('.nav-tabs li').removeClass('active');-->
-                        <!--                    $('.nav-tabs li:nth-child(8)').addClass('active');-->
-                        <!--                    $('.tab-pane').removeClass('active');-->
-                        <!--                    $('#step8').addClass('active');-->
-                        <!--                    @endif-->
-                        <!--                });-->
-                        <!--        </script>-->
-                        <!--    @endif-->
 
                             <!-- step-8 -->
                             @if(session()->has('success8'))
@@ -541,13 +486,13 @@ background-color: green;
                                                 @else
                                                 @endif
                                             </li>
-                                            <!-- <li role="presentation" class="disabled">-->
-                                            <!--    <a href="#step7" data-toggle="tab" aria-controls="step7" role="tab"><span class="round-tab">7</span> </a>-->
-                                            <!--     @if(isset($car) && $car->veh_fueltype_id == '3') -->
-                                            <!--        <a href="#step7" data-toggle="tab" aria-controls="step7" role="tab"><span class="round-tab">5</span> </a>-->
-                                            <!--    @else-->
-                                            <!--    @endif-->
-                                            <!--</li> -->
+                                            <!-- <li role="presentation" class="disabled">
+                                                <a href="#step7" data-toggle="tab" aria-controls="step7" role="tab"><span class="round-tab">7</span> </a>
+                                                 @if(isset($car) && $car->veh_fueltype_id == '3') 
+                                                    <a href="#step7" data-toggle="tab" aria-controls="step7" role="tab"><span class="round-tab">5</span> </a>
+                                                @else
+                                                @endif
+                                            </li> -->
                                             <li role="presentation" class="disabled">
                                                 <a href="#step8" data-toggle="tab" aria-controls="step8" id="step8-link" role="tab"><span class="round-tab">8</span> </a>
                                                 @if(isset($car) && $car->veh_fueltype_id == '3') 
@@ -590,14 +535,9 @@ background-color: green;
                                             @else
                                                 <!-- If veh_fueltype_id is not 3 (electric), do nothing -->
                                             @endif
-                                            
                                             <li role="presentation" class="disabled">
                                                 <a href="#End" data-toggle="tab" aria-controls="End" id="step-End" role="tab"><span class="round-tab end-step">End</span> </a>
                                             </li>
-                                        
-                                           
-                                            
-                                            
                                         </ul>
                                     </div>
                                     <div class="tab-content" id="main_form">
@@ -614,19 +554,15 @@ background-color: green;
                                                 <div class="row mt-4">
                                                     <!-- Seller's Phone Number -->
                                                     <div class="col-md-6 seller-phone">
-                                                        <label for="seller_phone_no">Seller's Phone Number:</label>
-                                                        <div class="d-flex align-items-center">
-                                                            <select class="form-control me-2" id="phone_code" name="phone_code" style="width: auto;">
-                                                                <option value="+971">+971</option>
-                                                            </select>
-                                                            <input type="text" class="form-control me-2" id="" name="seller_phone_no" value="{{ $car ? $car->seller_phone_no : old('seller_phone_no') }}" placeholder="9999 9999">
-                                                        </div>
-                                                        <div class="error-message">{{ $errors->first('seller_phone_no') }}</div>
-                                                    </div>
-                                                
+                                                    <label for="phone">Seller's Phone Number :</label><br>
+                                                    <input type="hidden" id="country_code" name="country_code" val="{{ $car ? $car->country_code : '' }}" />
+                                                   
+                                                    <input class="cstm-form_input" type="tel" id="seller_phone_no" id="phone"  name="seller_phone_no" 
+                                                        value="{{ $car ?  $car->seller_phone_no : old('seller_phone_no') }}" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                                                    <span id="seller_phone_no_error" style="color: red;"></span><br><br>
+                                                    <div class="error-message">{{ $errors->first('seller_phone_no') }}</div>
 
-
-
+                                                </div>
 
                                                     <!-- Type Of Seller -->
                                                 
@@ -656,55 +592,23 @@ background-color: green;
                                                 <hr class="mt-5">
 
                                                     <!--------- image upload --------->
-                                                    <!--<div class="col-md-12 mt-5 mb-4">-->
-                                                    <!--     <h5>Thumnail Image :</h5>-->
-                                                    <!--    <div class="form-group text-center image_upload cstm-file-upload">-->
-                                                    <!--        <input type="file" class="cstm-file-upload" name="thmnail_image[]" id="thmnail_image" multiple/>-->
-                                                           
-                                                    <!--    </div>-->
-                                                    <!--<div class="img-thumbs img-thumbs-hidden" id="img-preview-thmnail"></div>-->
-                                                      
-                                                    <!--</div>-->
-                                                    
-                                                    
-                                                    <div class="col-md-12">
-                                                        <div class="fault-photo">
-                                                            <label>Thumnail Image</label>
-                                                            <div class="form-group text-center image_upload cstm-file-upload mt-3">
-                                                                <input type="file" class="cstm-file-upload" name="thmnail_image[]" id="thmnail_image" multiple  />
-                                                                <!--<input type="hidden" name="old_turbo_preference_images" value="{{ $carmedia ? $carmedia->where('type', 'turbo_supercharger')->pluck('images')->implode(',') : '' }}">-->
-
-                                                            </div>
-                                                            
-                                                            <div class="img-thumbs img-thumbs-hidden" id="thmnail-image-img-preview"></div>
-                                                            <!--<div class="error-message">{{$errors->first('turbo_preference_images')}}</div>-->
-                                                            <!--<span id="turbo_preference_images_error" style="color: red;"></span><br><br>-->
-                                                        </div>
-                                                      
-                                                        <p>Note: This is the thumbnail , Only 1 image is uploaded.</p>
-                                                    </div>
-                                                     @if($carmedia && $carmedia->isNotEmpty())
-                                                        <div class="col-md-12 mt-5 mb-4">
-                                                            @foreach($carmedia as $m)
-                                                                @if($m->type === "thmnail")
-                                                                    @php
-                                                                        $images = explode(',', $m->images);
-                                                                    @endphp
-                                                                    @foreach($images as $img)
-                                                                    @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                        <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                            <img src="{{ asset( 'public/' . $img) }}" alt="Car Image" width="150px" height="80px">
-                                                                            <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
-                                                                        </div>
-                                                                    @endif
-                                                                    @endforeach
-                                                                @endif
-                                                            @endforeach
-                                                        </div>
-                                                    @endif
-                                                   
+                                                
+                                                    <!-- @if($car && $car->image)
                                                     <div class="col-md-12 mt-5 mb-4">
-                                                         <h5>Car Images :</h5>
+                                                        <img src="{{ asset( $car->image) }}" alt="Car Image">
+                                                    </div>
+                                                    @endif -->
+                                                    <!-- @if($car && $car->image)
+                                                    <div class="col-md-12 mt-5 mb-4">
+                                                        @php
+                                                            $images = explode(',', $car->image);
+                                                        @endphp
+                                                        @foreach($images as $img)
+                                                            <img src="{{ asset($img) }}" alt="Car Image">
+                                                        @endforeach
+                                                    </div>
+                                                     @endif -->
+                                                    <div class="col-md-12 mt-5 mb-4">
                                                         <div class="form-group text-center image_upload cstm-file-upload">
                                                             <input type="file" class="cstm-file-upload" name="image[]" id="upload-img" multiple/>
                                                            
@@ -723,17 +627,23 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                     @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                            <img src="{{ asset( 'public/' . $img) }}" alt="Car Image" width="150px" height="80px">
+                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                         </div>
                                                                     @endif
                                                                     @endforeach
+
                                                                 @endif
                                                             @endforeach
                                                         </div>
                                                     @endif
+                                               
+
+
                                                     <!-- validation error -->
+                                                 
                                                     <hr class="mt-5">
+
                                                     <div class="col-md-12 mt-4">
                                                         <div class="customer-form">
                                                             <h6>Customer Details :</h6>
@@ -766,10 +676,13 @@ background-color: green;
                                                                     <div class="error-message">{{$errors->first('cus_time')}}</div>
                                                                 </div>
                                                             </div>
+                                                            
                                                         </div>
                                                     </div>
                                                     <hr class="mt-4">
+
                                                     <div class="col-md-12 mt-4">
+
                                                         <div class="vehicle-details">
                                                             <h6>Vehicle Details :</h6>
                                                             <div class="row">
@@ -789,6 +702,7 @@ background-color: green;
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
+                                                                    
                                                                     <label for="veh_car_model">Model</label>
                                                                     <input class="form-control" type="text" id="veh_car_model" value="{{ $car ? $car->veh_car_model : old('veh_car_model') }}" name="veh_car_model">
                                                                     <span id="veh_car_model_error" style="color: red;"></span><br><br>
@@ -877,32 +791,34 @@ background-color: green;
                                                             </div>
                                                             <div class="row mt-5">
                                                                 <div class="col">
-                                                                    <label for="vehicle_engine_size">Engine Size</label>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <span class="input-group-text">Ltr</span>
-                                                                        <input type="text" class="form-control me-2" id="vehicle_engine_size" name="vehicle_engine_size" value="{{ $car ? $car->vehicle_engine_size : old('vehicle_engine_size') }}">
-                                                                    </div>
+                                                                    <label for="cc">CC</label>
+                                                                    <input type="text" class="form-control" id="cc" name="cc" value="{{ $car ? $car->cc : old('cc') }}" >
+                                                                </div>
+                                                            </div>
+                                                            @endif
+
+                                                            <div class="row mt-5">
+                                                                <div class="col">
+                                                                    <label for="vehicle_engine_size"> Engine Size</label>
+                                                                    <input type="text" class="form-control" id="vehicle_engine_size" name="vehicle_engine_size" value="{{ $car ? $car->vehicle_engine_size : old('vehicle_engine_size') }}" >
                                                                     <div class="error-message">{{$errors->first('vehicle_engine_size')}}</div>
                                                                 </div>
-                                                                  <div class="col">
-                                                                     <label for="title">Title</label>
-                                                                        <input type="text" class="form-control" id="title" name="title" value="{{ $car ? $car->title : old('title') }}" >
-                                                                    <!--<span id="veh_year_error" style="color: red;"></span><br><br>-->
-                                                                    <div class="error-message">{{$errors->first('title')}}</div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label for="auction_type">Auction Type</label>
+                                                                        <select id="auction_type" name="auction_type">
+                                                                            <option value="" selected>Please Select</option>
+                                                                            @foreach($auctiontype as $auctype)
+                                                                                <option value="{{ $auctype->id }}" {{ ($car && $car->auction_type == $auctype->id) || old('auction_type') == $auctype->id ? 'selected' : '' }}>
+                                                                                {{ $auctype->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <span id="auction_type_error" style="color: red;"></span><br><br>
+                                                                    <div class="error-message">{{$errors->first('auction_type')}}</div>
                                                                 </div>
-                                                                <!--<div class="col">-->
-                                                                <!--    <div class="form-group">-->
-                                                                <!--        <label for="vehicle_engine_size">Engine Size Unit </label>-->
-                                                                <!--        <select class="form-control" id="vehicle_engine_size_unit" name="vehicle_engine_size_unit">-->
-                                                                <!--             <option value="">Select Unit</option>-->
-                                                                <!--            <option value="L" {{ (old('vehicle_engine_size_unit') == 'L' || ($car && $car->vehicle_engine_size_unit == 'L')) ? 'selected' : '' }}>Litre</option>-->
-                                                                <!--        </select>-->
-                                                                <!--    </div>-->
-                                                                <!--</div>-->
-                                                               
                                                             </div>
-
-                                                            @endif
 
                                                             <div class="row mt-5">
                                                                 <div class="col">
@@ -934,6 +850,7 @@ background-color: green;
                                                                     <div class="error-message">{{$errors->first('auction_type')}}</div>
                                                                 </div>
                                                             </div>
+                                                        
                                                             <div class="row mt-5">
                                                                 <div class="col">
                                                                     <div class="form-group">
@@ -1089,7 +1006,67 @@ background-color: green;
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-5">
-                                                            
+                                                                
+                                                                <div class="col">
+                                                                    <label>Unique Stickers:</label>
+                                                                        @php
+                                                                        $unique_stickers = $car ? json_decode($car->unique_stickers ?? '[]') : [];
+                                                                        @endphp
+                                                                    <div class="form-group">
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="chassis_perfect" name="unique_stickers[]" value="Chassis Perfect" {{ in_array('Chassis Perfect', $unique_stickers) || in_array('Chassis Perfect', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="chassis_perfect" name="unique_stickers[]" value="Chassis Perfect" {{ in_array('Chassis Perfect', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="chassis_perfect">Chassis Perfect</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="gcc_specs" name="unique_stickers[]" value="GCC Specs" {{ in_array('GCC Specs', $unique_stickers) || in_array('GCC Specs', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="gcc_specs" name="unique_stickers[]" value="GCC Specs" {{ in_array('GCC Specs', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="gcc_specs">GCC Specs</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="warranty_eligible" name="unique_stickers[]" value="Warranty Eligible" {{ in_array('Warranty Eligible', $unique_stickers) || in_array('Warranty Eligible', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="warranty_eligible" name="unique_stickers[]" value="Warranty Eligible" {{ in_array('Warranty Eligible', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="warranty_eligible">Warranty Eligible</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="bank_loan_eligible" name="unique_stickers[]" value="Bank Loan Eligible" {{ in_array('Bank Loan Eligible', $unique_stickers) || in_array('Bank Loan Eligible', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="bank_loan_eligible" name="unique_stickers[]" value="Bank Loan Eligible" {{ in_array('Bank Loan Eligible', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="bank_loan_eligible">Bank Loan Eligible</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="accident_free" name="unique_stickers[]" value="Accident Free" {{ in_array('Accident Free', $unique_stickers) || in_array('Accident Free', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="accident_free" name="unique_stickers[]" value="Accident Free" {{ in_array('Accident Free', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="accident_free">Accident Free</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="two_keys" name="unique_stickers[]" value="Two Keys" {{ in_array('Two Keys', $unique_stickers) || in_array('Two Keys', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="two_keys" name="unique_stickers[]" value="Two Keys" {{ in_array('Two Keys', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="two_keys">Two Keys</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="low_mileage" name="unique_stickers[]" value="Low Mileage" {{ in_array('Low Mileage', $unique_stickers) || in_array('Low Mileage', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="low_mileage" name="unique_stickers[]" value="Low Mileage" {{ in_array('Low Mileage', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="low_mileage">Low Mileage</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="brand_new_car" name="unique_stickers[]" value="Brand New Car"  {{ in_array('Brand New Car', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <input class="form-check-input" type="checkbox" id="brand_new_car" name="unique_stickers[]" value="Brand New Car" {{ in_array('Brand New Car', $unique_stickers) || in_array('Brand New Car', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <label class="form-check-label" for="low_mileage">Brand New Car</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="no_airbags_deployed" name="unique_stickers[]" value="No Airbags Deployed" {{ in_array('No Airbags Deployed', $unique_stickers) || in_array('No Airbags Deployed', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="no_airbags_deployed" name="unique_stickers[]" value="No Airbags Deployed" {{ in_array('No Airbags Deployed', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="no_airbags_deployed">No Airbags Deployed</label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="full_option" name="unique_stickers[]" value="Full Option" {{ in_array('Full Option', $unique_stickers) || in_array('Full Option', old('unique_stickers', [])) ? 'checked' : '' }}>
+                                                                            <!-- <input class="form-check-input" type="checkbox" id="full_option" name="unique_stickers[]" value="Full Option" {{ in_array('Full Option', $unique_stickers) ? 'checked' : '' }}> -->
+                                                                            <label class="form-check-label" for="full_option">Full Option</label>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                             
                                                                 <div class="col">
                                                                     <div class="form-group">
                                                                         <label for="primary_damage">Primary Damage:</label>
@@ -1189,22 +1166,34 @@ background-color: green;
                                                                     <input type="text" class="form-control" id="trimdata" name="trimdata" value="{{ $car ? $car->trimdata : old('trimdata') }}" >
                                                                 </div>
                                                                 <div class="col">
-                                                                    
                                                                     <div class="form-group">
-                                                                        <label for="vehicle_apretire">Vehicle Condition</label>
-                                                                        <select id="vehicle_condition_id" name="vehicle_condition_id" >
-                                                                            <option value="" selected>Please Select</option>
-                                                                                @foreach($vehiclecondition as $vehcondition)
-                                                                                <option value="{{ $vehcondition->id }}" {{ ($car && $car->vehicle_condition_id == $vehcondition->id) || old('vehicle_condition_id') == $vehcondition->id ? 'selected' : '' }}>
-                                                                                {{ $vehcondition->name }}
-                                                                                </option>
-                                                                                @endforeach
-                                                                        </select>
+                                                                        <label for="veh_headlights">Vehicle Headlights</label>
+                                                                        <textarea class="form-control" id="vehicle_highlights" name="vehicle_highlights" rows="8">{{ $car ? $car->vehicle_highlights : old('vehicle_highlights') }}</textarea>
+                                                                        <span id="veh_headlights_error" style="color: red;"></span>
                                                                     </div>
-                                                                   
+                                                                    <div class="error-message">{{$errors->first('vehicle_highlights')}}</div>
                                                                 </div>
                                                             </div>
-                                                           
+                                                            <div class="row mt-5">
+                                                                <div class="col">
+                                                                    <label for="title">Title</label>
+                                                                    <input type="text" class="form-control" id="title" name="title" value="{{ $car ? $car->title : old('title') }}" >
+                                                                </div> 
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                    <label for="vehicle_apretire">Vehicle Condition</label>
+                                                                    <select id="vehicle_condition_id" name="vehicle_condition_id" >
+                                                                        <option value="" selected>Please Select</option>
+                                                                        @foreach($vehiclecondition as $vehcondition)
+                                                                            <option value="{{ $vehcondition->id }}" {{ ($car && $car->vehicle_condition_id == $vehcondition->id) || old('vehicle_condition_id') == $vehcondition->id ? 'selected' : '' }}>
+                                                                                {{ $vehcondition->name }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    </div>
+                                                                  
+                                                                </div>
+                                                            </div>
                                                             <div class="row mt-5">
                                                                 <div class="col">
                                                                     <label for="passenger">Passenger</label>
@@ -1223,22 +1212,6 @@ background-color: green;
                                                                     </select>
                                                                     </div>
                                                                 </div> 
-                                                            </div>
-                                                            
-                                                             <div class="row mt-5">
-                                                                <!--<div class="col">-->
-                                                                <!--    <label for="title">Title</label>-->
-                                                                <!--    <input type="text" class="form-control" id="title" name="title" value="{{ $car ? $car->title : old('title') }}" >-->
-                                                                <!--</div> -->
-                                                                <div class="col">
-                                                                     <div class="form-group">
-                                                                        <label for="veh_headlights">Vehicle Highlights</label>
-                                                                        <textarea class="form-control" id="vehicle_highlights" name="vehicle_highlights" rows="8">{{ $car ? $car->vehicle_highlights : old('vehicle_highlights') }}</textarea>
-                                                                        <span id="veh_headlights_error" style="color: red;"></span>
-                                                                    </div>
-                                                                    <div class="error-message">{{$errors->first('vehicle_highlights')}}</div>
-                                                                  
-                                                                </div>
                                                             </div>
                                                             <div class="row mt-5">
                                                                 <div class="col">
@@ -1269,7 +1242,7 @@ background-color: green;
                                                                     @if($car && $car->signatureData)
                                                                         <div>
                                                                             <label>Signature Image:</label><br>
-                                                                            <img src="{{ asset('public/' .$car->signatureData) }}" alt="Signature">
+                                                                            <img src="{{ asset($car->signatureData) }}" alt="Signature">
                                                                         </div>
                                                                     @else
                                                     
@@ -1370,7 +1343,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image"  width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image"  width="150px" height="80px">
                                                                                 
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -1446,7 +1419,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -1512,7 +1485,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -1579,7 +1552,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -1654,7 +1627,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -1731,7 +1704,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -1799,14 +1772,14 @@ background-color: green;
                                                     @if($carmedia && $carmedia->isNotEmpty())
                                                         <div class="col-md-12 mt-5 mb-4">
                                                             @foreach($carmedia as $media)
-                                                                @if($media->type === "drive_belt_pulleys")
+                                                                @if($media->type === "drive_belts_pulleys")
                                                                     @php
                                                                         $images = explode(',', $media->images);
                                                                     @endphp
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -1909,7 +1882,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -1993,7 +1966,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                         
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2082,7 +2055,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                               
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2164,7 +2137,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
 
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2241,7 +2214,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                 
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2307,7 +2280,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2363,7 +2336,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                           
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2444,7 +2417,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                              
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2498,7 +2471,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
@@ -2632,7 +2605,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -2704,7 +2677,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -2780,7 +2753,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -3052,7 +3025,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -3106,7 +3079,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -3138,70 +3111,40 @@ background-color: green;
                                                                                 value="{{ old('front_left_manufac') ?? ($carbrakesystem ? $carbrakesystem->front_left_manufac : '') }}">
                                                                                 <span id="front_left_manufac_error" style="color: red;"></span>
                                                                         </td>
-                                                                        
+
                                                                         <td>
-                                                                            <select id="front_left_date" name="front_left_date">
-                                                                                <option value="" selected>Please Select</option>
-                                                                                @foreach($years as $year)
-                                                                                    <option value="{{ $year->id }}" {{ ($carbrakesystem && $carbrakesystem->front_left_date == $year->id) || old('front_left_date') == $year->id ? 'selected' : '' }}>
-                                                                                        {{ $year->year }}
-                                                                                    </option>
-                                                                                @endforeach
-                                                                            </select>
+                                                                            <input class="form-control" name="front_left_date" id="front_left_date" type="text" pattern="[0-9]{4}" maxlength="4"
+                                                                                value="{{ old('front_left_date') ?? ($carbrakesystem ? $carbrakesystem->front_left_date : '') }}">
+                                                                            <span id="front_left_date_error" style="color: red;"></span>
                                                                         </td>
 
                                                                         <td>
-                                                                         <select class="form-control mt-1 mb-1" id="s-rim-size" name="front_left_rim_id">
-                                                                            <option value="">Choose Rim Size</option>
-                                                                            <optgroup label="Small Cars">
-                                                                                <option value="13" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '13' ? 'selected' : '' }}>13 inches</option>
-                                                                                <option value="14" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '14' ? 'selected' : '' }}>14 inches</option>
-                                                                                <option value="15" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Midsize Cars">
-                                                                                <option value="15" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                                <option value="16" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                                <option value="17" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Large Cars and Sedans">
-                                                                                <option value="17" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                <option value="18" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Sports Cars">
-                                                                                <option value="18" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="21" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="SUVs and Crossovers">
-                                                                                <option value="17" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                <option value="18" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="21" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                                <option value="22" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Trucks and Off-Road Vehicles">
-                                                                                <option value="16" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                                <option value="17" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                <option value="18" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="22" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                                <option value="24" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '24' ? 'selected' : '' }}>24 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Luxury Vehicles">
-                                                                                <option value="18" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="21" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                                <option value="22" {{ (old('front_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_left_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                            </optgroup>
+                                                                        <select class="form-control mt-1 mb-1" id="s-rim" name="front_left_rim_id">
+                                                                            <option value="">Choose Rim</option>
+                                                                            @foreach($tyrerim as $rim)
+                                                                                <option value="{{ $rim->id }}" {{ (old('front_left_rim_id') == $rim->id) || ($carbrakesystem && $carbrakesystem->front_left_rim_id == $rim->id) ? 'selected' : '' }}>
+                                                                                    {{ $rim->name }}
+                                                                                </option>
+                                                                            @endforeach
                                                                         </select>
 
+                                                                        <select class="form-control mt-1 mb-1" id="s-height" name="front_left_height_id">
+                                                                            <option value="">Choose Height</option>
+                                                                            @foreach($tyreheight as $height)
+                                                                                <option value="{{ $height->id }}" {{ (old('front_left_height_id') == $height->id) || ($carbrakesystem && $carbrakesystem->front_left_height_id == $height->id) ? 'selected' : '' }}>
+                                                                                    {{ $height->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
 
-                                                                        
+                                                                        <select class="form-control mt-1 mb-1" id="s-weight" name="front_left_width_id">
+                                                                            <option value="">Choose Width</option>
+                                                                            @foreach($tyreweight as $width)
+                                                                                <option value="{{ $width->id }}" {{ (old('front_left_width_id') == $width->id) || ($carbrakesystem && $carbrakesystem->front_left_width_id == $width->id) ? 'selected' : '' }}>
+                                                                                    {{ $width->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
                                                                         </td>
                                                                         <td>
                                                                             <input class="form-control" name="front_left_condition" id="front_left_condition" type="text" 
@@ -3217,64 +3160,39 @@ background-color: green;
                                                                             <span id="front_right_manufac_error" style="color: red;"></span>
                                                                         </td>
                                                                         <td>
-                                                                            <select id="front_right_date" name="front_right_date">
-                                                                                <option value="" selected>Please Select</option>
-                                                                                @foreach($years as $year)
-                                                                                    <option value="{{ $year->id }}" {{ ($carbrakesystem && $carbrakesystem->front_right_date == $year->id) || old('front_right_date') == $year->id ? 'selected' : '' }}>
-                                                                                        {{ $year->year }}
-                                                                                    </option>
-                                                                                @endforeach
-                                                                            </select>
+                                                                            <input class="form-control" name="front_right_date" id="front_right_date" type="text" 
+                                                                                pattern="[0-9]{4}" maxlength="4"
+                                                                                value="{{ old('front_right_date') ?? ($carbrakesystem ? $carbrakesystem->front_right_date : '') }}">
+                                                                            <span id="front_right_date_error" style="color: red;"></span>
                                                                         </td>
 
                                                                         <td>
-                                                                            <select class="form-control mt-1 mb-1" id="s-rim" name="front_right_rim_id">
-                                                                            <option value="">Choose Rim Size</option>
-                                                                            <optgroup label="Small Cars">
-                                                                                <option value="13" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '13' ? 'selected' : '' }}>13 inches</option>
-                                                                                <option value="14" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '14' ? 'selected' : '' }}>14 inches</option>
-                                                                                <option value="15" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Midsize Cars">
-                                                                                <option value="15" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                                <option value="16" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                                <option value="17" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Large Cars and Sedans">
-                                                                                <option value="17" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                <option value="18" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Sports Cars">
-                                                                                <option value="18" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="21" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="SUVs and Crossovers">
-                                                                                <option value="17" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                <option value="18" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="21" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                                <option value="22" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Trucks and Off-Road Vehicles">
-                                                                                <option value="16" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                                <option value="17" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                <option value="18" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="22" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                                <option value="24" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '24' ? 'selected' : '' }}>24 inches</option>
-                                                                            </optgroup>
-                                                                            <optgroup label="Luxury Vehicles">
-                                                                                <option value="18" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                <option value="19" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                <option value="20" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                <option value="21" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                                <option value="22" {{ (old('front_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->front_right_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                            </optgroup>
+                
+                                                                        <select class="form-control mt-1 mb-1" id="s-rim" name="front_right_rim_id">
+                                                                            <option value="">Choose Rim</option>
+                                                                            @foreach($tyrerim as $rim)
+                                                                                <option value="{{ $rim->id }}" {{ (old('front_right_rim_id') == $rim->id) || ($carbrakesystem && $carbrakesystem->front_right_rim_id == $rim->id) ? 'selected' : '' }}>
+                                                                                    {{ $rim->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-height" name="front_right_height_id">
+                                                                            <option value="">Choose Height</option>
+                                                                            @foreach($tyreheight as $height)
+                                                                                <option value="{{ $height->id }}" {{ (old('front_right_height_id') == $height->id) || ($carbrakesystem && $carbrakesystem->front_right_height_id == $height->id) ? 'selected' : '' }}>
+                                                                                    {{ $height->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-weight" name="front_right_width_id">
+                                                                            <option value="">Choose Width</option>
+                                                                            @foreach($tyreweight as $width)
+                                                                                <option value="{{ $width->id }}" {{ (old('front_right_width_id') == $width->id) || ($carbrakesystem && $carbrakesystem->front_right_width_id == $width->id) ? 'selected' : '' }}>
+                                                                                    {{ $width->name }}
+                                                                                </option>
+                                                                            @endforeach
                                                                         </select>
                                                                         </td>
                                                                         <td>
@@ -3291,66 +3209,39 @@ background-color: green;
                                                                             <span id="rear_left_manufac_error" style="color: red;"></span>
                                                                         </td>
                                                                         <td>
-                                                                            <select id="rear_left_date" name="rear_left_date">
-                                                                                <option value="" selected>Please Select</option>
-                                                                                @foreach($years as $year)
-                                                                                    <option value="{{ $year->id }}" {{ ($carbrakesystem && $carbrakesystem->rear_left_date == $year->id) || old('rear_left_date') == $year->id ? 'selected' : '' }}>
-                                                                                        {{ $year->year }}
-                                                                                    </option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                            
+                                                                            <input class="form-control" name="rear_left_date" id="rear_left_date" type="text" pattern="[0-9]{4}" maxlength="4"
+                                                                                value="{{ old('rear_left_date') ?? ($carbrakesystem ? $carbrakesystem->rear_left_date : '') }}">
+                                                                            <span id="rear_left_date_error" style="color: red;"></span>
                                                                         </td>
                                                                         <td>
 
-                                                                         <select class="form-control mt-1 mb-1" id="s-rim" name="rear_left_rim_id">
-                                                                        <option value="">Choose Rim Size</option>
-                                                                        <optgroup label="Small Cars">
-                                                                            <option value="13" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '13' ? 'selected' : '' }}>13 inches</option>
-                                                                            <option value="14" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '14' ? 'selected' : '' }}>14 inches</option>
-                                                                            <option value="15" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Midsize Cars">
-                                                                            <option value="15" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                            <option value="16" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                            <option value="17" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Large Cars and Sedans">
-                                                                            <option value="17" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                            <option value="18" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                            <option value="19" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Sports Cars">
-                                                                            <option value="18" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                            <option value="19" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                            <option value="20" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                            <option value="21" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="SUVs and Crossovers">
-                                                                            <option value="17" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                            <option value="18" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                            <option value="19" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                            <option value="20" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                            <option value="21" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                            <option value="22" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Trucks and Off-Road Vehicles">
-                                                                            <option value="16" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                            <option value="17" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                            <option value="18" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                            <option value="19" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                            <option value="20" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                            <option value="22" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                            <option value="24" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '24' ? 'selected' : '' }}>24 inches</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Luxury Vehicles">
-                                                                            <option value="18" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                            <option value="19" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                            <option value="20" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                            <option value="21" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                            <option value="22" {{ (old('rear_left_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_left_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                        </optgroup>
-                                                                    </select>
+                                                                        <select class="form-control mt-1 mb-1" id="s-rim" name="rear_left_rim_id">
+                                                                            <option value="">Choose Rim</option>
+                                                                            @foreach($tyrerim as $rim)
+                                                                                <option value="{{ $rim->id }}" {{ (old('rear_left_rim_id') == $rim->id) || ($carbrakesystem && $carbrakesystem->rear_left_rim_id == $rim->id) ? 'selected' : '' }}>
+                                                                                    {{ $rim->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-height" name="rear_left_height_id">
+                                                                            <option value="">Choose Height</option>
+                                                                            @foreach($tyreheight as $height)
+                                                                                <option value="{{ $height->id }}" {{ (old('rear_left_height_id') == $height->id) || ($carbrakesystem && $carbrakesystem->rear_left_height_id == $height->id) ? 'selected' : '' }}>
+                                                                                    {{ $height->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-weight" name="rear_left_width_id">
+                                                                            <option value="">Choose Width</option>
+                                                                            @foreach($tyreweight as $width)
+                                                                                <option value="{{ $width->id }}" {{ (old('rear_left_width_id') == $width->id) || ($carbrakesystem && $carbrakesystem->rear_left_width_id == $width->id) ? 'selected' : '' }}>
+                                                                                    {{ $width->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                         
                                                                         </td>
                                                                         <td>
                                                                             <input class="form-control" name="rear_left_condition" id="rear_left_condition" type="text" 
@@ -3366,66 +3257,47 @@ background-color: green;
                                                                             <span id="rear_right_manufac_error" style="color: red;"></span>
                                                                         </td>
                                                                         <td>
-                                                                            <select id="rear_right_date" name="rear_right_date">
-                                                                                <option value="" selected>Please Select</option>
-                                                                                @foreach($years as $year)
-                                                                                    <option value="{{ $year->id }}" {{ ($carbrakesystem && $carbrakesystem->rear_right_date == $year->id) || old('rear_right_date') == $year->id ? 'selected' : '' }}>
-                                                                                        {{ $year->year }}
-                                                                                    </option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                            
+                                                                            <input class="form-control" name="rear_right_date" id="rear_right_date" type="text" pattern="[0-9]{4}" maxlength="4"
+                                                                                value="{{ old('rear_right_date') ?? ($carbrakesystem ? $carbrakesystem->rear_right_date : '') }}">
+                                                                            <span id="rear_right_date_error" style="color: red;"></span>
                                                                         </td>
                                                                         <td>
 
-                                                                            <select class="form-control mt-1 mb-1" id="s-rim" name="rear_right_rim_id">
-                                                                                <option value="">Choose Rim Size</option>
-                                                                                <optgroup label="Small Cars">
-                                                                                    <option value="13" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '13' ? 'selected' : '' }}>13 inches</option>
-                                                                                    <option value="14" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '14' ? 'selected' : '' }}>14 inches</option>
-                                                                                    <option value="15" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                                </optgroup>
-                                                                                <optgroup label="Midsize Cars">
-                                                                                    <option value="15" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '15' ? 'selected' : '' }}>15 inches</option>
-                                                                                    <option value="16" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                                    <option value="17" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                </optgroup>
-                                                                                <optgroup label="Large Cars and Sedans">
-                                                                                    <option value="17" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                    <option value="18" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                    <option value="19" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                </optgroup>
-                                                                                <optgroup label="Sports Cars">
-                                                                                    <option value="18" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                    <option value="19" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                    <option value="20" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                    <option value="21" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                                </optgroup>
-                                                                                <optgroup label="SUVs and Crossovers">
-                                                                                    <option value="17" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                    <option value="18" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                    <option value="19" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                    <option value="20" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                    <option value="21" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                                    <option value="22" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                                </optgroup>
-                                                                                <optgroup label="Trucks and Off-Road Vehicles">
-                                                                                    <option value="16" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '16' ? 'selected' : '' }}>16 inches</option>
-                                                                                    <option value="17" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '17' ? 'selected' : '' }}>17 inches</option>
-                                                                                    <option value="18" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                    <option value="19" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                    <option value="20" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                    <option value="22" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                                    <option value="24" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '24' ? 'selected' : '' }}>24 inches</option>
-                                                                                </optgroup>
-                                                                                <optgroup label="Luxury Vehicles">
-                                                                                    <option value="18" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '18' ? 'selected' : '' }}>18 inches</option>
-                                                                                    <option value="19" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '19' ? 'selected' : '' }}>19 inches</option>
-                                                                                    <option value="20" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '20' ? 'selected' : '' }}>20 inches</option>
-                                                                                    <option value="21" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '21' ? 'selected' : '' }}>21 inches</option>
-                                                                                    <option value="22" {{ (old('rear_right_rim_id') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim_id : '')) == '22' ? 'selected' : '' }}>22 inches</option>
-                                                                                </optgroup>
-                                                                            </select>
+                                                                        <select class="form-control mt-1 mb-1" id="s-rim" name="rear_right_rim_id">
+                                                                            <option value="">Choose Rim</option>
+                                                                            @foreach($tyrerim as $rim)
+                                                                                <option value="{{ $rim->id }}" {{ (old('rear_right_rim_id') == $rim->id) || ($carbrakesystem && $carbrakesystem->rear_right_rim_id == $rim->id) ? 'selected' : '' }}>
+                                                                                    {{ $rim->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-height" name="rear_right_height_id">
+                                                                            <option value="">Choose Height</option>
+                                                                            @foreach($tyreheight as $height)
+                                                                                <option value="{{ $height->id }}" {{ (old('rear_right_height_id') == $height->id) || ($carbrakesystem && $carbrakesystem->rear_right_height_id == $height->id) ? 'selected' : '' }}>
+                                                                                    {{ $height->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-weight" name="rear_right_width_id">
+                                                                            <option value="">Choose Width</option>
+                                                                            @foreach($tyreweight as $width)
+                                                                                <option value="{{ $width->id }}" {{ (old('rear_right_width_id') == $width->id) || ($carbrakesystem && $carbrakesystem->rear_right_width_id == $width->id) ? 'selected' : '' }}>
+                                                                                    {{ $width->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                            <!-- <input class="form-control" name="rear_right_rim" id="rear_right_rim" type="number"  placeholder="rim"
+                                                                            value="{{ old('rear_right_rim') ?? ($carbrakesystem ? $carbrakesystem->rear_right_rim : '') }}">
+
+                                                                            <input class="form-control" name="rear_right_height" id="rear_right_height" type="number"  placeholder="Height"
+                                                                            value="{{ old('rear_right_height') ?? ($carbrakesystem ? $carbrakesystem->rear_right_height : '') }}">
+
+                                                                            <input class="form-control" name="rear_right_width" id="rear_right_width" type="number"  placeholder="Width"
+                                                                            value="{{ old('rear_right_width') ?? ($carbrakesystem ? $carbrakesystem->rear_right_width : '') }}">
+                                                                                <span id="rear_right_size_error" style="color: red;"></span> -->
                                                                         </td>
                                                                         <td>
                                                                             <input class="form-control" name="rear_right_condition" id="rear_right_condition" type="text" 
@@ -3433,29 +3305,81 @@ background-color: green;
                                                                             <span id="rear_right_condition_error" style="color: red;"></span>
                                                                         </td>
                                                                     </tr>
-                                                                   
+                                                                    <tr>
+                                                                        <th scope="row" style="width: 130px;">Spare</th>
+                                                                        <td>
+                                                                            <input class="form-control" name="spare_manufac" id="spare_manufac" type="text" 
+                                                                                value="{{ old('spare_manufac') ?? ($carbrakesystem ? $carbrakesystem->spare_manufac : '') }}">
+                                                                            <span id="spare_manufac_error" style="color: red;"></span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input class="form-control" name="spare_date" id="spare_date" type="text" pattern="[0-9]{4}" maxlength="4"
+                                                                                value="{{ old('spare_date') ?? ($carbrakesystem ? $carbrakesystem->spare_date : '') }}">
+                                                                            <span id="spare_date_error" style="color: red;"></span>
+                                                                        </td>
+                                                                        <td>          
+                                                                        <select class="form-control mt-1 mb-1" id="s-rim" name="spare_rim_id">
+                                                                            <option value="">Choose Rim</option>
+                                                                            @foreach($tyrerim as $rim)
+                                                                                <option value="{{ $rim->id }}" {{ (old('spare_rim_id') == $rim->id) || ($carbrakesystem && $carbrakesystem->spare_rim_id == $rim->id) ? 'selected' : '' }}>
+                                                                                    {{ $rim->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-height" name="spare_height_id">
+                                                                            <option value="">Choose Height</option>
+                                                                            @foreach($tyreheight as $height)
+                                                                                <option value="{{ $height->id }}" {{ (old('spare_height_id') == $height->id) || ($carbrakesystem && $carbrakesystem->spare_height_id == $height->id) ? 'selected' : '' }}>
+                                                                                    {{ $height->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        <select class="form-control mt-1 mb-1" id="s-weight" name="spare_width_id">
+                                                                            <option value="">Choose Width</option>
+                                                                            @foreach($tyreweight as $width)
+                                                                                <option value="{{ $width->id }}" {{ (old('spare_width_id') == $width->id) || ($carbrakesystem && $carbrakesystem->spare_width_id == $width->id) ? 'selected' : '' }}>
+                                                                                    {{ $width->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <input class="form-control" name="spare_condition" id="spare_condition" type="text" 
+                                                                                value="{{ old('spare_condition') ?? ($carbrakesystem ? $carbrakesystem->spare_condition : '') }}">
+                                                                            <span id="spare_condition_error" style="color: red;"></span>
+                                                                        </td>
+
+                                                                    </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <!--<div class="error-message">{{$errors->first('front_left_manufac')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('front_left_date')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('front_left_size')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('front_left_condition')}}</div>-->
+                                                                <div class="error-message">{{$errors->first('front_left_manufac')}}</div>
+                                                                <div class="error-message">{{$errors->first('front_left_date')}}</div>
+                                                                <div class="error-message">{{$errors->first('front_left_size')}}</div>
+                                                                <div class="error-message">{{$errors->first('front_left_condition')}}</div>
 
-                                                                <!--<div class="error-message">{{$errors->first('front_right_manufac')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('front_right_date')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('front_right_size')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('front_right_condition')}}</div>-->
+                                                                <div class="error-message">{{$errors->first('front_right_manufac')}}</div>
+                                                                <div class="error-message">{{$errors->first('front_right_date')}}</div>
+                                                                <div class="error-message">{{$errors->first('front_right_size')}}</div>
+                                                                <div class="error-message">{{$errors->first('front_right_condition')}}</div>
 
-                                                                <!--<div class="error-message">{{$errors->first('rear_left_manufac')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('rear_left_date')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('rear_left_size')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('rear_left_condition')}}</div>-->
+                                                                <div class="error-message">{{$errors->first('rear_left_manufac')}}</div>
+                                                                <div class="error-message">{{$errors->first('rear_left_date')}}</div>
+                                                                <div class="error-message">{{$errors->first('rear_left_size')}}</div>
+                                                                <div class="error-message">{{$errors->first('rear_left_condition')}}</div>
 
-                                                                <!--<div class="error-message">{{$errors->first('rear_right_manufac')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('rear_right_date')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('rear_right_size')}}</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('rear_right_condition')}}</div>-->
+                                                                <div class="error-message">{{$errors->first('rear_right_manufac')}}</div>
+                                                                <div class="error-message">{{$errors->first('rear_right_date')}}</div>
+                                                                <div class="error-message">{{$errors->first('rear_right_size')}}</div>
+                                                                <div class="error-message">{{$errors->first('rear_right_condition')}}</div>
 
+                                                                <div class="error-message">{{$errors->first('spare_manufac')}}</div>
+                                                                <div class="error-message">{{$errors->first('spare_date')}}</div>
+                                                                <div class="error-message">{{$errors->first('spare_size')}}</div>
+                                                                <div class="error-message">{{$errors->first('spare_condition')}}</div>
+                                                                    
                                                             </div>
                                                         </div>
 
@@ -3483,7 +3407,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -3516,7 +3440,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -3549,7 +3473,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -3558,6 +3482,7 @@ background-color: green;
                                                                 @endforeach
                                                             </div>
                                                         @endif
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -3583,7 +3508,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -3592,6 +3517,7 @@ background-color: green;
                                                                 @endforeach
                                                             </div>
                                                         @endif
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -3742,7 +3668,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -3792,7 +3718,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                     <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                        <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                        <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                         <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                     </div>
                                                                                 @endif
@@ -3801,8 +3727,10 @@ background-color: green;
                                                                     @endforeach
                                                                 </div>
                                                             @endif
-                                                            
+
+
                                                         <hr class="mt-5 mb-5">
+
                                                         <div class="col-md-7">
                                                             <div class="engine-upper">
                                                                 <h6>Windows Operation</h6>
@@ -3846,7 +3774,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                         </div>
                                                                                     @endif
@@ -3856,9 +3784,9 @@ background-color: green;
                                                                     </div>
                                                                 @endif
 
+
                                                         <hr class="mt-5 mb-5">
-                                                        
-                                                        
+
                                                         <div class="col-md-7">
                                                             <div class="engine-upper">
                                                                 <h6>Seats Adjustment (Power/Manual)</h6>
@@ -3880,6 +3808,7 @@ background-color: green;
                                                                 </div>
 
                                                                 <div class="error-message">{{$errors->first('seats_adjustment')}}</div>
+                                                            
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -3903,7 +3832,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                         </div>
                                                                                     @endif
@@ -3912,6 +3841,7 @@ background-color: green;
                                                                         @endforeach
                                                                     </div>
                                                                 @endif
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -3930,6 +3860,7 @@ background-color: green;
                                                                     <br>
                                                                     <input class="cstm-form_input door-other" id="door_lock_unlock_other" name="door_lock_unlock_other" placeholder="Please type another option here" type="text" value="{{ old('door_lock_unlock_other') ?? ($car ? $car->door_lock_unlock_other : '') }}">
                                                                 </div>
+
                                                                 <div class="error-message">{{$errors->first('door_lock_unlock')}}</div>
                                                             </div>
                                                         </div>
@@ -3966,7 +3897,7 @@ background-color: green;
                                                                 @endif
 
                                                         <hr class="mt-5 mb-5">
-                                                        
+
                                                         <div class="col-md-7">
                                                             <div class="engine-upper">
                                                                 <h6>A/C Control & Cooling</h6>
@@ -3983,6 +3914,7 @@ background-color: green;
                                                                     <input class="cstm-form_input ac-other" id="ac_control_cooling_other" name="ac_control_cooling_other" placeholder="Please type another option here" type="text" value="{{ old('ac_control_cooling_other') ?? ($car ? $car->ac_control_cooling_other : '') }}">
                                                                 </div>
                                                                 <div class="error-message">{{$errors->first('ac_control_cooling')}}</div>
+                                        
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -4006,7 +3938,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                         </div>
                                                                                     @endif
@@ -4015,6 +3947,7 @@ background-color: green;
                                                                         @endforeach
                                                                     </div>
                                                                 @endif
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -4033,6 +3966,7 @@ background-color: green;
                                                                     <br>
                                                                     <input class="cstm-form_input center-other" id="center_console_buttons_other" name="center_console_buttons_other" placeholder="Please type another option here" type="text" value="{{ old('center_console_buttons_other') ?? ($car ? $car->center_console_buttons_other : '') }}">
                                                                 </div>
+
                                                                 <div class="error-message">{{$errors->first('center_console_buttons')}}</div>
                                                             </div>
                                                         </div>
@@ -4057,7 +3991,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                         </div>
                                                                                     @endif
@@ -4066,6 +4000,7 @@ background-color: green;
                                                                         @endforeach
                                                                     </div>
                                                                 @endif
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -4113,7 +4048,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                         </div>
                                                                                     @endif
@@ -4122,7 +4057,8 @@ background-color: green;
                                                                         @endforeach
                                                                     </div>
                                                                 @endif
-                                                                
+
+
                                                         <hr class="mt-5 mb-5">
 
                                                         <div class="col-md-7">
@@ -4165,7 +4101,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                         </div>
                                                                                     @endif
@@ -4174,7 +4110,7 @@ background-color: green;
                                                                         @endforeach
                                                                     </div>
                                                                 @endif
-                                                                
+
                                                         <hr class="mt-5 mb-5">
 
                                                         <div class="col-md-7">
@@ -4194,6 +4130,7 @@ background-color: green;
                                                                 </div>
 
                                                                 <div class="error-message">{{$errors->first('rear_view_side_mirror_elec')}}</div>
+                                                                
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -4217,7 +4154,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                         <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image"  width="150px" height="80px">
+                                                                                            <img src="{{ asset($img) }}" alt="Car Image"  width="150px" height="80px">
                                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                         </div>
                                                                                     @endif
@@ -4226,6 +4163,7 @@ background-color: green;
                                                                         @endforeach
                                                                     </div>
                                                                 @endif
+
                                                         
                                                         <hr class="mt-5 mb-5">
 
@@ -4269,7 +4207,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -4323,7 +4261,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                            @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                         <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                              @endif
@@ -4334,7 +4272,7 @@ background-color: green;
                                                         @endif
 
                                                         <hr class="mt-5 mb-5">
-                                                        
+
                                                         <div class="col-md-7">
                                                             <div class="engine-upper">
                                                                 <h6>Brake Lights</h6>
@@ -4350,6 +4288,7 @@ background-color: green;
                                                                     <br>
                                                                     <input class="cstm-form_input brake-other" id="brake_lights_other" name="brake_lights_other" placeholder="Please type another option here" type="text" value="{{ old('brake_lights_other') ?? ($car ? $car->brake_lights_other : '') }}">
                                                                 </div>
+
 
                                                                 <div class="error-message">{{$errors->first('brake_lights')}}</div>
                                                                 
@@ -4376,7 +4315,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                         <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -4385,6 +4324,7 @@ background-color: green;
                                                                 @endforeach
                                                             </div>
                                                         @endif
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -4428,7 +4368,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                              @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -4482,7 +4422,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -4537,16 +4477,16 @@ background-color: green;
                                                                         @endphp
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                                <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
-                                                                                    <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        @endif
+                                                                                    <div class="image-container" data-section-title="{{ $m->type }}">
+                                                                                        <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                        <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
+                                                                                    </div>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        @endif
+                                                                    @endforeach
+                                                                </div>
+                                                            @endif
 
 
                                                         <hr class="mt-5 mb-5">
@@ -4594,15 +4534,15 @@ background-color: green;
                                                                         @endphp
                                                                         @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                                <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
-                                                                                    <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
+                                                                                    <div class="image-container" data-section-title="{{ $m->type }}">
+                                                                                        <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                        <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
+                                                                                    </div>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        @endif
+                                                                    @endforeach
+                                                                </div>
                                                          @endif
 
                                                         <hr class="mt-5 mb-5">
@@ -4628,6 +4568,7 @@ background-color: green;
                                                                     <input class="cstm-form_input plate-other" id="no_plates_lights_other" name="no_plates_lights_other" placeholder="Please type another option here" type="text" value="{{ old('no_plates_lights_other') ?? ($car ? $car->no_plates_lights_other : '') }}">
                                                                 </div>
                                                                 <div class="error-message">{{$errors->first('no_plates_lights')}}</div>
+                                                                
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -4643,24 +4584,26 @@ background-color: green;
                                                         </div>
                                                         @if($carmedia && $carmedia->isNotEmpty())
                                                             <div class="col-md-12 mt-5 mb-4">
-                                                                    @foreach($carmedia as $m)
-                                                                        @if($m->type === "no_of_plates")
-                                                                            @php
-                                                                                $images = explode(',', $m->images);
-                                                                            @endphp
-                                                                            @foreach($images as $img)
-                                                                                @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                                    <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                        <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
-                                                                                       
-                                                                                        <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
-                                                                                    </div>
-                                                                                @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        @endif
+                                                                @foreach($carmedia as $m)
+                                                                    @if($m->type === "no_of_plates")
+                                                                        @php
+                                                                            $images = explode(',', $m->images);
+                                                                        @endphp
+                                                                        @foreach($images as $img)
+                                                                        @if(!empty($img)) <!-- Check if image URL is not empty -->
+                                                                            <div class="image-container" data-section-title="{{ $media->type }}">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                               
+                                                                                <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -4701,24 +4644,26 @@ background-color: green;
                                                         </div>
                                                         @if($carmedia && $carmedia->isNotEmpty())
                                                             <div class="col-md-12 mt-5 mb-4">
-                                                                    @foreach($carmedia as $m)
-                                                                        @if($m->type === "indicators_hazardous")
-                                                                            @php
-                                                                                $images = explode(',', $m->images);
-                                                                            @endphp
-                                                                            @foreach($images as $img)
-                                                                            @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                                <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
-                                                                                   
-                                                                                    <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        @endif
+                                                                @foreach($carmedia as $m)
+                                                                    @if($m->type === "indicators_hazardous")
+                                                                        @php
+                                                                            $images = explode(',', $m->images);
+                                                                        @endphp
+                                                                        @foreach($images as $img)
+                                                                        @if(!empty($img)) <!-- Check if image URL is not empty -->
+                                                                            <div class="image-container" data-section-title="{{ $media->type }}">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                               
+                                                                                <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -4759,24 +4704,24 @@ background-color: green;
                                                         </div>
                                                         @if($carmedia && $carmedia->isNotEmpty())
                                                             <div class="col-md-12 mt-5 mb-4">
-                                                                    @foreach($carmedia as $m)
-                                                                        @if($m->type === "wipers")
-                                                                            @php
-                                                                                $images = explode(',', $m->images);
-                                                                            @endphp
-                                                                            @foreach($images as $img)
-                                                                            @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                                <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
-                                                                                   
-                                                                                    <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        @endif
+                                                                @foreach($carmedia as $m)
+                                                                    @if($m->type === "wipers")
+                                                                        @php
+                                                                            $images = explode(',', $m->images);
+                                                                        @endphp
+                                                                        @foreach($images as $img)
+                                                                        @if(!empty($img)) <!-- Check if image URL is not empty -->
+                                                                            <div class="image-container" data-section-title="{{ $media->type }}">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                               
+                                                                                <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
 
 
                                                         <hr class="mt-5 mb-5">
@@ -4868,24 +4813,24 @@ background-color: green;
                                                         </div>
                                                         @if($carmedia && $carmedia->isNotEmpty())
                                                             <div class="col-md-12 mt-5 mb-4">
-                                                                    @foreach($carmedia as $m)
-                                                                        @if($m->type === "snroof_moonroof")
-                                                                            @php
-                                                                                $images = explode(',', $m->images);
-                                                                            @endphp
-                                                                            @foreach($images as $img)
-                                                                            @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                                <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
-                                                                                   
-                                                                                    <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        @endif
+                                                                @foreach($carmedia as $m)
+                                                                    @if($m->type === "snroof_moonroof")
+                                                                        @php
+                                                                            $images = explode(',', $m->images);
+                                                                        @endphp
+                                                                        @foreach($images as $img)
+                                                                        @if(!empty($img)) <!-- Check if image URL is not empty -->
+                                                                            <div class="image-container" data-section-title="{{ $media->type }}">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                               
+                                                                                <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
 
 
                                                         <hr class="mt-5 mb-5">
@@ -4926,25 +4871,27 @@ background-color: green;
                                                             </div>
                                                         </div>
                                                         @if($carmedia && $carmedia->isNotEmpty())
-                                                            <div class="col-md-12 mt-5 mb-4">
-                                                                @foreach($carmedia as $m)
-                                                                    @if($m->type === "interior_lights")
-                                                                        @php
-                                                                            $images = explode(',', $m->images);
-                                                                        @endphp
-                                                                        @foreach($images as $img)
-                                                                        @if(!empty($img)) <!-- Check if image URL is not empty -->
-                                                                                <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
-                                                                                   
-                                                                                    <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        @endif
+                                                        <div class="col-md-12 mt-5 mb-4">
+                                                            @foreach($carmedia as $m)
+                                                                @if($m->type === "interior_lights")
+                                                                    @php
+                                                                        $images = explode(',', $m->images);
+                                                                    @endphp
+                                                                    @foreach($images as $img)
+                                                                    @if(!empty($img)) <!-- Check if image URL is not empty -->
+                                                                            <div class="image-container" data-section-title="{{ $media->type }}">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                               
+                                                                                <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+
+
 
                                                         <hr class="mt-5 mb-5">
 
@@ -5111,7 +5058,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5224,7 +5171,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5281,7 +5228,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5338,7 +5285,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5395,7 +5342,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5452,7 +5399,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5470,38 +5417,21 @@ background-color: green;
                                                                 <br>
                                                                 <input type="hidden" name="section_title_dashboard" value="Dashboard ">
 
-                                                                <!--<div class="form-check">-->
-                                                                <!--    <input class="form-check-input rb-dashboard-pass" name="dashboard" id="dashboard_pass" value="Pass" type="radio" {{ old('dashboard') == 'Pass' || ($car && $car->dashboard == 'Pass') ? 'checked' : '' }} checked/>-->
-                                                                <!--    <label class="form-check-label label" for="dashboard_pass">Pass</label>-->
-                                                                <!--</div>-->
-                                                                <!--<div class="form-check">-->
-                                                                <!--    <input class="form-check-input rb-dashboard-na" name="dashboard" id="dashboard_na" value="N/A" type="radio" {{ old('dashboard') == 'N/A' || ($car && $car->dashboard == 'N/A') ? 'checked' : '' }}>-->
-                                                                <!--    <label class="form-check-label label" for="dashboard_na">N/A</label>-->
-                                                                <!--</div>-->
-                                                                <!--<div class="form-check">-->
-                                                                <!--    <input class="form-check-input rb-dashboard-other" name="dashboard" id="dashboard_other" value="Other" type="radio" {{ old('dashboard') == 'Other' || ($car && $car->dashboard == 'Other') ? 'checked' : '' }}>-->
-                                                                <!--    <label class="form-check-label label" for="dashboard_other">Other</label>-->
-                                                                <!--    <br>-->
-                                                                <!--    <input class="cstm-form_input dashboard-other" id="dashboard_other" name="dashboard_other" placeholder="Please type another option here" type="text" value="{{ old('dashboard_other') ?? ($car ? $car->dashboard_other : '') }}">-->
-                                                                <!--</div>-->
-                                                                <!--<div class="error-message">{{$errors->first('dashboard')}}</div>-->
-                                                                  <div class="form-check">
-                                                            <input class="form-check-input rb-dashboard-pass" name="dashboard" id="dashboard_pass" value="Pass" type="radio" {{ old('dashboard') == 'Pass' || ($car && $car->dashboard == 'Pass') ? 'checked' : '' }} checked/>
-                                                            <label class="form-check-label label" for="dashboard_pass">Pass</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input rb-dashboard-na" name="dashboard" id="dashboard_na" value="N/A" type="radio" {{ old('dashboard') == 'N/A' || ($car && $car->dashboard == 'N/A') ? 'checked' : '' }}>
-                                                            <label class="form-check-label label" for="dashboard_na">N/A</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input rb-dashboard-other" name="dashboard" id="dashboard_other" value="Other" type="radio" {{ old('dashboard') == 'Other' || ($car && $car->dashboard == 'Other') ? 'checked' : '' }}>
-                                                            <label class="form-check-label label" for="dashboard_other">Other</label>
-                                                            <br>
-                                                            <!-- Changed the name attribute here -->
-                                                            <input class="cstm-form_input dashboard-other" id="dashboard_other" name="dashboard_other" placeholder="Please type another option here" type="text" value="{{ old('dashboard_other_text') ?? ($car ? $car->dashboard_other : '') }}">
-                                                        </div>
-                                                        <div class="error-message">{{$errors->first('dashboard')}}</div>
-                                                        
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input rb-dashboard-pass" name="dashboard" id="dashboard_pass" value="Pass" type="radio" {{ old('dashboard') == 'Pass' || ($car && $car->dashboard == 'Pass') ? 'checked' : '' }} checked/>
+                                                                    <label class="form-check-label label" for="dashboard_pass">Pass</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input rb-dashboard-na" name="dashboard" id="dashboard_na" value="N/A" type="radio" {{ old('dashboard') == 'N/A' || ($car && $car->dashboard == 'N/A') ? 'checked' : '' }}>
+                                                                    <label class="form-check-label label" for="dashboard_na">N/A</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input rb-dashboard-other" name="dashboard" id="dashboard_other" value="Other" type="radio" {{ old('dashboard') == 'Other' || ($car && $car->dashboard == 'Other') ? 'checked' : '' }}>
+                                                                    <label class="form-check-label label" for="dashboard_other">Other</label>
+                                                                    <br>
+                                                                    <input class="cstm-form_input dashboard-other" id="dashboard_other" name="dashboard" placeholder="Please type another option here" type="text" value="{{ old('dashboard_other') ?? ($car ? $car->dashboard_other : '') }}">
+                                                                </div>
+                                                                <div class="error-message">{{$errors->first('dashboard')}}</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -5525,7 +5455,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5582,7 +5512,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5615,6 +5545,7 @@ background-color: green;
                                                                     <input class="cstm-form_input doorsfault-other" id="doorsother" name="doors_other" placeholder="Please type another option here" type="text" value="{{ old('doors_other') ?? ($car ? $car->doors_other : '') }}">
                                                                 </div>
 
+
                                                                 <div class="error-message">{{$errors->first('doors')}}</div>
                                                                 
                                                             </div>
@@ -5640,7 +5571,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5672,7 +5603,9 @@ background-color: green;
                                                                     <br>
                                                                     <input class="cstm-form_input windscreen-other" id="front_windscreen_other" name="front_windscreen_other" placeholder="Please type another option here" type="text" value="{{ old('front_windscreen_other') ?? ($car ? $car->front_windscreen_other : '') }}">
                                                                 </div>
+
                                                                 <div class="error-message">{{$errors->first('front_windscreen')}}</div>
+                                                                
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -5696,7 +5629,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5753,7 +5686,7 @@ background-color: green;
                                                                         @foreach($images as $img)
                                                                             @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                                 <div class="image-container" data-section-title="{{ $m->type }}">
-                                                                                    <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                    <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                     <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $m->id }}" data-img="{{ $img }}" data-section-title="{{ $m->type }}">X</a>
                                                                                 </div>
                                                                             @endif
@@ -5762,7 +5695,7 @@ background-color: green;
                                                                 @endforeach
                                                             </div>
                                                         @endif
-                                                        
+
                                                         <hr class="mt-5">
                                                     </div>
                                                 </div>
@@ -5776,9 +5709,8 @@ background-color: green;
                                     <!----------- steps 7 form ---------------->
 
                                         <div class="tab-pane" role="tabpanel" id="step7">
-                                            <form action="{{ auth()->user()->type == 'admin' ? route('admin.store_car_form7') : route('inspector.store_car_form7') }}" method="POST"  name="form7" enctype="multipart/form-data" id="form7">
-                                             @csrf   
-                                                <input type="hidden" name="step" value="7">
+                                            <form action="">
+                                            <input type="hidden" name="step" value="7">
                                                 <h2 class="text-center">Service History & Manuals</h2>
                                                 <hr class="mt-5 mb-5">
                                                 <div class="all-info-container">
@@ -5801,6 +5733,7 @@ background-color: green;
                                                                     <br>
                                                                     <input class="cstm-form_input history-other" id="history-other" placeholder="Please type another option here" type="text" />
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -5821,6 +5754,7 @@ background-color: green;
                                                                     <br>
                                                                     <input class="cstm-form_input manual-other" id="manual-other" placeholder="Please type another option here" type="text" />
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                         <hr class="mt-5 mb-5">
@@ -6016,11 +5950,16 @@ background-color: green;
                                                         </div>
                                                         <hr class="mt-5">
                                                     </div>
-                                                    </div>
-                                                     <div class="list-inline pull-right">
-                                                        <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                                        <a href="#"><button type="submit"  id="saveform8" class="default-btn Sbmit-btn">Continue to next step</button></a>
-                                                    </div>
+
+                                                </div>
+
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="default-btn prev-step">Back</button></li>
+                                                    <li><button type="button" class="default-btn Sbmit-btn">Continue</button></li>
+                                                </ul>
+                                                <div class="col-md-12 text-center my-3">
+                                                    <button class="btn btn-primary" id="saveform7" type="submit">Submit form</button>
+                                                </div>
                                             </form>
                                         </div> 
 
@@ -6057,7 +5996,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6108,7 +6047,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6161,7 +6100,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6184,7 +6123,7 @@ background-color: green;
                                              @csrf 
                                             <input type="hidden" name="step" value="10">
                                             
-                                            <h2 class="text-center"> Engine Bay and Under Carriage</h2>
+                                            <h2 class="text-center"> Engine Bay Images</h2>
                                             
                                             <hr class="mt-5 mb-5">
                                             <div class="all-info-container">
@@ -6211,7 +6150,7 @@ background-color: green;
                                                                 @foreach($images as $img)
                                                                     @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                         <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                            <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                            <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                             <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                         </div>
                                                                     @endif
@@ -6255,38 +6194,25 @@ background-color: green;
                                                             <span id="vehicle_diagnostic_report_images_error" style="color: red;"></span>
                                                         </div>
                                                     </div>
-                                                  @if($carmedia && $carmedia->isNotEmpty())
-                                                    <div class="col-md-12 mt-5 mb-4">
-                                                        @foreach($carmedia as $media)
-                                                            @if($media->type === "vehicle_diagnostic_report")
-                                                                @php
-                                                                    $files = explode(',', $media->images);
-                                                                @endphp
-                                                                @foreach($files as $file)
-                                                                    @if(!empty($file)) <!-- Check if file URL is not empty -->
-                                                                        @php
-                                                                            $extension = pathinfo($file, PATHINFO_EXTENSION);
-                                                                        @endphp
-                                                                        <div class="file-container" data-section-title="{{ $media->type }}">
-                                                                            @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
-                                                                                <!-- Display image -->
-                                                                                <img src="{{ asset('public/' . $file) }}" alt="Car Image" width="150px" height="80px">
-                                                                            @elseif(strtolower($extension) === 'pdf')
-                                                                                <!-- Display download button for PDF -->
-                                                                                <a href="{{ asset('public/' . $file) }}" class="btn btn-primary btn-sm" target="_blank" download>Download PDF</a>
-                                                                            @else
-                                                                                <!-- Handle other file types if necessary -->
-                                                                                <p>Unsupported file type: {{ $extension }}</p>
-                                                                            @endif
-                                                                            <a href="#" class="btn btn-danger btn-sm remove-file" data-file-id="{{ $media->id }}" data-file="{{ $file }}" data-section-title="{{ $media->type }}">X</a>
-                                                                        </div>
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                @endif
-
+                                                    @if($carmedia && $carmedia->isNotEmpty())
+                                                        <div class="col-md-12 mt-5 mb-4">
+                                                            @foreach($carmedia as $media)
+                                                                @if($media->type === "vehicle_diagnostic_report")
+                                                                    @php
+                                                                        $images = explode(',', $media->images);
+                                                                    @endphp
+                                                                    @foreach($images as $img)
+                                                                        @if(!empty($img)) <!-- Check if image URL is not empty -->
+                                                                            <div class="image-container" data-section-title="{{ $media->type }}">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
 
                                                     <hr class="mt-5">
                                                 </div>
@@ -6372,7 +6298,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6451,7 +6377,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6519,7 +6445,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6595,7 +6521,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6692,7 +6618,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6781,7 +6707,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6844,7 +6770,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6899,7 +6825,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -6954,7 +6880,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -7079,7 +7005,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -7226,7 +7152,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -7248,7 +7174,7 @@ background-color: green;
                                         </div> 
                                         
 
-                                    <!----------- steps 14 form ---------------->
+                                    <!----------- steps 15 form ---------------->
 
                                         <div class="tab-pane" role="tabpanel" id="step14">
                                             
@@ -7282,7 +7208,7 @@ background-color: green;
                                                                     @foreach($images as $img)
                                                                         @if(!empty($img)) <!-- Check if image URL is not empty -->
                                                                             <div class="image-container" data-section-title="{{ $media->type }}">
-                                                                                <img src="{{ asset('public/' .$img) }}" alt="Car Image" width="150px" height="80px">
+                                                                                <img src="{{ asset($img) }}" alt="Car Image" width="150px" height="80px">
                                                                                 <a href="#" class="btn btn-danger btn-sm remove-image" data-image-id="{{ $media->id }}" data-img="{{ $img }}" data-section-title="{{ $media->type }}">X</a>
                                                                             </div>
                                                                         @endif
@@ -7305,18 +7231,18 @@ background-color: green;
                                     <!---------------- end new steps --------------->
 
 
-                                    <!----------- step end form -------------------->
+                                    <!----------- step end form ---------------->
 
                                         <div class="tab-pane" role="tabpanel" id="End">           
                                             <form action="{{ auth()->user()->type == 'admin' ? route('admin.store_car_end') : route('inspector.store_car_end') }}" method="POST"  name="form16" enctype="multipart/form-data" id="form16">
                                                 @csrf 
                                                 <input type="hidden" name="step" value="16">
-                                                    <h5 class="text-center">Vehicle Summary</h5> 
+                                                    <h5 class="text-center">Exterior Photos</h5> 
                                                 <hr class="mt-5 mb-5"> 
                                                 <div class="all-info-container">
                                                     <div class="row">
                                                         <div class="col-md-12 mt-5">
-                                                            <!--<label for="">Vehicle Summary</label>-->
+                                                            <label for="">Vehicle Summary</label>
                                                             <div class="vehicle-group">
                                                                 <span class="input-group-text">With textarea</span> 
                                                                 <textarea class="form-control" aria-label="With textarea" name="summary"  id="summary"  value="" placeholder="What do you think about the car overall? What are the main issues to worry about? How was the test drive? Recommended questions to ask the seller?" >{{ $car ? $car->summary : old('summary') }}</textarea>
@@ -7324,7 +7250,9 @@ background-color: green;
                                                                 <span id="summary_error" style="color: red;"></span>
                                                             </div>
                                                         </div>
+                                                    
                                                         <hr class="mt-5 mb-5">
+
                                                         <div class="col-md-12">
                                                             <label for="">Terms of Service</label>
                                                             <div class="terms-group mt-2">
@@ -7334,6 +7262,41 @@ background-color: green;
                                                             </div>
                                                         </div>
                                                         <hr class="mt-5">
+                                                    </div>
+
+                                                    <!-- <div class="row mt-5">
+                                                        <div class="col">
+                                                            <label for="repair_cost">Repair Cost</label>
+                                                            <input type="number" class="form-control" id="repair_cost" name="repair_cost" placeholder="Repair Cost" value="{{ $car ? $car->repair_cost : old('repair_cost') }}" >
+                                                        </div> 
+
+                                                        <div class="col">
+                                                            <label for="Buy Now">Buy Now</label>
+                                                            <input type="number" class="form-control" id="buy_now" name="buy_now" placeholder="Buy Now Cost" value="{{ $car ? $car->buy_now : old('buy_now') }}" >
+                                                        </div> 
+                                                    </div> -->
+                                                    <!-- <div class="row mt-5">
+                                                        <div class="col">
+                                                            <label for="Estimated Market Value">Estimated Market Value</label>
+                                                            <input type="number" class="form-control" id="estimated_market_value" placeholder="Estimated Market Cost" name="estimated_market_value" value="{{ $car ? $car->estimated_market_value : old('estimated_market_value') }}" >
+                                                        </div> 
+
+                                                        <div class="col">
+                                                            <label for="reserve_price">Reserve Price</label>
+                                                            <input type="number" class="form-control" id="reserve_price" name="reserve_price" placeholder="Reserve Price" value="{{ $car ? $car->reserve_price : old('reserve_price') }}" >
+                                                        </div> 
+                                                    </div> -->
+
+                                                    <div class="row mt-5">
+                                                        <div class="col">
+                                                            <label for="warranty cost">Warranty Cost</label>
+                                                            <input type="number" class="form-control" id="warranty_cost"  name="warranty_cost" placeholder="Warranty Cost" value="{{ $car ? $car->warranty_cost : old('warranty_cost') }}" >
+                                                        </div> 
+
+                                                        <div class="col">
+                                                            <label for="warranty_period">Warranty Period</label>
+                                                            <input type="number" class="form-control" id="warranty_period" name="warranty_period" placeholder="Warranty Cost" value="{{ $car ? $car->warranty_period : old('warranty_period') }}" >
+                                                        </div> 
                                                     </div>
                                                     
                                                     <div class="row mt-5">
@@ -7415,6 +7378,7 @@ background-color: green;
                                                                 <div class="form-check">
                                                                     <label for="traction_control">Traction Control </label>
                                                                     <input class="form-check-input" type="checkbox" id="traction_control" name="traction_control" value="1" {{ $car && $car->traction_control == 1 ? 'checked' : '' }}>
+                                                 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -7430,7 +7394,7 @@ background-color: green;
                                                    
                                                                 </div>
                                                                 <div class="form-check">
-                                                                    <label for="rain_sesing_wiper"> Rain Sensing Wiper </label>
+                                                                    <label for="rain_sesing_wiper">  Rain Sensing Wiper </label>
                                                                     <input class="form-check-input" type="checkbox" id="rain_sesing_wiper" name="rain_sesing_wiper" value="1" {{ $car && $car->rain_sesing_wiper == 1 ? 'checked' : '' }}>
                                                           
                                                                 </div>
@@ -7448,25 +7412,26 @@ background-color: green;
                                                         </div>
                                                      
                                                         <div class="col">
+                                                      
                                                             <div class="form-group">
-                                                                <label for="features_availability">COMFORT & CONVENIENCE</label>
+                                                            <label for="features_availability">COMFORT & CONVENIENCE</label>
                                                                 <div class="form-check">
-                                                                    <label for="android_auto"> Android Auto</label>
+                                                                    <label for="android_auto">Android Auto</label>
                                                                     <input class="form-check-input" type="checkbox" id="android_auto" name="android_auto" value="1" {{ $car && $car->android_auto == 1 ? 'checked' : '' }}>
                                                               
                                                                 </div>
                                                                 <div class="form-check">
-                                                                    <label for="digital_odometer_cc"> Digital Odometer</label>
+                                                                    <label for="digital_odometer_cc">Digital Odometer</label>
                                                                     <input class="form-check-input" type="checkbox" id="digital_odometer_cc" name="digital_odometer_cc" value="1" {{ $car && $car->digital_odometer_cc == 1 ? 'checked' : '' }}>
                                                           
                                                                 </div>
                                                                 <div class="form-check">
-                                                                    <label for="heater_cc"> Heater</label>
+                                                                    <label for="heater_cc">Heater</label>
                                                                     <input class="form-check-input" type="checkbox" id="heater_cc" name="heater_cc" value="1" {{ $car && $car->heater_cc == 1 ? 'checked' : '' }}>
                                                                 
                                                                 </div>
                                                                 <div class="form-check">
-                                                                    <label for="leather_seats_cc"> Leather Seats</label>
+                                                                    <label for="leather_seats_cc">Leather Seats</label>
                                                                     <input class="form-check-input" type="checkbox" id="leather_seats_cc" name="leather_seats_cc" value="1" {{ $car && $car->leather_seats_cc == 1 ? 'checked' : '' }}>
                                                       
                                                                 </div>
@@ -7474,6 +7439,7 @@ background-color: green;
                                                         </div>
                                                     </div> 
                                                 </div> 
+                                                
                                                 <div class="list-inline pull-right">
                                                      <li><button type="button" class="default-btn prev-step">Back</button></li>
 
@@ -7481,7 +7447,7 @@ background-color: green;
                                                 </div>
                                             </form>  
                                         </div> 
-                                        <!--- form chaassis perfect--->
+                                            
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
@@ -7817,159 +7783,4 @@ $(document).ready(function() {
         });
     });
 </script>
-
-<script>
-    $(document).ready(function() {
-  $('#thmnail_image').change(previewShieldCoverImgs);
-
-  function previewShieldCoverImgs(event) {
-      var imgPreview = $('#thmnail-image-img-preview');
-      var totalFiles = event.target.files.length;
-
-      if (totalFiles) {
-          imgPreview.removeClass('img-thumbs-hidden');
-      }
-
-      for (var i = 0; i < totalFiles; i++) {
-          var wrapper = $('<div>').addClass('wrapper-thumb');
-          var removeBtn = $('<span>').addClass('remove-btn').text('x');
-          var img = $('<img>').addClass('img-preview-thumb').attr('src', URL.createObjectURL(event.target.files[i]));
-
-          wrapper.append(img).append(removeBtn);
-          imgPreview.append(wrapper);
-
-          removeBtn.click(function() {
-              $(this).parent('.wrapper-thumb').remove();
-          });
-      }
-  }
-});
-</script>
-
-
-<script>
-
-document.addEventListener('DOMContentLoaded', async () => {
-    let hoverImages = [];
-
-    const fetchData = async () => {
-        try {
-            const response = await fetch('http://localhost/canvas/controller.php');
-            const data = await response.json();
-            hoverImages = data.map(item => ({
-                x: parseFloat(item.xcord),
-                y: parseFloat(item.ycord),
-                src: `http://localhost/canvas/uploads/${item.image}`
-            }));
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-    await fetchData();
-
-    console.log(hoverImages);
-
-    const canvasContainer = document.getElementById('canvasContainer');
-    const canvas = document.getElementById('baseImageCanvas');
-    const ctx = canvas.getContext('2d');
-    const hoverImageContainer = document.getElementById('hoverImageContainer');
-    const fileInput = document.getElementById('fileInput');
-
-    const baseImage = new Image();
-    baseImage.src = 'https://pragya.dbtechserver.online/car_arbab/public/canvas/car-skeleton2.png';
-
-    const resizeCanvas = () => {
-        canvas.width = canvasContainer.clientWidth;
-        canvas.height = canvasContainer.clientWidth * (baseImage.height / baseImage.width);
-        drawBaseImage();
-    };
-
-    const drawBaseImage = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
-        // Optionally draw points for visual reference
-        ctx.fillStyle = 'red';
-        hoverImages.forEach(img => {
-            ctx.beginPath();
-            ctx.arc(img.x * canvas.width, img.y * canvas.height, 5, 0, Math.PI * 2);
-            ctx.fill();
-        });
-    };
-
-    baseImage.onload = () => {
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-    };
-
-    canvas.addEventListener('mousemove', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        let hoveredImage = null;
-
-        hoverImages.forEach(img => {
-            const distance = Math.sqrt((mouseX - img.x * canvas.width) ** 2 + (mouseY - img.y * canvas.height) ** 2);
-            if (distance < 10) { // Adjust the hover detection radius as needed
-                hoveredImage = img;
-            }
-        });
-
-        if (hoveredImage) {
-            hoverImageContainer.innerHTML = `<img src="${hoveredImage.src}" alt="Hovered Image">`;
-            hoverImageContainer.style.display = 'block';
-            hoverImageContainer.style.top = `${e.pageY + 20}px`;
-            hoverImageContainer.style.left = `${e.pageX + 20}px`;
-        } else {
-            hoverImageContainer.style.display = 'none';
-        }
-    });
-
-    canvas.addEventListener('click', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-
-        console.log('MouseX:', mouseX, 'MouseY:', mouseY);
-
-        fileInput.click();
-
-        fileInput.onchange = (event) => {
-            const file = event.target.files[0];
-            const width = 200;
-            const height = 200;
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (loadEvent) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        ctx.drawImage(img, mouseX - width / 2, mouseY - height / 2, width, height);
-                        // Send file and coordinates to the server
-                        const formData = new FormData();
-                        formData.append('image', file);
-                        formData.append('xcord', mouseX / canvas.width); // Normalize X coordinate
-                        formData.append('ycord', mouseY / canvas.height); // Normalize Y coordinate
-
-                        fetch('http://localhost/canvas/controller.php', {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => response.text())
-                            .then(data => {
-                                console.log('File name saved to database:', data);
-                                location.reload();
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                    };
-                    img.src = loadEvent.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        };
-    });
-});
-
-    </script>
 @endsection

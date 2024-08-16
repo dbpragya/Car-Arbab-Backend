@@ -39,6 +39,7 @@
         </div>
     </div>
 
+
     <!-- car details-->
     <section class="pt-50 pb-lg-4 ">
         <div class="container">

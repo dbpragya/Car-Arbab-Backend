@@ -10,8 +10,7 @@
                     <h1 class="hero-h1">Unleash the Power of Choice: Your Dream Car Awaits!</h1>
                     <p class="hero-pera">Elevate your drive with Website Name. Explore diverse car auctions, bid, and
                         win your dream ride. Unleash the thrill – start now!</p>
-                    <!--<button type="button" class="btn hero-btn">Explore Auctions</button>-->
-                     <button type="button" class="btn hero-btn-2">Explore Auctions</button>
+                    <button type="button" class="btn hero-btn">Explore Auctions</button>
 
                 </div>
                 <!-- <div class="col-lg-7 col-12 order-1 order-lg-2  animated wow fadeInRight text-end position-relative">
@@ -46,7 +45,7 @@
 
                 <div class="container">
                     <div class="row mx-0 px-0 ">
-                        <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="col-xl-5 col-lg-6 col-12">
 
                             <div class="border-end-lg mt-3 text-center d-none d-lg-flex">
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -103,7 +102,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-6 col-lg-6 col-12 d-flex px-0">
+                        <div class="col-xl-7 col-lg-6 col-12 d-flex px-0">
 
                             <div class="d-flex d-lg-none gap-2 align-items-center pe-2">
                                 <img src="{{ asset('frontend/assets/images/icon/filter-2.svg')}}" />
@@ -227,7 +226,7 @@
                                     <div class="car-modal tag">MUV</div>
                                     <div class="product-img-box">
                                         @php
-                                            $carMedia = $car->carMedia->where('type', 'thmnail')->first(); 
+                                            $carMedia = $car->carMedia->where('type', 'image_form1')->first(); 
                                         @endphp
 
                                         @if($carMedia && $carMedia->images)
@@ -235,11 +234,11 @@
                                                 $imagePaths = explode(',', $carMedia->images);
                                             @endphp
                                             @foreach($imagePaths as $image)
-                                                <img class="w-100" src="{{ asset('public/' .$image) }}" alt="">
+                                                <img class="w-100" src="{{ asset($image) }}" alt="">
                                                 @break 
                                             @endforeach
                                         @else
-                                            <!--<img class="w-100" src="{{ asset('frontend/assets/images/product/product-11.png') }}" alt="">-->
+                                            <img class="w-100" src="{{ asset('frontend/assets/images/product/product-11.png') }}" alt="">
                                         @endif       
                                         <!-- <img class="w-100" src="{{ asset('frontend/assets/images/product/product-3.jpg')}}" alt=""> -->
                                         <div class="car-value tag">Estimated Market Value: <span class="text-black">AED
@@ -249,84 +248,68 @@
                                     </div>
 
                                     <div class="details">
-                                        <div class="br-md-area">
-                                            <div class="brand-name">{{ $car->vehicleMake->name?? '' }}</div>
-                                            <div class="model-name">{{ $car->veh_car_model }}</div>
-                                        </div>
-                                        <!--<div class="brand-name">{{ $car->vehicleMake->name?? '' }}</div>-->
+                                        <div class="model-name">{{ $car->veh_car_model }}</div>
+                                        <div class="brand-name">{{ $car->vehicleMake->name?? '' }}</div>
                                         <div class="row">
-                                           <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                               <div class="one-two-c-it">
-                                                   <div class="one-card-it">
-                                                    <div class="">
+                                            <div class="col-6">
                                                 <span class="d-flex align-items-center icon-box">
                                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">{{ $car->veh_year }} 
                                                 </span>
                                             </div>
-                                            <div class="">
+                                            <div class="col-6">
                                                 <span class="d-flex align-items-center icon-box">
                                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">{{ $car->veh_mileage }} KM
                                                      <!-- {{ $car->vehicleTransmission->name??'' }} -->
                                                 </span>
                                             </div>
-                                            <div class="">
+                                            <div class="col-6">
                                                 <span class="d-flex align-items-center icon-box">
                                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">{{ $car->title }} 
                                                 </span>
                                             </div>
-                                               </div>
-                                            <div class="two-card-it">
-                                                 <div class="">
-                                                <span class="d-flex align-items-center icon-box ">
+                                            <div class="col-6">
+                                                <span class="d-flex align-items-center icon-box">
                                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}"> {{ $car->vehicleregionalspec->name ?? '' }}
                                                 </span>
                                             </div>
-                                            <div class="">
+                                            <div class="col-6">
                                                 <span class="d-flex align-items-center icon-box">
                                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> {{ $car->vehicleTransmission->name ?? '' }}
                                                 </span>
                                             </div>
 
-                                            <div class="">
+                                            <div class="col-6">
                                                 <span class="d-flex align-items-center icon-box">
                                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}">{{ $car->vehicleNoOfCylinder->size ?? '' }}
                                                 </span>
                                             </div>
-                                            </div>
-                                               </div>
-                                           </div>
 
                                             <div class="col-12 m-auto">
                                                 <div class="divider"> </div>
                                             </div>
-                                            
-                                            <!--price section -->
 
-                                            <div class="one-two-c-it mt-1 mb-1">
-                                                <div class="one-card-it cost-box">
+
+                                            <div class="col-6 cost-box">
                                                 <div class="pri">Repair Cost:</div>
-                                                <div class="amou justify-content-between">
+                                                <div class="amou d-flex justify-content-between">
                                                     AED {{ $car->carAuction->estimated_repair_cost ?? '' }}
                                                 </div>
                                             </div>
 
-                                            <div class="two-card-it cost-box">
+                                            <div class="col-6 cost-box">
                                                 <div class="pri">Current Bid Price:</div>
-                                                <div class="amou  justify-content-between">
+                                                <div class="amou d-flex justify-content-between">
                                                     AED {{ $car->carAuction->current_bid_price ?? '' }}
                                                 </div>
                                             </div>
-                                            </div>
 
-                                            <div class="bt-combo">
-                                                <div class="bt-one">
+                                            <div class="col-12">
                                                 <a href="#" class="btn bid-btn">Bid Now</a>
                                             </div>
 
-                                            <div class="bt-two text-center">
-                                                <a href="#" class="ctm-link bn-btn btn"> Buy Now  {{ $car->carAuction->buy_now_price ?? '' }} </a>
+                                            <div class="col-12 text-center">
+                                                <a href="#" class="ctm-link"> Buy Now  {{ $car->carAuction->buy_now_price ?? '' }} </a>
 
-                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -477,7 +460,7 @@
     <!----/section----->
 
 
-    <section class="how-it mt-5">
+    <section class="how-it">
 
         <div class="row mx-0 px-0 mx-auto">
             <div class="col-lg-12">
@@ -624,7 +607,6 @@
                         <div class="col-lg-3 col-6">
                             <div class="bids-box">
                                 <div class="number-box"><span class="count com">17000</span>+</div>
-                                <div class="ghr"></div>
                                 <div class="number-detail">Auctions Completed</div>
                             </div>
                         </div>
@@ -633,7 +615,6 @@
                         <div class="col-lg-3 col-6">
                             <div class="bids-box">
                                 <div class="number-box">$<span class="count">365M</span>+</div>
-                                <div class="ghr"></div>
                                 <div class="number-detail">Value Of Cars Sold</div>
                             </div>
                         </div>
@@ -643,7 +624,6 @@
                         <div class="col-lg-3 col-6">
                             <div class="bids-box">
                                 <div class="number-box"><span class="count">85</span>%+</div>
-                                <div class="ghr"></div>
                                 <div class="number-detail">Sell-Through Rate</div>
                             </div>
                         </div>
@@ -651,7 +631,6 @@
                         <div class="col-lg-3 col-6">
                             <div class="bids-box">
                                 <div class="number-box"><span class="count">475K</span>+</div>
-                                <div class="ghr"></div>
                                 <div class="number-detail">Registered Members</div>
                             </div>
                         </div>
@@ -678,9 +657,7 @@
         <div class="container px-0">
             <div class="row mx-0 px-0 mx-auto gx-lg-2">
                 <div class="col-lg-2 col-sm-4 col-6">
-                    <h3 class="url-heading"><span class="border-botto">GCC Specs</span>
-                    <div style="border: 3px solid #21e786; width: 6em; border-radius: 10px;"></div></h3>
-                    
+                    <h3 class="url-heading"><span class="border-bottom">GCC Specs</span></h3>
                     <ul class="list-item">
                         <li><a href="#">Toyota Land Cruiser</a></li>
                         <li><a href="#">Nissan Patrol</a></li>
@@ -697,8 +674,7 @@
 
 
                 <div class="col-lg-2 col-sm-4 col-6">
-                    <h3 class="url-heading"><span class="border-botto">American Specs</span>
-                    <div style="border: 3px solid #21e786; width: 10em; border-radius: 10px;"></div></h3>
+                    <h3 class="url-heading"><span class="border-bottom">American Specs</span></h3>
                     <ul class="list-item">
                         <li><a href="#">Ford Mustang</a></li>
                         <li><a href="#">Chevrolet Camaro</a></li>
@@ -717,9 +693,7 @@
 
 
                 <div class="col-lg-2 col-sm-4 col-6">
-                    <h3 class="url-heading"><span class="border-botto">European Specs</span>
-                    <div style="border: 3px solid #21e786; width: 10em; border-radius: 10px;"></div>
-                    </h3>
+                    <h3 class="url-heading"><span class="border-bottom">European Specs</span></h3>
                     <ul class="list-item">
                         <li><a href="#">Volkswagen Golf</a></li>
                         <li><a href="#">BMW 3 Series</a></li>
@@ -736,9 +710,7 @@
                 <!----col-lg-2---->
 
                 <div class="col-lg-2 col-sm-4 col-6">
-                    <h3 class="url-heading"><span class="border-botto">Japanese Specs</span>
-                    <div style="border: 3px solid #21e786; width: 10em; border-radius: 10px;"></div>
-                    </h3>
+                    <h3 class="url-heading"><span class="border-bottom">Japanese Specs</span></h3>
                     <ul class="list-item">
                         <li><a href="#">Toyota Corolla</a></li>
                         <li><a href="#">Honda Civic</a></li>
@@ -756,9 +728,7 @@
 
 
                 <div class="col-lg-2 col-sm-4 col-6">
-                    <h3 class="url-heading"><span class="border-botto">Korean Specs</span>
-                    <div style="border: 3px solid #21e786; width: 10em; border-radius: 10px;"></div>
-                    </h3>
+                    <h3 class="url-heading"><span class="border-bottom">Korean Specs</span></h3>
                     <ul class="list-item">
                         <li><a href="#">Hyundai Sonata</a></li>
                         <li><a href="#">Kia K5</a></li>
@@ -777,9 +747,7 @@
 
 
                 <div class="col-lg-2 col-sm-4 col-6">
-                    <h3 class="url-heading"><span class="border-botto">Chinese Specs</span>
-                    <div style="border: 3px solid #21e786; width: 10em; border-radius: 10px;"></div>
-                    </h3>
+                    <h3 class="url-heading"><span class="border-bottom">Chinese Specs</span></h3>
                     <ul class="list-item">
                         <li><a href="#">Toyota Corolla</a></li>
                         <li><a href="#">Honda Civic</a></li>
@@ -825,7 +793,6 @@
         </div>
     </div>
    
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         
             $(document).on('click', '.redirect-details', function() {
@@ -862,7 +829,7 @@
                     for (var i = 0; i < carauction.car.car_media.length; i++) {
                         if (carauction.car.car_media[i].type === 'image_form1') {
                         var imagePaths = carauction.car.car_media[i].images.split(',');
-                        imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                        imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                         break;
                         }
                     }   
@@ -1007,7 +974,7 @@
                         for (var i = 0; i < car.carmedia.length; i++) {
                             if (car.carmedia[i].type === 'image_form1') {
                                 var imagePaths = car.carmedia[i].images.split(',');
-                                imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                                imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                                 break;
                             }
                         }   
@@ -1120,25 +1087,4 @@
 
      
     </script> 
-     <script>
-        $(document).ready(function(){
-            $(".owl-carousel").owlCarousel({
-                margin: 40, 
-                loop: true,
-                nav: true,
-                dots: false, 
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 2
-                    },
-                    1000: {
-                        items: 3
-                    }
-                }
-            });
-        });
-    </script>
 @endsection

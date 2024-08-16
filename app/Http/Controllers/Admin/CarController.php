@@ -34,16 +34,9 @@ use App\Models\CarAuction;
 use Illuminate\Support\Str;
 use App\Models\Car;
 use App\Models\User;
-use App\Models\Currency;
-use App\Models\Timezone;
-use App\Models\Booking;
-use App\Models\CarChassisPerfect;
-use App\Models\Year;
-use Carbon\Carbon;
 
 class CarController extends Controller
 {
-    //Addcar
     public function Addcar(Request $request , $action = null){
 
         if ($action === 'new') {
@@ -78,8 +71,7 @@ class CarController extends Controller
         $tyreweight = TyreWeight::all();
         $vehiclecondition = VehicleCondition::all();
         $vehiclebodytype = VehicleBodyType::all();
-        $years = Year::all();
-    
+
         $car = null;
         if($carId){
             $car= Car::Where('id',$carId)->first();
@@ -93,27 +85,31 @@ class CarController extends Controller
             $carbrakesystem = Carbrakesystem::where('car_id',$carId)->first();
         }
       
-        return view('admin.1car_add',compact('years','vehiclebodytype','vehiclecondition','tyreheight','tyrerim','tyreweight','vehicletypes','drivetypes','carcolors','caextendedwaraanty','cartitles','cararbabrepairs','auctiontype','carbrakesystem','carmedia','car','sellertype','vehiclemake','vehiclenoofcylinder','vehicleregionalspec','vehicletransmission','fueltype','vehicleInterior','vehiclenoofkeys','vehicleSpireTire'));
+        return view('admin.1car_add',compact('vehiclebodytype','vehiclecondition','tyreheight','tyrerim','tyreweight','vehicletypes','drivetypes','carcolors','caextendedwaraanty','cartitles','cararbabrepairs','auctiontype','carbrakesystem','carmedia','car','sellertype','vehiclemake','vehiclenoofcylinder','vehicleregionalspec','vehicletransmission','fueltype','vehicleInterior','vehiclenoofkeys','vehicleSpireTire'));
     }
 
-    //Storecar
     public function Storecar(Request $request){
-
+ 
+        // dd($request->all());
          $request->validate([
-             
-          'seller_phone_no' => 'nullable|regex:/^\d{8,10}$/',
+
+            'seller_phone_no' => 'nullable|regex:/^\d{3}-\d{2}-\d{3}$/',
             'cus_first_name' => 'nullable|string|regex:/^[^\d]+$/|max:255',
             'cus_last_name' => 'nullable|string|regex:/^[^\d]+$/|max:255',
             'cus_date' => 'nullable|date',
+            // 'veh_car_model' =>'nullable|alpha_num',
             'veh_car_model' => 'nullable|regex:/^[A-Za-z0-9\s]+$/',
+            
+
             'veh_year' => 'nullable|date_format:Y',
             'veh_mileage' => 'nullable|numeric',
             'vehicle_engine_size'=>'nullable|numeric',
             'veh_vin_number' => 'nullable|alpha_num|size:17',
             'signatureData' => 'nullable',
+          
         ],
         [ 
-            'seller_phone_no.regex' => 'The seller phone number must be 8 to 12 digits long.',
+            'seller_phone_no.regex' => 'The phone number must be in the format ###-##-###.',
             'cus_first_name.string' => 'The field must be a string.', 
             'cus_first_name.regex' => 'The field must not contain numeric characters.',
             'cus_last_name.string' => 'The field must be a string.',
@@ -162,12 +158,18 @@ class CarController extends Controller
                     $existingCar->signatureData = 'images/signature/' . $filename;
                 }
 
+                $unique_stickers = $request->input('unique_stickers');
+                if (!empty($unique_stickers)) {
+                    $existingCar->unique_stickers = json_encode($unique_stickers);
+                }
+
                 $primary_damage = $request->input('primary_damage');
                 if (!empty($primary_damage)) {
                     $existingCar->primary_damage = json_encode($primary_damage);
                 }
                 
                 $existingCar->update([
+                 
                     
                     // 'country_code' => $request->input('country_code'),
                     'seller_phone_no' => $request->input('seller_phone_no'),
@@ -183,9 +185,10 @@ class CarController extends Controller
                     'veh_fueltype_id' => $request->input('veh_fueltype_id'),
                     'vehicle_regional_spec' => $request->input('vehicle_regional_spec'),
                     'vehicle_transmission_id' => $request->input('vehicle_transmission_id'),
+                    'cc' => $request->input('cc'),
                     'no_of_cylinder' => $request->input('no_of_cylinder'),
                     'vehicle_engine_size' => $request->input('vehicle_engine_size'),
-                    'vehicle_engine_size_unit' => $request->input('vehicle_engine_size_unit'),
+                    'auction_type' => $request->input('auction_type'),
                     'car_title' => $request->input('car_title'),
                     'car_arbab_repairs' => $request->input('car_arbab_repairs'),
                     'car_arbab_extended_warranty' => $request->input('car_arbab_extended_warranty'),
@@ -198,17 +201,20 @@ class CarController extends Controller
                     'veh_vin_number' => $request->input('veh_vin_number'),
                     'trimdata' => $request->input('trimdata'),
                     'vehicle_highlights' => $request->input('vehicle_highlights'),
-                
+                    // 'unique_stickers' => json_encode($request->input('unique_stickers')),
+                    // 'primary_damage' => json_encode($request->input('primary_damage')),
                     'title' => $request->input('title'),
                     'vehicle_condition_id' => $request->input('vehicle_condition_id'),
                     'passenger' => $request->input('passenger'),
                     'body_type' => $request->input('body_type'),
+                    // 'gcc_spec' => $request->input('gcc_spec'),
+                    
                 ]);
             }   
         } else {
             $car = new Car();
             $car->user_id = $userId;
-            $car->phone_code = $request->input('phone_code');
+            $car->country_code = $request->input('country_code');
             $car->seller_phone_no = $request->input('seller_phone_no');
             $car->seller_type_id = $request->input('seller_type_id');
             $car->cus_first_name = $request->input('cus_first_name');
@@ -222,9 +228,10 @@ class CarController extends Controller
             $car->veh_fueltype_id = $request->input('veh_fueltype_id');
             $car->vehicle_regional_spec = $request->input('vehicle_regional_spec');
             $car->vehicle_transmission_id = $request->input('vehicle_transmission_id');
+            $car->cc = $request->input('cc');
             $car->no_of_cylinder = $request->input('no_of_cylinder');
             $car->vehicle_engine_size = $request->input('vehicle_engine_size');
-            $car->vehicle_engine_size_unit = $request->input('vehicle_engine_size_unit');
+            $car->auction_type = $request->input('auction_type');
             $car->car_title = $request->input('car_title');
             $car->car_arbab_repairs = $request->input('car_arbab_repairs');
             $car->car_arbab_extended_warranty = $request->input('car_arbab_extended_warranty');
@@ -241,17 +248,23 @@ class CarController extends Controller
             $car->vehicle_condition_id = $request->input('vehicle_condition_id');
             $car->passenger = $request->input('passenger');
             $car->body_type = $request->input('body_type');
-          
+            // $car->gcc_spec = $request->input('gcc_spec');
+            
+            $unique_stickers = $request->input('unique_stickers');
+            
+            if (!empty($unique_stickers)) {
+                $car->unique_stickers = json_encode($unique_stickers);
+            }
             $primary_damage = $request->input('primary_damage');
             
             if (!empty($primary_damage)) {
                 $car->primary_damage = json_encode($primary_damage);
             }
-
             if(!empty($filename)){
+
             $car->signatureData = 'images/signature/' . $filename;
+
             }
-            
             $car->save();
             $carId = $car->id;
             session(['car_id' => $carId]);
@@ -260,7 +273,6 @@ class CarController extends Controller
         // for img uploading in carmedia tbl
         $imageTypes = [
             'section_title_image_form1' => 'image',
-            'section_title_thmnail' => 'thmnail_image'
         ];  
 
         foreach ($imageTypes as $sectionTitle => $imageField) {
@@ -271,28 +283,16 @@ class CarController extends Controller
 
                 $imagePaths = [];
                 foreach ($request->file($imageField) as $image) {
-                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); 
+                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
                     $image->move(public_path("images/{$type}_images"), $newImageName);
                     $imagePaths[] = "images/{$type}_images/{$newImageName}";
                 }
         
-                // if ($existingCarMedia) {
-                //     $existingImages = explode(',', $existingCarMedia->images);
-                //     $updatedImages = array_merge($existingImages, $imagePaths);
-                //     $existingCarMedia->update(['images' => implode(',', $updatedImages)]);
-                // } else {
-                     if ($existingCarMedia) {
-                        $existingImages = explode(',', $existingCarMedia->images);
-                        if (!empty($existingImages[0])) {
-                            // Add a comma if there are existing images
-                            $updatedImages = array_merge($existingImages, $imagePaths);
-                            $existingCarMedia->update(['images' => implode(',', $updatedImages)]);
-                        } else {
-                            // No comma needed if there are no existing images
-                            $existingCarMedia->update(['images' => implode(',', $imagePaths)]);
-                        }
-                    } else {
-                    
+                if ($existingCarMedia) {
+                    $existingImages = explode(',', $existingCarMedia->images);
+                    $updatedImages = array_merge($existingImages, $imagePaths);
+                    $existingCarMedia->update(['images' => implode(',', $updatedImages)]);
+                } else {
                     CarMedia::create([
                         'car_id' => $carId,
                         'type' => $type,
@@ -301,7 +301,7 @@ class CarController extends Controller
                 }
              }
         }
-        // return redirect()->route('admin.addcar')->with('success1', "Car added successfully");
+        // return redirect()->route('admin.addcar')->with('success1', "Car form 1 added successfully");
         if(auth()->check()) {
             if(auth()->user()->type == 'admin') {
                 return redirect()->route('admin.addcar')->with('success1', "Car form 1 added successfully");
@@ -310,8 +310,7 @@ class CarController extends Controller
             }
         } 
     }
-    
-    //storecar2
+   
     public function Storecar2(Request $request){
 
         $carId = session('car_id');
@@ -375,7 +374,7 @@ class CarController extends Controller
             'section_title_bonnet_hinge_holder' => 'bonnet_hinge_holder_images',
             'section_title_turbo_preference' => 'turbo_preference_images',
             'section_title_fender_liners' => 'fender_liners_images',
-            'section_title_drive_belt_pulleys' => 'drive_belt_pulleys_images',
+            'section_title_drive_belts_pulleys' => 'drive_belt_pulleys_images',
             'section_title_engine_oil_filler_cap' => 'engine_oil_filler_cap_images',
             'section_title_radiator' => 'radiator_images',
             'section_title_engine_oil_leaks' => 'engine_oil_leaks_images',
@@ -411,7 +410,7 @@ class CarController extends Controller
                 }
             }
         }   
-        
+    
         if(auth()->check()) {
             if(auth()->user()->type == 'admin') {
                 return redirect()->route('admin.addcar')->with('success2', "Car form 2 added successfully");
@@ -421,7 +420,6 @@ class CarController extends Controller
         }
     }
 
-    //Storecar3
     public function Storecar3(Request $request){
 
         $carId = session('car_id');
@@ -472,13 +470,13 @@ class CarController extends Controller
                 // Handle image upload and update/create CarMedia record
                 $imagePaths = [];
                 foreach ($request->file($imageField) as $image) {
-                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); 
+                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
                     $image->move(public_path("images/{$type}_images"), $newImageName);
                     $imagePaths[] = "images/{$type}_images/{$newImageName}";
                 }
     
                 if ($existingCarMedia) {
-                    
+                
                     $existingImages = explode(',', $existingCarMedia->images);
                     $updatedImages = array_merge($existingImages, $imagePaths);
                     $existingCarMedia->update(['images' => implode(',', $updatedImages)]);
@@ -495,18 +493,18 @@ class CarController extends Controller
         //redirection
         if(auth()->check()) {
             if(auth()->user()->type == 'admin') {
-                return redirect()->route('admin.addcar')->with('success3', "Car Form 3 added successfully");
+                return redirect()->route('admin.addcar')->with('success3', "Car form 3 added successfully");
             } elseif(auth()->user()->type == 'inspector') {
-                return redirect()->route('inspector.addcar')->with('success3', "Car Form 3 added successfully");
+                return redirect()->route('inspector.addcar')->with('success3', "Car form 3 added successfully");
             }
         }
     }
-    
-    //storecar4
+
     public function Storecar4(Request $request){
 
+        // dd($request->all());
         $carId = session('car_id');
-       
+        // Update record in cars table
         Car::where('id', $carId)->update([
             'brake_pads_front' => $request->brake_pads_front,
             'brake_pads_front_other' => $request->brake_pads_front_other,
@@ -569,40 +567,46 @@ class CarController extends Controller
             'front_left_manufac' => $request->front_left_manufac,
             'front_left_date' => $request->front_left_date,
             'front_left_rim_id' => $request->front_left_rim_id,
+            'front_left_height_id' => $request->front_left_height_id,
+            'front_left_width_id' => $request->front_left_width_id,
             'front_left_condition' => $request->front_left_condition,
 
             'front_right_manufac' => $request->front_right_manufac,
             'front_right_date' => $request->front_right_date,
             'front_right_rim_id' => $request->front_right_rim_id,
+            'front_right_height_id' => $request->front_right_height_id,
+            'front_right_width_id' => $request->front_right_width_id,
             'front_right_condition' => $request->front_right_condition,
 
             'rear_left_manufac' => $request->rear_left_manufac,
             'rear_left_date' => $request->rear_left_date,
             'rear_left_rim_id' => $request->rear_left_rim_id,
+            'rear_left_height_id' => $request->rear_left_height_id,
+            'rear_left_width_id' => $request->rear_left_width_id,
             'rear_left_condition' => $request->rear_left_condition,
 
             'rear_right_manufac' => $request->rear_right_manufac,
             'rear_right_date' => $request->rear_right_date,
             'rear_right_rim_id' => $request->rear_right_rim_id,
+            'rear_right_height_id' => $request->rear_right_height_id,
+            'rear_right_width_id' => $request->rear_right_width_id,
             'rear_right_condition' => $request->rear_right_condition,
             
-            // 'spare_manufac' => $request->spare_manufac,
-            // 'spare_date' => $request->spare_date,
-            // 'spare_rim_id' => $request->spare_rim_id,
-            // 'spare_height_id' => $request->spare_height_id,
-            // 'spare_width_id' => $request->spare_width_id,
-            // 'spare_condition' => $request->spare_condition,
+            'spare_manufac' => $request->spare_manufac,
+            'spare_date' => $request->spare_date,
+            'spare_rim_id' => $request->spare_rim_id,
+            'spare_height_id' => $request->spare_height_id,
+            'spare_width_id' => $request->spare_width_id,
+            'spare_condition' => $request->spare_condition,
 
             'front_left_brand' => $request->front_left_brand,
             'front_left_rim_condition' => $request->front_left_rim_condition,
             'front_right_brand' => $request->front_right_brand,
             'front_right_rim_condition' => $request->front_right_rim_condition,
-            
             'rear_left_brand' => $request->rear_left_brand,
             'rear_left_rim_condition' => $request->rear_left_rim_condition,
             'rear_right_brand' => $request->rear_right_brand,
             'rear_right_rim_condition' => $request->rear_right_rim_condition,
-            
             'spare_brand' => $request->spare_brand,
             'spare_rim_condition' => $request->spare_rim_condition,
         ]);
@@ -613,35 +617,42 @@ class CarController extends Controller
             'front_left_manufac' => $request->front_left_manufac,
             'front_left_date' => $request->front_left_date,
             'front_left_rim_id' => $request->front_left_rim_id,
+            'front_left_height_id' => $request->front_left_height_id,
+            'front_left_width_id' => $request->front_left_width_id,
             'front_left_condition' => $request->front_left_condition,
-            
+
             'front_right_manufac' => $request->front_right_manufac,
             'front_right_date' => $request->front_right_date,
             'front_right_rim_id' => $request->front_right_rim_id,
+            'front_right_height_id' => $request->front_right_height_id,
+            'front_right_width_id' => $request->front_right_width_id,
             'front_right_condition' => $request->front_right_condition,
 
             'rear_left_manufac' => $request->rear_left_manufac,
             'rear_left_date' => $request->rear_left_date,
             'rear_left_rim_id' => $request->rear_left_rim_id,
+            'rear_left_height_id' => $request->rear_left_height_id,
+            'rear_left_width_id' => $request->rear_left_width_id,
             'rear_left_condition' => $request->rear_left_condition,
 
             'rear_right_manufac' => $request->rear_right_manufac,
             'rear_right_date' => $request->rear_right_date,
             'rear_right_rim_id' => $request->rear_right_rim_id,
+            'rear_right_height_id' => $request->rear_right_height_id,
+            'rear_right_width_id' => $request->rear_right_width_id,
             'rear_right_condition' => $request->rear_right_condition,
 
-            // 'spare_manufac' => $request->spare_manufac,
-            // 'spare_date' => $request->spare_date,
-            // 'spare_rim' => $request->spare_rim,
-            // 'spare_height' => $request->spare_height,
-            // 'spare_width' => $request->spare_width,
-            // 'spare_condition' => $request->spare_condition,
+            'spare_manufac' => $request->spare_manufac,
+            'spare_date' => $request->spare_date,
+            'spare_rim' => $request->spare_rim,
+            'spare_height' => $request->spare_height,
+            'spare_width' => $request->spare_width,
+            'spare_condition' => $request->spare_condition,
 
             'front_left_brand' => $request->front_left_brand,
             'front_left_rim_condition' => $request->front_left_rim_condition,
             'front_right_brand' => $request->front_right_brand,
             'front_right_rim_condition' => $request->front_right_rim_condition,
-            
             'rear_left_brand' => $request->rear_left_brand,
             'rear_left_rim_condition' => $request->rear_left_rim_condition,
             'rear_right_brand' => $request->rear_right_brand,
@@ -650,17 +661,16 @@ class CarController extends Controller
             'spare_rim_condition' => $request->spare_rim_condition,
             ]);
         }
- 
+  
         if(auth()->check()) {
             if(auth()->user()->type == 'admin') {
-                return redirect()->route('admin.addcar')->with('success4', "Car Form 4 added successfully");
+                return redirect()->route('admin.addcar')->with('success4', "Car form 4 added successfully");
             } elseif(auth()->user()->type == 'inspector') {
-                return redirect()->route('inspector.addcar')->with('success4', "Car Form 4 added successfully");
+                return redirect()->route('inspector.addcar')->with('success4', "Car form 4 added successfully");
             }
         }
     }
-    
-    //storecar5
+
     public function Storecar5(Request $request){
 
         $carId = session('car_id');
@@ -670,22 +680,22 @@ class CarController extends Controller
             'key_remote' => $request->key_remote ,
             'key_remote_other'=>$request->key_remote_other,
 
-            'entertainment_system' => $request->entertainment_system,
+            'entertainment_system' => $request->entertainment_system ,
             'entertainment_system_other'=>$request->entertainment_system_other,
                
-            'windows_operation' => $request->windows_operation,
+            'windows_operation' => $request->windows_operation ,
             'windows_operation_other'=>$request->windows_operation_other,
 
-            'seats_adjustment' => $request->seats_adjustment,
+            'seats_adjustment' => $request->seats_adjustment ,
             'seats_adjustment_other'=>$request->seats_adjustment_other,
                
             'door_lock_unlock' => $request->door_lock_unlock ,
             'door_lock_unlock_other'=>$request->door_lock_unlock_other,
 
-            'ac_control_cooling' => $request->ac_control_cooling,
+            'ac_control_cooling' => $request->ac_control_cooling ,
             'ac_control_cooling_other'=>$request->ac_control_cooling_other,
 
-            'center_console_buttons' => $request->center_console_buttons,
+            'center_console_buttons' => $request->center_console_buttons ,
             'center_console_buttons_other'=>$request->center_console_buttons_other,
 
             'cameras' => $request->cameras ,
@@ -781,7 +791,7 @@ class CarController extends Controller
                     $existingCarMedia = CarMedia::where('car_id', $carId)->where('type', $type)->first();
                     $imagePaths = [];
                     foreach ($request->file($imageField) as $image) {
-                        $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); 
+                        $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
                         $image->move(public_path("images/{$type}_images"), $newImageName);
                         $imagePaths[] = "images/{$type}_images/{$newImageName}";
                     }
@@ -807,13 +817,11 @@ class CarController extends Controller
             }
         }
     }
-    
-    //storecar6
+     
     public function Storecar6(Request $request){
 
-
         $carId = session('car_id');
-        
+        // Update record in cars tbl
         Car::where('id', $carId)->update([
 
             'roof_lining' => $request->roof_lining ,
@@ -837,7 +845,7 @@ class CarController extends Controller
             'amrest_side_pockets' => $request->amrest_side_pockets ,
             'amrest_side_pockets_other'=>$request->amrest_side_pockets_other,
 
-            'dashboard' => $request->dashboard,
+            'dashboard' => $request->dashboard ,
             'dashboard_other'=>$request->dashboard_other,
 
             'floor_mates' => $request->floor_mates ,
@@ -880,7 +888,7 @@ class CarController extends Controller
                     // Handle image upload and update/create CarMedia record
                     $imagePaths = [];
                     foreach ($request->file($imageField) as $image) {
-                        $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
+                        $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); 
                         $image->move(public_path("images/{$type}_images"), $newImageName);
                         $imagePaths[] = "images/{$type}_images/{$newImageName}";
                     }
@@ -898,7 +906,7 @@ class CarController extends Controller
                     }
                 }
             }
-            
+
         if(auth()->check()) {
             if(auth()->user()->type == 'admin') {
                 return redirect()->route('admin.addcar')->with('success6', "Car form 6 added successfully");
@@ -908,7 +916,6 @@ class CarController extends Controller
         }
     }
         
-    //Storecar8
     public function Storecar8(Request $request) {
 
         $carId = session('car_id');
@@ -937,7 +944,7 @@ class CarController extends Controller
 
                 $imagePaths = [];
                 foreach ($request->file($imageField) as $image) {
-                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); 
+                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
                     $image->move(public_path("images/{$type}_images"), $newImageName);
                     $imagePaths[] = "images/{$type}_images/{$newImageName}";
                 }
@@ -964,8 +971,7 @@ class CarController extends Controller
             }
         }
     }
-    
-    //Storecar9
+
     public function Storecar9(Request $request){
 
         $carId = session('car_id');
@@ -1021,8 +1027,7 @@ class CarController extends Controller
             }
         }
     }
-    
-    //storecar10
+
     public function Storecar10(Request $request){
 
         $carId = session('car_id');
@@ -1035,7 +1040,7 @@ class CarController extends Controller
             //     return redirect()->route('admin.addcar', ['step' => $request->step])->withErrors($validator)->withInput();
             // }
             
-            // engine bay undercarriage image
+            // engine bay undercarriage img
         $imageTypes = [
             'section_title_engine_bay_undercarriage' => 'engine_bay_undercarriage_images',
         ];
@@ -1050,7 +1055,7 @@ class CarController extends Controller
 
                 $imagePaths = [];
                 foreach ($request->file($imageField) as $image) {
-                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); //Generate a image name
+                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
                     $image->move(public_path("images/{$type}_images"), $newImageName);
                     $imagePaths[] = "images/{$type}_images/{$newImageName}";
                 }
@@ -1077,8 +1082,7 @@ class CarController extends Controller
             }
         }
     }
-    
-    //storecarform10electric
+
     public function Storecarform10electric(Request $request){
 
         $carId = session('car_id');
@@ -1124,8 +1128,7 @@ class CarController extends Controller
             }
         }
     }
-    
-    // storecar11
+
     public function Storecar11(Request $request){
             
         $carId = session('car_id');
@@ -1152,7 +1155,7 @@ class CarController extends Controller
     
                 $imagePaths = [];
                 foreach ($request->file($imageField) as $image) {
-                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); //Generate a unique name
+                    $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
                     $image->move(public_path("images/{$type}_images"), $newImageName);
                     $imagePaths[] = "images/{$type}_images/{$newImageName}";
                 }
@@ -1178,8 +1181,7 @@ class CarController extends Controller
             }
         }
     }
-    
-    //storecar13
+
     public function Storecar13(Request $request){
 
          $carId = session('car_id');
@@ -1284,7 +1286,6 @@ class CarController extends Controller
         }
     }
         
-    //Storecar14
     public function Storecar14(Request $request){
      
         $carId = session('car_id');
@@ -1328,7 +1329,7 @@ class CarController extends Controller
     
                     $imagePaths = [];
                     foreach ($request->file($imageField) as $image) {
-                        $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); 
+                        $newImageName = "{$type}_image_" . uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique image name
                         $image->move(public_path("images/{$type}_images"), $newImageName);
                         $imagePaths[] = "images/{$type}_images/{$newImageName}";
                     }
@@ -1355,8 +1356,7 @@ class CarController extends Controller
             }
         }
     }
-     
-    //storecar 15  
+       
     public function Storecar15(Request $request){
         
         $carId = session('car_id');
@@ -1368,7 +1368,6 @@ class CarController extends Controller
             //     return redirect()->route('admin.addcar', ['step' => $request->step])->withErrors($validator)->withInput();
             // }
             //frunktrnk img
-            
         $imageTypes = [
             'section_title_frunk_trunk' => 'frunk_trunk_images',
         ];
@@ -1412,7 +1411,6 @@ class CarController extends Controller
         }
     }
     
-    //storecarend
     public function StorecarEnd(Request $request) {
         $carId = session('car_id');
             
@@ -1431,7 +1429,9 @@ class CarController extends Controller
             //   'buy_now' => $request->buy_now,
             //   'estimated_market_value' => $request->estimated_market_value,
             //   'reserve_price' => $request->reserve_price,
-          
+             
+              'warranty_cost' => $request->warranty_cost,
+              'warranty_period' => $request->warranty_period,  
 
               'air_conditioner' => $request->air_conditioner,
               'digital_odometer' => $request->digital_odometer,
@@ -1470,7 +1470,6 @@ class CarController extends Controller
         }
     }
         
-    //batterystore
     public function BatteryStore(Request $request){
      
         $carId = session('car_id');
@@ -1481,7 +1480,6 @@ class CarController extends Controller
         ]);
     }
 
-    //deleteimage
     public function deleteImage(Request $request)
     {
         // Retrieve the section title, image URL, and image ID from the request
@@ -1528,12 +1526,13 @@ class CarController extends Controller
 
     public function DeleteCar($car_id){
 
+        // dd($car_id);
         $car = Car::find($car_id);
+    
         if (!$car) {
             return "Car not found";
         }
-        
-        // delete image from car media tbl
+
         $carMedia = CarMedia::where('car_id', $car_id)->get();
         foreach ($carMedia as $media) {
             // Get the image path
@@ -1545,30 +1544,14 @@ class CarController extends Controller
                 }
             }
         }
-        
-        //delete and unlink image from chassis perfect tbl
-        
-           $chassisPerfectRecords = CarChassisPerfect::where('car_id', $car_id)->get();
-             foreach ($chassisPerfectRecords as $record) {
-            
-                $imagePath = $record->image;
-                if ($imagePath && file_exists(public_path($imagePath))) {
-                    unlink(public_path($imagePath));
-                }
-            }
-    
         //delete record from carmedia 
         CarMedia::where('car_id', $car_id)->delete();
 
         //delete record from carbrakesystem
         CarBrakeSystem::where('car_id', $car_id)->delete();
-        
-        CarChassisPerfect::where('car_id',$car_id)->delete();
-        
-         Booking::where('car_id',$car_id)->delete();
-          
+    
+        // Delete the car
         $deleted = $car->delete();
-        
         if(auth()->check()) {
             if(auth()->user()->type == 'admin') {
                 if ($deleted) {
@@ -1584,48 +1567,41 @@ class CarController extends Controller
                 }
             }
         }
-    }
-    
-    //dashboard
-    public function Dashboard(){
         
-        return view('admin.admin_dashboard');
     }
 
-    //viewcar
-    public function ViewCar(){
-  
-        if (auth()->user()->type == 'admin') {
-            //if user is admin
-             $cars = Car::orderBy('created_at', 'desc')->get();
-             
-            //  dd($cars);
-            //  $cars = Car::all();
-            
-        } else {
-    
-            // If user is an inspector,fetch only the cars added by inspector
-            $cars = Car::where('user_id', auth()->user()->id)->latest('created_at')->get();
-        }
-        return view('admin.view_car',compact('cars'));
+    public function Dashboard(){
+        
+        return view('admin.admindashboard');
     }
-    
-    //inspectordasboard
+
+    public function ViewCar(){
+        // $cars = Car::all();
+        if (auth()->user()->type == 'admin') {
+            // If the user is an admin, fetch all cars
+            $cars = Car::all();
+        } else {
+            // If the user is not an admin (i.e., inspector), fetch only the cars added by inspectors
+            $cars = Car::where('user_id', auth()->user()->id)->get();
+        }
+
+        return view('admin.view_Car',compact('cars'));
+    }
+
     public function InspectorDashboard(){
         
-        return view('admin.inspector_dashboard');
+        return view('admin.inspectordashboard');
     }
-    
-    //addinspector
+
     public function AddInspector(){
 
         return view('admin.add_inspector');
     }
-    
-    //storeinspector
+
     public function StoreInspector(Request $request){
 
         $request->validate([
+
             'name' => 'required|string|regex:/^[^\d]+$/|max:255',
             'email' => 'required|email|unique:users,email', 
             'mobile_no' => 'required|string|regex:/^[0-9]{10}$/',
@@ -1643,18 +1619,17 @@ class CarController extends Controller
         $user->password = bcrypt($request->input('password'));
         $user->Type = 2; 
         $user->save();
-        
+
         return redirect()->route('admin.view_inspector')->with('success','Inspector added successfully');
     }
-    
-    //viewinspector
+
     public function ViewInspector(){
 
-        $inspectors = User::where('Type',2)->latest('created_at')->get();
+        $inspectors = User::where('Type',2)->get();
+     
         return view('admin.view_inspector',compact('inspectors'));
     }
 
-    //deleteinspector
     public function DeleteInspector($inspector_id){
 
         $user = User::find($inspector_id);
@@ -1662,57 +1637,44 @@ class CarController extends Controller
         return redirect()->route('admin.view_inspector')->with('success','Inspector Deleted successfully');
     }
     
-    //inspectorlogout
     public function InspectorLogout(){
     
         Auth::logout();
         return redirect()->route('login');
     }
 
-    //admin logout
-    public function AdminLogout(){
+    public function Logout(){
     
         Auth::logout();
         return redirect()->route('login');
     }
 
-    //Action form
+    //ction form
     public function Auction(Request $request){
     
-        $auctiontype = AuctionType::all();
-        $currencies = Currency::where('code','AED')->get();
-        $timezones =Timezone::all();
-    
         $car_id = $request->car_id;
-        $carauction = null;
+        $carauction = null;        
+
+
         if($car_id){
             $carauction= CarAuction::Where('car_id',$car_id)->first(); 
-        }
         
-         if(auth()->check()) { 
-            if(auth()->user()->type == 'admin') {
-              
-                  return view('admin.auction_form',compact('auctiontype','car_id','carauction','currencies','timezones'));
-                  
-            } elseif(auth()->user()->type == 'inspector') {
           
-                  return view('admin.auction_form',compact('auctiontype','car_id','carauction','currencies','timezones'));
-            }
         }
+        $auctiontype = AuctionType::all();
+        return view('admin.auction',compact('auctiontype','car_id','carauction'));
     }
-    
+
     public function StoreAuction(Request $request){
 
         $car_id = $request->car_id;
         $request->validate([
-
             'bid_start_price'=>'nullable|numeric',
             'estimated_repair_cost' => 'nullable|numeric',
             'estimated_market_value' => 'nullable|numeric',
             'buy_now_price' => 'nullable|numeric',
             'reserve_price' => 'nullable|numeric',
             'auction_date' => 'nullable|date',
-             'auction_end_date' => 'nullable|date',
             'service_cost'=> 'nullable|numeric',
             'vehicle_insurance_price'=>'nullable|numeric',
             'delivery_price'=>'nullable|numeric',
@@ -1721,29 +1683,20 @@ class CarController extends Controller
         ]);
         $existingcarauction = CarAuction::Where('car_id',$car_id)->first();
 
+     
+            // dd($existingcarauction);
         if ($existingcarauction) {
 
             $existingcarauction->update([
 
                 'auction_type_id' => $request->input('auction_type_id'),
                 'bid_start_price' => $request->input('bid_start_price'),
-                'bid_strt_curr' => $request->input('bid_strt_curr'),
                 'estimated_repair_cost' => $request->input('estimated_repair_cost'),
-                'esti_rep_cost_curr' => $request->input('esti_rep_cost_curr'),
                 'estimated_market_value' => $request->input('estimated_market_value'),
-                'esti_market_curr' => $request->input('esti_market_curr'),
                 'buy_now_price' => $request->input('buy_now_price'),
-                'buy_now_curr' => $request->input('buy_now_curr'),
                 'reserve_price' => $request->input('reserve_price'),
-                'reserve_curr' => $request->input('reserve_curr'),
                 'auction_lane' => $request->input('auction_lane'),
                 'auction_date' => $request->input('auction_date'),
-                'auction_end_date' => $request->input('auction_end_date'),
-                'auction_time' => $request->input('auction_time'),
-                'time_zone_id' => $request->input('time_zone_id'),
-                'auction_end_time' => $request->input('auction_end_time'),
-                'auction_end_time_zone_id' => $request->input('auction_end_time_zone_id'),
-                
                 'chassis_perfect' => $request->input('chassis_perfect'),
                 'gcc_specs' => $request->input('gcc_specs'),
                 'warranty_available' => $request->input('warranty_available'),
@@ -1766,62 +1719,47 @@ class CarController extends Controller
                 'front_wheel_drive' => $request->input('front_wheel_drive'),
                 'pick_up_by' => $request->input('pick_up_by'),
                 'service_cost' => $request->input('service_cost'),
-                'service_cost_curr' => $request->input('service_cost_curr'),
-                
                 'vehicle_insurance_price' => $request->input('vehicle_insurance_price'),
-                'veh_insurance_curr' => $request->input('veh_insurance_curr'),
-                
                 'delivery_price' => $request->input('delivery_price'),
-                'delivery_curr' => $request->input('delivery_curr'),
-                
-                'buy_back_guarantee_curr' => $request->input('buy_back_guarantee_curr'),
                 'buy_back_guarantee_cost' => $request->input('buy_back_guarantee_cost'),
-                
-                'buy_back_guarantee_month' => $request->input('buy_back_guarantee_month'),
-                'per_of_depreciation' => $request->input('per_of_depreciation'),
-                
-                'warranty_period' => $request->input('warranty_period'),
+            
             ]);
             
         }else{
             
-            //Lot no be of 5 character with added prefix as CA
+            // for generating lot no
             $prefix = 'CA';
-            $uniquePart = Str::random(5);
+            $uniquePart = Str::random(10);
             $lot_number = $prefix . $uniquePart;
             
 
-            //For generating Auction Lane
-            // $firstChar = chr(rand(65, 90));  
-            // $secondChar = chr(rand(65, 90)); 
-            // $numbers = rand(100, 999);      
 
-            // $get = $firstChar . $secondChar;
-            // $auction_lane = $get . $numbers ;
+
+            // for generating Auction lane
+            $firstChar = chr(rand(65, 90)); 
+            $secondChar = chr(rand(65, 90)); 
+            $numbers = rand(100, 999); 
+
+            $auction_lane = $firstChar . $secondChar . $numbers ;
+
+            //--------------------------
 
             $car_id = $request->car_id;
+
+            
 
             $carauction = new CarAuction();
             $carauction->car_id = $car_id;
             $carauction->auction_type_id = $request->input('auction_type_id');
             $carauction->bid_start_price = $request->input('bid_start_price');
-            $carauction->bid_strt_curr = $request->input('bid_strt_curr');
             $carauction->estimated_repair_cost = $request->input('estimated_repair_cost');
-            $carauction->esti_rep_cost_curr = $request->input('esti_rep_cost_curr');
             $carauction->estimated_market_value = $request->input('estimated_market_value');
-            $carauction->esti_market_curr = $request->input('esti_market_curr');
             $carauction->buy_now_price = $request->input('buy_now_price');
-            $carauction->buy_now_curr = $request->input('buy_now_curr');
             $carauction->reserve_price = $request->input('reserve_price');
-            $carauction->reserve_curr = $request->input('reserve_curr');
-            // $carauction->auction_lane = $auction_lane;
+            $carauction->auction_lane = $auction_lane;
             $carauction->lot_number =  $lot_number;
             $carauction->auction_date = $request->input('auction_date');
-            $carauction->auction_end_date = $request->input('auction_end_date');
-            $carauction->time_zone_id = $request->input('time_zone_id');
             $carauction->auction_time = $request->input('auction_time');
-            $carauction->auction_end_time = $request->input('auction_end_time');
-         
             $carauction->chassis_perfect = $request->input('chassis_perfect');
             $carauction->gcc_specs = $request->input('gcc_specs');
             $carauction->warranty_available = $request->input('warranty_available');
@@ -1843,99 +1781,32 @@ class CarController extends Controller
             $carauction->rear_wheel_drive = $request->input('rear_wheel_drive');
             $carauction->front_wheel_drive = $request->input('front_wheel_drive');
             $carauction->pick_up_by = $request->input('pick_up_by');
-     
+            $carauction->auction_lane = $auction_lane;
             $carauction->service_cost = $request->input('service_cost');
-            $carauction->service_cost_curr = $request->input('service_cost_curr');
-            
             $carauction->vehicle_insurance_price = $request->input('vehicle_insurance_price');
-            $carauction->veh_insurance_curr = $request->input('veh_insurance_curr');
-            
             $carauction->delivery_price = $request->input('delivery_price');
-            $carauction->delivery_curr = $request->input('delivery_curr');
-            
-            $carauction->buy_back_guarantee_curr = $request->input('buy_back_guarantee_curr');
             $carauction->buy_back_guarantee_cost = $request->input('buy_back_guarantee_cost');
             
-            $carauction->buy_back_guarantee_month = $request->input('buy_back_guarantee_month');
-            $carauction->per_of_depreciation = $request->input('per_of_depreciation');
-    
-            $carauction->warranty_period = $request->input('warranty_period');
-            
-            
-            // $carAuctionCount = CarAuction::count();
-            // $auctionLaneValue = intdiv($carAuctionCount, 50) + 1;
-    
-            // $carauction->auction_lane_value = $auctionLaneValue;
+                // $carcount = CarAuction::count();
+                // $carcount= 50;
+                // if ($carcount >= 50) {
+                //     $carauction->auction_lane_value = 1;
+                // }
+
+                $carAuctionCount = CarAuction::count();
+                // $carAuctionCount= 101;
+                // Calculate auction_lane_value
+                $auctionLaneValue = intdiv($carAuctionCount, 50) + 1;
+        
+                // Set the calculated auction_lane_value
+                $carauction->auction_lane_value = $auctionLaneValue;
 
             $carauction->save();            
         }
 
-      if(auth()->check()) { 
-            if(auth()->user()->type == 'admin') {
-              
-                  return redirect()->back()->with('success','Auction Form Added Successfully');
-                  
-            } elseif(auth()->user()->type == 'inspector') {
-          
-                  return redirect()->back()->with('success','Auction Form Added Successfully');
-            }
-        }
-    }
-
-    // status change
-    public function Statuschange(Request $request){
+       
+        return redirect()->back();
+        // return redirect()->route('admin.view_car')->with('success','Auction Added Successfully');
         
-        $car = Car::find($request->car_id);
-        if($car){
-            $car->status = $request->status;
-            $car->save();
-        }
-        return response()->json(['success'=>'Status Change Successfully.']);
-    }
-    
-    //updateStartTime
-    
-     public function updateStartTime(Request $request){
-         
-       $car = Car::findOrFail($request->car_id);
-        //   $car->quick_auction_start_time = $request->quick_auction_start_time;
-        
-        
-        $datetime = Carbon::parse($request->quick_auction_start_time);
-        $date = $datetime->toDateString(); // YYYY-MM-DD format
-        $time = $datetime->toTimeString(); // HH:MM:SS format
-
-        // Update the car's quick auction start date and time separately
-        $car->quick_auction_start_date = $date;
-        $car->quick_auction_start_time = $time;
-    
-       $car->save();    
-
-        // Return a JSON response indicating success
-        return response()->json(['success' => 'quick auction start_time updated successfully.']);
-    }
-    
-    public function updateTax(Request $request){
-        
-        $car_id = $request->car_id; 
-        $tax = $request->tax_added;
-        $car = Car::find($request->car_id);
-        if($car){
-            $car->tax_added = $request->tax_added;
-            $car->save();
-        }
-        return response()->json(['success'=>'Tax Added Successfully.']);
-    } 
-     
-    public function Chassisperfect(Request $request){
-
-        $car_id = $request->car_id;
-        return view('admin.chassis_perfect')->with('car_id', $car_id);
-    }
-
-    public function getImages()
-    {
-        $images = HoverImage::all();
-        return response()->json($images);
     }
 }

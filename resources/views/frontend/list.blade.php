@@ -291,10 +291,10 @@
                         <div class="inner-box redirect-details" data-car-id="{{ $car->id }}">
                             <div class="car-modal tag">MUV</div>
                             <div class="product-img-box">
-                               
+                                <!-- <img class="w-100" src="assets/images/product/product-5.png" alt=""> -->
 
                                      @php
-                                        $carMedia = $car->carMedia->where('type', 'thmnail')->first(); 
+                                        $carMedia = $car->carMedia->where('type', 'image_form1')->first(); 
                                     @endphp
 
                                     @if($carMedia && $carMedia->images)
@@ -302,11 +302,11 @@
                                             $imagePaths = explode(',', $carMedia->images);
                                         @endphp
                                         @foreach($imagePaths as $image)
-                                            <img class="w-100" src="{{ asset('public/' .$image) }}" alt="">
+                                            <img class="w-100" src="{{ asset($image) }}" alt="">
                                             @break 
                                         @endforeach
                                     @else
-                                        <!--<img class="w-100" src="{{ asset('frontend/assets/images/product/product-11.png') }}" alt="">-->
+                                        <img class="w-100" src="{{ asset('frontend/assets/images/product/product-11.png') }}" alt="">
                                     @endif
 
                                 <div class="car-value tag">Estimated Market Value: <span class="text-black">AED
@@ -314,91 +314,78 @@
                                 </div>
 
                             </div>
-    
-                            <div class="details">
-                                <div class="br-md-area">
-                                    <div class="brand-name">{{ $car->vehicleMake->name?? '' }}</div>
-                                    <div class="model-name">{{ $car->veh_car_model }}</div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                        <div class="one-two-c-it">
-                                                <div class="one-card-it">
-                                                    <div class="">
-                                                        <span class="d-flex align-items-center icon-box">
-                                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">{{ $car->veh_year ?? ''}} 
-                                                        </span>
-                                                    </div>
-                                                    <div class="">
-                                                        <span class="d-flex align-items-center icon-box">
-                                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">{{ $car->veh_mileage }}Km
-                                                        </span>
-                                                    </div>
-                                                    <div class="">
-                                                        <span class="d-flex align-items-center icon-box">
-                                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">{{ $car->title }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="two-card-it">
-                                                    <div class="">
-                                                        <span class="d-flex align-items-center icon-box">
-                                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}">{{ $car->vehicleregionalspec->name ?? '' }}
-                                                        </span>
-                                                    </div>
 
-                                                    <div class="">
-                                                        <span class="d-flex align-items-center icon-box">
-                                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> {{ $car->vehicleTransmission->name ?? '' }}
-                                                        </span>
-                                                    </div>
-                                                    <div class="">
-                                                        <span class="d-flex align-items-center icon-box">
-                                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}">{{ $car->vehicleNoOfCylinder->size ?? '' }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="details">
+                                <div class="model-name">{{ $car->veh_car_model }} {{ $car->id}}</div>
+                                <div class="brand-name">{{ $car->vehicleMake->name?? '' }}</div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span class="d-flex align-items-center icon-box">
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">{{ $car->veh_year ?? ''}} 
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="d-flex align-items-center icon-box">
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">{{ $car->veh_mileage }}Km
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="d-flex align-items-center icon-box">
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">{{ $car->title }}
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="d-flex align-items-center icon-box">
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}">{{ $car->vehicleregionalspec->name ?? '' }}
+                                        </span>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <span class="d-flex align-items-center icon-box">
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> {{ $car->vehicleTransmission->name ?? '' }}
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="d-flex align-items-center icon-box">
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}">{{ $car->vehicleNoOfCylinder->size ?? '' }}
+                                        </span>
+                                    </div>
+
+    
                                     <div class="col-12 m-auto">
                                         <div class="divider"> </div>
                                     </div>
-                                    
-                                    <div class="one-two-c-it mt-1 mb-1">
-                                         <div class="one-card-it cost-box">
+
+
+                                    <div class="col-6 cost-box">
                                         <div class="pri">Repair Cost:</div>
                                         <div class="amou d-flex justify-content-between">
                                             AED {{ $car->carAuction->estimated_repair_cost ?? '' }}
                                         </div>
                                     </div>
-                                    
-                                     <div class="two-card-it cost-box">
-                                        <div class="pri">Current Bid Price:</div>
-                                        <!--<div class="amou d-flex justify-content-between"  id="current_bid_price_{{ $car->id }}">-->
-                                          <div class="amou d-flex justify-content-between"  id="">
-                                         <span class="font-600"></span>
-                                         AED {{ $car->carAuction->current_bid_price ?? '' }}
-                                        </div>
-                                    </div>
-                                    </div>
+
                                     <!-- <div class="col-6 cost-box">
                                         <div class="pri">Current Bid Price:</div>
                                         <div class="amou d-flex justify-content-between">
                                             AED {{ $car->carAuction->current_bid_price ?? '' }}
                                         </div>
                                     </div> -->
-                                    
-                                    <div class="bt-combo">
-                                        <div class="bt-one">
+
+                                    <div class="col-6 cost-box">
+                                        <div class="pri">Current Bid Price:</div>
+                                        <div class="amou d-flex justify-content-between"  id="current_bid_price_{{ $car->id }}">
+                                         <span class="font-600"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-12">
                                         <a href="#" class="btn bid-btn">Bid Now</a>
                                     </div>
 
-                                    <div class="bt-two text-center">
-                                        <a href="#" class="ctm-link bn-btn btn"> Buy Now {{ $car->carAuction->buy_now_price ?? '' }}</a>
+                                    <div class="col-12 text-center">
+                                        <a href="#" class="ctm-link"> Buy Now {{ $car->carAuction->buy_now_price ?? '' }}</a>
 
-                                    </div>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -418,7 +405,7 @@
                 <div class="row px-0 mx-auto text-center mt-25 mb-25">
                     <div class="col-lg-5 mx-auto  d-flex justify-content-center">
 
-                        <button class="btn-load-more" id="loadMoreBtn"><i class="fa-solid fa-spinner"></i> &nbsp; More </button>
+                        <button class="btn-load-more"><i class="fa-solid fa-spinner"></i> &nbsp; More </button>
                     </div>
                 </div>
 
@@ -454,9 +441,9 @@
                 
                 
                     for (var i = 0; i < carauction.car.car_media.length; i++) {
-                        if (carauction.car.car_media[i].type === 'thmnail') {
+                        if (carauction.car.car_media[i].type === 'image_form1') {
                         var imagePaths = carauction.car.car_media[i].images.split(',');
-                        imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                        imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                         break;
                         }
                     }   
@@ -476,80 +463,59 @@
                             </div>
 
                     <div class="details">
-                        <div class="br-md-area">
-                            <div class="brand-name">${carauction.car.vehiclemake ? carauction.car.vehiclemake.name : ''}</div>
-                            <div class="model-name">${carauction.car ? carauction.car.veh_car_model : ''} </div>
-
-                        </div
-                    
+                        <div class="model-name">${carauction.car ? carauction.car.veh_car_model : ''} </div>
+                        <div class="brand-name">${carauction.car.vehiclemake ? carauction.car.vehiclemake.name : ''}</div>
                         <div class="row">
-                        
-                            <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
-                                <div class="one-two-c-it">
-                                    <div class="one-card-it">
-                                     <div class="">
+                            <div class="col-6">
                                 <span class="d-flex align-items-center icon-box">
                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">${carauction.car.veh_year ? carauction.car.veh_year:'' } 
                                 </span>
                             </div>
-                            <div class="">
+                            <div class="col-6">
                                 <span class="d-flex align-items-center icon-box">
                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">${carauction.car ? carauction.car.veh_mileage:'' }  KM
                                     
                                 </span>
                             </div>
-                            <div class="">
+                            <div class="col-6">
                                 <span class="d-flex align-items-center icon-box">
                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">${carauction.car.title ? carauction.car.title:'' } 
                                 </span>
                             </div>
-                                    
-                                    </div>
-                                    
-                                    <div class="two-card-it">
-                                    <div class="">
+                            <div class="col-6">
                                 <span class="d-flex align-items-center icon-box">
                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}">${carauction.car.vehicleregionalspec ? carauction.car.vehicleregionalspec.name : ''}  
                                 </span>
                             </div>
-                            <div class="">
+                            <div class="col-6">
                                 <span class="d-flex align-items-center icon-box">
                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> ${carauction.car.vehicletransmission ? carauction.car.vehicletransmission.name : ''}
                                 </span>
                             </div>
 
-                            <div class="">
+                            <div class="col-6">
                                 <span class="d-flex align-items-center icon-box">
                                     <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}"> ${carauction.car.vehiclenoofcylinder ? carauction.car.vehiclenoofcylinder.size : ''}
                                 </span>
                             </div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            
 
                             <div class="col-12 m-auto">
                                 <div class="divider"> </div>
                             </div>
-                            
-                             <div class="one-two-c-it mt-1 mb-1">
-                              <div class="one-card-it cost-box">
+
+                            <div class="col-6 cost-box">
                                 <div class="pri">Repair Cost:</div>
                                 <div class="amou d-flex justify-content-between">
                                     AED ${carauction ? carauction.estimated_repair_cost : ''}
                                 </div>
                             </div>
-                            <div class="two-card-it cost-box">
+
+                            <div class="col-6 cost-box">
                                 <div class="pri">Current Bid Price:</div>
                                 <div class="amou d-flex justify-content-between" id="current_bid_price_sticker_${ carauction.car.id }">
                                   
                                 </div>  
                             </div>
-                            
-                             
-                             </div>
 
                             <div class="col-12">
                                 <a href="#" class="btn bid-btn">Bid Now</a>
@@ -623,9 +589,9 @@
                 var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';
                 if (car.carmedia && car.carmedia.length > 0) {
                     for (var i = 0; i < car.carmedia.length; i++) {
-                        if (car.carmedia[i].type === 'thmnail') {
+                        if (car.carmedia[i].type === 'image_form1') {
                             var imagePaths = car.carmedia[i].images.split(',');
-                            imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                            imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                             break;
                         }
                     }   
@@ -645,89 +611,69 @@
                                 </div>
 
                         <div class="details">
-                         <div class="br-md-area">
-                         <div class="brand-name">${car.vehiclemake ? car.vehiclemake.name : ''}</div>
                             <div class="model-name">${car.veh_car_model ? car.veh_car_model : ''} </div>
-                            
-                         </div>
-                            
+                            <div class="brand-name">${car.vehiclemake ? car.vehiclemake.name : ''}</div>
                             <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                            <div class="one-two-c-it">
-                             <div class="one-card-it">
-                             <div class="">
+                                <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
                                         <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">${car.veh_year ?car.veh_year:'' } 
                                     </span>
                                 </div>
-                                <div class="">
+                                <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
                                         <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">${car.veh_mileage ?car.veh_mileage:'' }  KM
                                         
                                     </span>
                                 </div>
-                                <div class="">
+                                <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
                                         <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">${car.title ?car.title:'' } 
                                     </span>
                                 </div>
-                             </div>
-                             <div class="two-card-it">
-                             <div class="">
+                                <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
                                         <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}"> ${car.vehicleregionalspec ? car.vehicleregionalspec.name : ''}  
                                     </span>
                                 </div>
-                                <div class="">
+                                <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
                                         <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> ${car.vehicletransmission ? car.vehicletransmission.name : ''}
                                     </span>
                                 </div>
 
-                                <div class="">
+                                <div class="col-6">
                                     <span class="d-flex align-items-center icon-box">
                                         <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}"> ${car.vehiclenoofcylinder ? car.vehiclenoofcylinder.size : ''}
                                     </span>
-                                </div></div>
-                            </div>
-                            
-                            </div>
-                                
-                                
+                                </div>
 
                                 <div class="col-12 m-auto">
                                     <div class="divider"> </div>
                                 </div>
-                                
-                                 <div class="one-two-c-it mt-1 mb-1">
-                                  <div class="one-card-it cost-box">
+
+                                <div class="col-6 cost-box">
                                     <div class="pri">Repair Cost:</div>
                                     <div class="amou d-flex justify-content-between">
-                                        AED ${car.car_auction ? car.car_auction.estimated_repair_cost : ''}
+                                        AED ${car.carauction ? car.carauction.estimated_repair_cost : ''}
                                     </div>
                                 </div>
 
-                                <div class="two-card-it cost-box">
+                                <div class="col-6 cost-box">
                                     <div class="pri">Current Bid Price:</div>
                                     <div class="amou d-flex justify-content-between">
-                                        AED ${car.car_auction ? car.car_auction.current_bid_price : ''}
+                                        AED ${car.carauction ? car.carauction.current_bid_price : ''}
                                     </div>
                                 </div>
-                                 
-                                 </div>
 
-                               <div class="bt-combo">
-                               <div class="col-12">
+                                <div class="col-12">
                                     <a href="#" class="btn bid-btn">Bid Now</a>
                                 </div>
 
                                 <div class="col-12 text-center">
-                                    <a href="#" class="ctm-link bn-btn btn"> Buy Now ${car.car_auction ? car.car_auction.buy_now_price : ''}
+                                    <a href="#" class="ctm-link"> Buy Now ${car.carauction ? car.carauction.buy_now_price : ''}
                                         </a>
 
                                 </div>
-                               </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -788,9 +734,9 @@
                     var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';
                     if (car.carmedia && car.carmedia.length > 0) {
                         for (var i = 0; i < car.carmedia.length; i++) {
-                            if (car.carmedia[i].type === 'thmnail') {
+                            if (car.carmedia[i].type === 'image_form1') {
                                 var imagePaths = car.carmedia[i].images.split(',');
-                                imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                                imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                                 break;
                             }
                         }   
@@ -809,86 +755,69 @@
                                     </div>
 
                             <div class="details">
-                            <div class="br-md-area">
-                              <div class="brand-name">${car.vehiclemake ? car.vehiclemake.name : ''}</div>
                                 <div class="model-name">${car.veh_car_model ? car.veh_car_model : ''} </div>
-                            </div>
-                           
+                                <div class="brand-name">${car.vehiclemake ? car.vehiclemake.name : ''}</div>
                                 <div class="row">
-                                <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
-                                <div class="one-two-c-it">
-                                <div class="one-card-it">
-                                 <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">${car.veh_year ?car.veh_year:'' } 
                                         </span>
                                     </div>
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">${car.veh_mileage ?car.veh_mileage:'' }  KM
                                             
                                         </span>
                                     </div>
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">${car.title ?car.title:'' } 
                                         </span>
                                     </div>
-                                </div>
-                                <div class="one-card-it">
-                                <div class="">
+
+
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}"> ${car.vehicleregionalspec ? car.vehicleregionalspec.name : ''}  
                                         </span>
                                     </div>
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> ${car.vehicletransmission ? car.vehicletransmission.name : ''}
                                         </span>
                                     </div>
 
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
-                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}">${car.vehiclenoofcylinder ? car.vehiclenoofcylinder.size : ''}
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}"> ${car.vehiclenoofcylinder ? car.vehiclenoofcylinder.size : ''}
                                         </span>
                                     </div>
-                                </div>
-                                </div>
-                                
-                                </div>
-                                   
 
                                     <div class="col-12 m-auto">
                                         <div class="divider"> </div>
                                     </div>
-                                    
-                                     <div class="one-two-c-it mt-1 mb-1">
-                                     <div class="one-card-it cost-box">
+
+                                    <div class="col-6 cost-box">
                                         <div class="pri">Repair Cost:</div>
                                         <div class="amou d-flex justify-content-between">
                                             AED ${car.carauction ? car.carauction.estimated_repair_cost : ''}
                                         </div>
                                     </div>
 
-                                    <div class="two-card-it cost-box">
+                                    <div class="col-6 cost-box">
                                         <div class="pri">Current Bid Price:</div>
                                         <div class="amou d-flex justify-content-between">
                                             AED ${car.carauction ? car.carauction.current_bid_price : ''}
                                         </div>
                                     </div>
 
-                                      </div>
-                                      
-                                      <div class="bt-combo">
-                                       <div class="bt-one">
+                                    <div class="col-12">
                                         <a href="#" class="btn bid-btn">Bid Now</a>
-                                        </div>
+                                    </div>
 
-                                        <div class="bt-two text-center">
-                                        <a href="#" class="ctm-link bn-btn btn"> Buy Now ${car.carauction ? car.carauction.buy_now_price : ''}</a>
-                                        </div>
-                                      </div>
-                                   
+                                    <div class="col-12 text-center">
+                                        <a href="#" class="ctm-link"> Buy Now ${car.carauction ? car.carauction.buy_now_price : ''}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -944,9 +873,9 @@
                     if (carauction.car.car_media && carauction.car.car_media.length > 0) {
                     
                         for (var i = 0; i < carauction.car.car_media.length; i++) {
-                            if (carauction.car.car_media[i].type === 'thmnail') {
+                            if (carauction.car.car_media[i].type === 'image_form1') {
                             var imagePaths = carauction.car.car_media[i].images.split(',');
-                            imageUrl = '{{ asset('public/' .':imagePath') }}'.replace(':imagePath', imagePaths[0]);
+                            imageUrl = '{{ asset(':imagePath') }}'.replace(':imagePath', imagePaths[0]);
                             break;
                             }
                         }   
@@ -965,87 +894,67 @@
                                     </div>
 
                             <div class="details">
-                            <div class="br-md-area">
-                               <div class="brand-name">${carauction.car.vehiclemake ? carauction.car.vehiclemake.name : ''}</div>
                                 <div class="model-name">${carauction.car.veh_car_model ? carauction.car.veh_car_model : ''} </div>
-                            </div>
-                         
-                                
+                                <div class="brand-name">${carauction.car.vehiclemake ? carauction.car.vehiclemake.name : ''}</div>
                                 <div class="row">
-                                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                <div class="one-two-c-it">
-                                <div class="one-card-it">
-                                <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">${carauction.car.veh_year ?carauction.car.veh_year:'' } 
                                         </span>
                                     </div>
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">${carauction.car.veh_mileage ?carauction.car.veh_mileage:'' }  KM
                                             
                                         </span>
                                     </div>
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">${carauction.car.title ?carauction.car.title:'' } 
                                         </span>
                                     </div>
-                                </div>
-                                 <div class="two-card-it">
-                                 <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}"> ${carauction.car.vehicleregionalspec ? carauction.car.vehicleregionalspec.name : ''} 
                                         </span>
                                     </div>
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
-                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}">${carauction.car.vehicletransmission ? carauction.car.vehicletransmission.name : ''}
+                                            <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> ${carauction.car.vehicletransmission ? carauction.car.vehicletransmission.name : ''}
                                         </span>
                                     </div>
 
-                                    <div class="">
+                                    <div class="col-6">
                                         <span class="d-flex align-items-center icon-box">
                                             <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}"> ${carauction.car.vehiclenoofcylinder ? carauction.car.vehiclenoofcylinder.size : ''}
                                         </span>
                                     </div>
-                                 </div>
-                                </div>
-                                </div>
-                                    
-                                    
 
                                     <div class="col-12 m-auto">
                                         <div class="divider"> </div>
                                     </div>
-                                    
-                                     <div class="one-two-c-it mt-1 mb-1">
-                                      <div class="one-card-it cost-box">
+
+                                    <div class="col-6 cost-box">
                                         <div class="pri">Repair Cost:</div>
                                         <div class="amou d-flex justify-content-between">
                                             AED ${carauction ? carauction.estimated_repair_cost : ''}
                                         </div>
                                     </div>
 
-                                    <div class="two-card-it cost-box">
+                                    <div class="col-6 cost-box">
                                         <div class="pri">Current Bid Price:</div>
                                         <div class="amou d-flex justify-content-between">
                                             AED ${carauction ? carauction.current_bid_price : ''}
                                         </div>
                                     </div>
-                                     </div>
-                                   
-                                   
-                                    <div class="bt-combo">
-                                    <div class="bt-one">
+
+                                    <div class="col-12">
                                         <a href="#" class="btn bid-btn">Bid Now</a>
                                     </div>
 
-                                    <div class="bt-two text-center">
-                                        <a href="#" class="ctm-link bn-btn btn"> Buy Now ${carauction ? carauction.buy_now_price : ''}</a>
+                                    <div class="col-12 text-center">
+                                        <a href="#" class="ctm-link"> Buy Now ${carauction ? carauction.buy_now_price : ''}</a>
                                     </div>
-                                    </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -1085,7 +994,7 @@
                     },
                     success: function(response) {
                         // Handle success response here
-                       
+                        // alert(response);
                         var updatedBidPrice = response.current_bid_price;
                 var bidStartPrice = response.bid_start_price;
                
@@ -1143,153 +1052,7 @@
         });
 
     </script>
-        <!--load more btton-->
-<script>
-$(document).ready(function() {
-    var lastCarId = null;
-    
-    $('#loadMoreBtn').click(function() {
-        loadMoreCars();
-    });
-
-    function loadMoreCars() {
-        lastCarId = $('.inner-box:last').data('car-id'); // Update this to match your HTML structure
-
-        $.ajax({
-            url: "{{ route('list.load-more-cars') }}",
-            type: 'GET',
-            data: { lastCarId: lastCarId },
-            success: function(response) {
-                if (response.loadmore && response.loadmore.length > 0) {
-                    $.each(response.loadmore, function(index, car) {
-                        var imageUrl = '{{ asset("frontend/assets/images/product/product-11.png") }}';
-                        if (car.car_media && car.car_media.length > 0) {
-                            for (var i = 0; i < car.car_media.length; i++) {
-                                if (car.car_media[i].type === 'thmnail') {
-                                    var imagePaths = car.car_media[i].images.split(',');
-                                    imageUrl = '{{ asset('public/' . ':imagePath') }}'.replace(':imagePath', imagePaths[0]);
-                                    break;
-                                }
-                            }
-                        }
-
-                        var carHtml = `
-                            <div class="col-lg-4 col-md-6 mt-25 position-relative">
-                                <div class="inner-box redirect-details car-item" data-car-id="${car.id}">
-                                    <div class="car-modal tag">MUV</div>
-                                    <div class="product-img-box">
-                                        <img class="w-100" src="${imageUrl}" alt="">
-                                        <div class="car-value tag">Estimated Market Value: <span class="text-black">AED
-                                            ${car.car_auction ? car.car_auction.estimated_market_value : ''}</span>
-                                        </div>
-                                    </div>
-                                    <div class="details">
-                                    <div class="br-md-area">
-                                    <div class="brand-name">${car.vehiclemake ? car.vehiclemake.name : ''}</div>
-                                     <div class="model-name">${car.veh_car_model ? car.veh_car_model : ''} </div>
-                                        
-                                    </div>
-                                       
-                                        <div class="row">
-                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                         <div class="one-two-c-it">
-                                          <div class="one-card-it">
-                                           <div class="">
-                                                <span class="d-flex align-items-center icon-box">
-                                                    <img class="ico" src="{{ asset('frontend/assets/images/icon/calander-icon.svg')}}">${car.veh_year ? car.veh_year : ''} 
-                                                </span>
-                                            </div>
-                                            <div class="">
-                                                <span class="d-flex align-items-center icon-box">
-                                                    <img class="ico" src="{{ asset('frontend/assets/images/icon/meter-icon.svg')}}">${car.veh_mileage ? car.veh_mileage : ''}  KM
-                                                </span>
-                                            </div>
-                                            <div class="">
-                                                <span class="d-flex align-items-center icon-box">
-                                                    <img class="ico" src="{{ asset('frontend/assets/images/icon/note-icon.svg')}}">${car.title ? car.title : ''} 
-                                                </span>
-                                            </div>
-                                          
-                                          </div>
-                                          <div class="two-card-it">
-                                          <div class="">
-                                                <span class="d-flex align-items-center icon-box">
-                                                    <img class="ico" src="{{ asset('frontend/assets/images/icon/location-icon.svg')}}"> ${car.vehicleregionalspec ? car.vehicleregionalspec.name : ''}  
-                                                </span>
-                                            </div>
-                                            <div class="">
-                                                <span class="d-flex align-items-center icon-box">
-                                                    <img class="ico" src="{{ asset('frontend/assets/images/icon/gear-icon.svg')}}"> ${car.vehicletransmission ? car.vehicletransmission.name : ''}
-                                                </span>
-                                            </div>
-                                            <div class="">
-                                                <span class="d-flex align-items-center icon-box">
-                                                    <img class="ico" src="{{ asset('frontend/assets/images/icon/cyclnder-icon.svg')}}">${car.vehiclenoofcylinder ? car.vehiclenoofcylinder.size : ''}
-                                                </span>
-                                            </div>
-                                          
-                                          </div>
-                                         </div>
-                                        
-                                        </div>
-                                           
-                                            
-                                            <div class="col-12 m-auto">
-                                                <div class="divider"> </div>
-                                            </div>
-                                            
-                                            <div class="one-two-c-it mt-1 mb-1">
-                                            <div class="one-card-it cost-box">
-                                                <div class="pri">Repair Cost:</div>
-                                                <div class="amou d-flex justify-content-between">
-                                                    AED ${car.car_auction ? car.car_auction.estimated_repair_cost : ''}
-                                                </div>
-                                            </div>
-                                            <div class="two-card-it cost-box">
-                                                <div class="pri">Current Bid Price:</div>
-                                                <div class="amou d-flex justify-content-between">
-                                                    AED ${car.car_auction ? car.car_auction.current_bid_price : ''}
-                                                </div>
-                                            </div>
-                                            
-                                            </div>
-                                            
-                                            <div class="bt-combo">
-                                            <div class="bt-one">
-                                                <a href="#" class="btn bid-btn">Bid Now</a>
-                                            </div>
-                                            <div class="bt-two text-center">
-                                                <a href="#" class="ctm-link  bn-btn btn"> Buy Now ${car.carauction ? car.carauction.buy_now_price : ''}</a>
-                                            </div>
-                                            
-                                            <div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="like-car">
-                                    <div class="form-check">
-                                        <input type="checkbox" id="customCheckbox-13" class="custom-checkbox form-check-input">
-                                        <label for="customCheckbox-13" class="form-check-label"></label>
-                                    </div>
-                                </div>
-                            </div>`;
-                        
-                        $('#carListing').append(carHtml);
-                    });
-                    
-                    lastCarId = response.loadmore[response.loadmore.length - 1].id; // Update lastCarId
-                
-                } else {
-                    $('#loadMoreBtn').hide();
-                }
-            }
-        });
-    }
-});
-</script>
-
-
+        
 
 
 @endsection

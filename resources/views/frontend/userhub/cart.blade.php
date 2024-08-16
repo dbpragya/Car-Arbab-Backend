@@ -4,7 +4,7 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('user.home') }}" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="#">Cart</a></li>
                 </ol>
             </nav>
@@ -26,8 +26,10 @@
                                 <div class="col-lg-3">
                                     <div class="cart-car-img">
 
+
+
                                     @php
-                                    $carMedia = $cartinfo->carMedia->where('type', 'thmnail')->first(); 
+                                    $carMedia = $cartinfo->carMedia->where('type', 'image_form1')->first(); 
                                     @endphp
 
                                     @php
@@ -39,7 +41,7 @@
                                     @endphp
  
                                         @if($latestImagePath)
-                                            <img src="{{ asset('public/' .$latestImagePath) }}" alt="">
+                                            <img src="{{ asset($latestImagePath) }}" alt="">
                                         @else
                                             <img src="{{ asset('frontend/assets/images/product/product-11.png') }}" >
                                         @endif
@@ -53,15 +55,15 @@
                                         {{ $cartinfo->veh_car_model }}
                                         </div>
                                         <div class="p pt-0">
-                                             {{ $cartinfo->trimdata }}
+                                            3.5 D5 PowerPulse Momentum 5dr AWD Geartronic Estate
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="d-flex flex-column justify-content-center h-100 align-items-end pr-30">
                                         <h5 class="font-20 header-cart-price">
-                                         {{ $cartinfo->carAuction->buyCurrency->code ?? '' }}
-                                         {{ $cartinfo->carAuction->buy_now_price ?? '' }}
+                                       
+                                        {{ $cartinfo->carAuction->buy_now_price ?? '' }}
                                         <input type="hidden" id="car_id" name="car_id" value="{{ $car_id }}">
                                         <input type="hidden" id="user_id" name="user_id" value="{{ $user_id }}">  
                                         </h5>
@@ -94,8 +96,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="service-prise">
-                                         {{ $cartinfo->carAuction->RepairCostCurrency->code ?? '' }}
-                                         {{ $cartinfo->carAuction->estimated_repair_cost ?? '' }}
+                                        AED  {{ $cartinfo->carAuction->estimated_repair_cost ?? '' }}
                                     </div>
                                 </div>
                             </div>
@@ -141,8 +142,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="service-prise">
-                                         {{ $cartinfo->carAuction->ServiceCostCurrency->code ?? '' }}
-                                          {{ $cartinfo->carAuction->service_cost ?? '' }}
+                                        AED  {{ $cartinfo->carAuction->service_cost ?? '' }}
                                     </div>
                                 </div>
                             </div>
@@ -162,8 +162,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="service-prise">
-                                          {{ $cartinfo->carAuction->InsuranceCurrency->code ?? '' }}
-                                          {{ $cartinfo->carAuction->vehicle_insurance_price ?? '' }}
+                                      AED  {{ $cartinfo->carAuction->vehicle_insurance_price ?? '' }}
                                     </div>
                                 </div>
                             </div>
@@ -181,12 +180,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="service-prise">
-                                         @if($cartinfo->carAuction->delivery_price != 0)
-                                            {{ $cartinfo->carAuction->DeliverCurrency->code ?? '' }} {{ $cartinfo->carAuction->delivery_price }}
-                                        @else
-                                            Free
-                                        @endif
-
+                                          AED  {{ $cartinfo->carAuction->delivery_price ?? '' }}
                                     </div>
                                 </div>
                             </div>
@@ -202,12 +196,12 @@
                                     </div>
 
                                     <div class="service-desc">
-                                       <img src="{{ asset('frontend/assets/images/icon/checkmark.svg')}}" class="ms-2"/> We Buy Back the Car for {{ $cartinfo->carAuction->per_of_depreciation ?? '' }} % Depreciation only in the first {{ $cartinfo->carAuction->buy_back_guarantee_month ?? '' }} Months.
+                                       <img src="{{ asset('frontend/assets/images/icon/checkmark.svg')}}" class="ms-2"/> We Buy Back the Car for 10% Depreciation only in the first 12 Months.
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="service-prise">
-                                         {{ $cartinfo->carAuction->BuyBackCurrency->code ?? '' }} {{ $cartinfo->carAuction->buy_back_guarantee_cost ?? '' }}
+                                        AED {{ $cartinfo->carAuction->buy_back_guarantee_cost ?? '' }}
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +221,7 @@
                                 Subtotal
                             </div>
                             <div class="service-prise">
-                              {{ $cartinfo->carAuction->buyCurrency->code ?? '' }}  {{ $cartinfo->carAuction->buy_now_price ?? '' }}
+                            AED  {{ $cartinfo->carAuction->buy_now_price ?? '' }}
                             </div>
                         </div>
 
@@ -238,7 +232,7 @@
                                         Repair Service
                                     </div>
                                     <div class="service-prise">
-                                         {{ $cartinfo->carAuction->RepairCostCurrency->code ?? '' }}  <span id="EstimatedRepairPrice"></span>
+                                        AED  <span id="EstimatedRepairPrice"></span>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +243,7 @@
                                     Service Charge
                                     </div>
                                     <div class="service-prise">
-                                     {{ $cartinfo->carAuction->ServiceCostCurrency->code ?? '' }}  <span id="ServicePrice"></span>
+                                    AED  <span id="ServicePrice"></span>
                                     </div>
                                 </div>
                             </div>
@@ -261,7 +255,7 @@
                                     </div>
                                     <div class="service-prise">
                                        
-                                       {{ $cartinfo->carAuction->InsuranceCurrency->code ?? '' }}  <span id="InsurancePrice"></span>
+                                      AED  <span id="InsurancePrice"></span>
 
                                     </div>
                                 </div>
@@ -269,17 +263,17 @@
                       
 
                        
-                            <div id="deliveryService" class="d-none">    
-                              <div class="d-flex justify-content-between" >
-                                    <div class="service-desc p-0">
-                                    Delivery Service
-                                    </div>
-                                    <div class="service-prise">
-                                        
-                                         <span id="deliveryPrice"></span>
-                                    </div>
+                        <div id="deliveryService" class="d-none">    
+                          <div class="d-flex justify-content-between" >
+                                <div class="service-desc p-0">
+                                Delivery Service
+                                </div>
+                                <div class="service-prise">
+                                    
+                                    AED <span id="deliveryPrice"></span>
                                 </div>
                             </div>
+                        </div>
 
                         
                         <div id="buyBackGuarantee" class="d-none"> 
@@ -288,20 +282,21 @@
                                     Buy Back Guarantee
                                 </div>
                                 <div class="service-prise">
-                                     {{ $cartinfo->carAuction->BuyBackCurrency->code ?? '' }} <span id="buyBackGuaranteePrice"></span>
+                                     AED <span id="buyBackGuaranteePrice"></span>
                            
+                                 
                                 </div>
                                 </div>
                             </div>
                         </div>
                      
 
-                        <div id="" class="d-flex justify-content-between border-card-order">
+                        <div class="d-flex justify-content-between border-card-order">
                             <div class="service-desc p-0">
-                                Value Added Tax  ({{ $tax->tax_added ?? '' }}%)
+                                Value Added Tax (5%)
                             </div>
-                            <div class="service-prise" id="tax_added">
-                             
+                            <div class="service-prise">
+                                AED 
                             </div>
                         </div>
 
@@ -325,6 +320,7 @@
 
 
     <!-- cart page--->
+
  <script>
         $(document).ready(function() {
     // Function to update service display
@@ -346,6 +342,7 @@
             $('#buyBackGuaranteePrice').text(response.car.car_auction.buy_back_guarantee_cost);
         }else{
             $('#buyBackGuarantee').addClass('d-none');
+
         }
 
         if (response.vehicle_insurance_price == 1 && response.car.car_auction.vehicle_insurance_price) {
@@ -355,12 +352,14 @@
             $('#InsuranceService').addClass('d-none');
         }
 
+       
         if (response.estimated_repair_cost == 1 && response.car.car_auction.estimated_repair_cost) {
             $('#EstimatedRepairCost').removeClass('d-none');
             $('#EstimatedRepairPrice').text(response.car.car_auction.estimated_repair_cost);
         } else {
-            $('#EstimatedRepairCost').addClass('d-none'); 
+            $('#EstimatedRepairCost').addClass('d-none'); // Hide repair service container if not available
         }
+
 
         if (response.service_cost == 1 && response.car.car_auction.service_cost) {
             $('#ServiceCharge').removeClass('d-none');
@@ -387,14 +386,13 @@
                 success: function(response) {
                     // Handle success response
                     updateCartData(); 
-                    console.log('update Service successfully');
                 },
                 error: function(error) {
-                   console.log('Error');
+                    // Handle error response
                 }
             });
         } else {
-            // If the service is unchecked, remove it from the database
+          
             $.ajax({
                 type: 'POST',
                 url: '{{ route('user.remove_car_service') }}',
@@ -407,11 +405,12 @@
                 success: function(response) {
                     
                     updateCartData(); 
-                  console.log('remove service');
+                    // updateTotalAmount(response);
+                    // alert(updateTotalAmount);
                 },
 
                 error: function(error) {
-                   console.log('error');
+                    // Handle error response
                 }
             });
         }
@@ -442,36 +441,84 @@
     }
 
     //amont pdate with checked nchecked catergories
-    function updateTotalAmount() {
-        var carId = $('#car_id').val();
-        var userId = $('#user_id').val();
-        var totalCost = parseFloat('{{ $cartinfo->carAuction->buy_now_price ?? 0 }}');
-        var Tax = parseFloat('{{ $tax->tax_added ?? 0 }}');
-        var TotalTax = (totalCost * (Tax / 100));
-        
-        document.querySelector('#tax_added').textContent = TotalTax;
-    
-        // Extract the costs of checked services
-        var deliveryPrice = $('#deliveryService').hasClass('d-none') ? 0 : parseFloat($('#deliveryPrice').text().replace(',', ''));
-        var buyBackGuaranteePrice = $('#buyBackGuarantee').hasClass('d-none') ? 0 : parseFloat($('#buyBackGuaranteePrice').text().replace(',', ''));
-        var insurancePrice = $('#InsuranceService').hasClass('d-none') ? 0 : parseFloat($('#InsurancePrice').text().replace(',', ''));
-        var estimatedRepairPrice = $('#EstimatedRepairCost').hasClass('d-none') ? 0 : parseFloat($('#EstimatedRepairPrice').text().replace(',', ''));
-        var servicePrice = $('#ServiceCharge').hasClass('d-none') ? 0 : parseFloat($('#ServicePrice').text().replace(',', ''));
-    
-        // Add the costs of checked services to the total
-        totalCost += deliveryPrice + buyBackGuaranteePrice + insurancePrice + estimatedRepairPrice + servicePrice + TotalTax;
-    
-        // Update total amount display
-        $('#totalAmount').text('AED ' + numberWithCommas(totalCost));
-    
-        // Construct checkout URL
-        var checkoutUrl = "{{ route('user.checkout') }}";
-        checkoutUrl += "?car_id=" + carId + "&user_id=" + userId + "&total_amount=" + totalCost;
-    
-        // Set href attribute of checkout button with constructed checkout URL
-        $('#checkoutBtn').attr('href', checkoutUrl);
-    }
+    function updateTotalAmount(response) {
+            var carId = $('#car_id').val();
+            var userId = $('#user_id').val();
+            // alert(carId);
+            // alert(userId);
+            
+            var totalCost = 0;
 
+            // Add the buy now price to the total cost
+            totalCost += parseFloat('{{ $cartinfo->carAuction->buy_now_price ?? 0 }}');
+        
+     
+            var deliveryPrice = parseFloat($('#deliveryPrice').text().replace(',', ''));
+            var buyBackGuaranteePrice = parseFloat($('#buyBackGuaranteePrice').text().replace(',', ''));
+            var insurancePrice = parseFloat($('#InsurancePrice').text().replace(',', ''));
+            var estimatedRepairPrice = parseFloat($('#EstimatedRepairPrice').text().replace(',', ''));
+            var servicePrice = parseFloat($('#ServicePrice').text().replace(',', ''));
+
+            // Log the extracted values
+            console.log("Delivery Price:", deliveryPrice);
+            console.log("Buy Back Guarantee Price:", buyBackGuaranteePrice);
+            console.log("Insurance Price:", insurancePrice);
+            console.log("Estimated Repair Price:", estimatedRepairPrice);
+            console.log("Service Price:", servicePrice);
+
+            // Add the valid costs to the total
+            if (!isNaN(deliveryPrice)) totalCost += deliveryPrice;
+            if (!isNaN(buyBackGuaranteePrice)) totalCost += buyBackGuaranteePrice;
+            if (!isNaN(insurancePrice)) totalCost += insurancePrice;
+            if (!isNaN(estimatedRepairPrice)) totalCost += estimatedRepairPrice;
+            if (!isNaN(servicePrice)) totalCost += servicePrice;
+            
+        //  alert(totalCost);
+            // for nchecked elements
+        
+            var deliveryUnchecked = !$('#deliveryService').hasClass('d-none');
+            var buyBackGuaranteeUnchecked = !$('#buyBackGuarantee').hasClass('d-none');
+            var insuranceUnchecked = !$('#InsuranceService').hasClass('d-none');
+            var estimatedRepairUnchecked = !$('#EstimatedRepairCost').hasClass('d-none');
+            var serviceUnchecked = !$('#ServiceCharge').hasClass('d-none');
+
+            //    alert(totalCost);
+            if (!deliveryUnchecked && response.car.car_auction.delivery_price) {
+                totalCost -= parseFloat(response.car.car_auction.delivery_price);
+            }
+
+            if (!buyBackGuaranteeUnchecked && response.car.car_auction.buy_back_guarantee_cost) {
+                totalCost -= parseFloat(response.car.car_auction.buy_back_guarantee_cost);
+            }
+
+            
+            if (!insuranceUnchecked && response.car.car_auction.vehicle_insurance_price) {
+                totalCost -= parseFloat(response.car.car_auction.vehicle_insurance_price);
+            }
+
+            if (!estimatedRepairUnchecked && response.car.car_auction.estimated_repair_cost) {
+                totalCost -= parseFloat(response.car.car_auction.estimated_repair_cost);
+            }
+    //  alert(totalCost)
+            if (!serviceUnchecked && response.car.car_auction.service_cost) {
+                totalCost -= parseFloat(response.car.car_auction.service_cost);
+            }
+
+            // alert(totalCost);
+            // Update total amount display
+            $('#totalAmount').text('AED ' + numberWithCommas(totalCost));
+
+
+            var checkoutUrl = "{{ route('user.checkout') }}";
+            checkoutUrl += "?car_id=" + carId + "&user_id=" + userId + "&total_amount=" + totalCost;
+    
+            // Set href attribute of checkout button with constructed checkout URL
+            $('#checkoutBtn').attr('href', checkoutUrl);
+
+
+            // $('#checkoutBtn').attr('href', "{{ route('user.checkout', ['total_amount' => '']) }}?car_id=" + carId + "&user_id=" + userId + "&total_amount=" + totalCost);
+            // $('#checkoutBtn').attr('href', "{{ route('user.checkout', ['total_amount' => '']) }}?car_id={{ $car_id }}&user_id={{ $user_id }}&total_amount=" + totalCost);
+        }
 
 
     // Initial call to fetch cart data
@@ -484,8 +531,6 @@
         var serviceName = $(this).attr('name');
         var isChecked = $(this).prop('checked');
         updateOrRemoveService(serviceName, isChecked);
-        
-        updateTotalAmount();
         });
     });
 

@@ -5168,8 +5168,6 @@ span.flatpickr-weekday {
     background-size: 60%;
     background-position: center center;
 }
-
-
 @media (max-width:1200px) {
     .app-error .app-error-info {
     width: 100%;

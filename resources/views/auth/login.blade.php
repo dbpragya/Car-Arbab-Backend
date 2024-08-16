@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <style>
     .error-message {
@@ -30,7 +31,9 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             </div>
+            
                         </div>
+                       
 
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
@@ -45,11 +48,10 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <br>
-                        <div class="text-center error-message">
+                        <div class="error-message">
                             {{ $errors->first('email') }}
                         </div>
+
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">

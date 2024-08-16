@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 
+
     <!-- Styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,11 +20,7 @@
     <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/perfectscroll/perfect-scrollbar.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/pace/pace.css')}}" rel="stylesheet">
-    <!--<link href="{{ asset('assets/plugins/datatables/datatables.min.css')}}" rel="stylesheet">-->
-    
-    <!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>-->
-    <!--   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">-->
-       
+    <link href="{{ asset('assets/plugins/datatables/datatables.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/plugins/flatpickr/flatpickr.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css">
 
@@ -34,13 +31,5 @@
     <link href="{{ asset('assets/css/main.min.css')}} " rel="stylesheet">
     <link href="{{ asset('assets/css/custom.css')}} " rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/rentaly.png')}}"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/rentaly.png') }}"/>
-    
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    
-    
-    
-      <!--datatables--->
-     
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/rentaly.png')}}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/rentaly.png" />

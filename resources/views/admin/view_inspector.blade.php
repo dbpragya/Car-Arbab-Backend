@@ -1,12 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-<!-- for filtering data-->
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    <!-- jQuery -->
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- DataTables JS -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <style>
     .tyres-table th, td {
     vertical-align: middle;
@@ -24,6 +17,7 @@
 }
 
 </style>
+
 <div class="content-wrapper">
     <div class="container">
         <div class="row">
@@ -61,20 +55,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($inspectors  as $index => $inspector)
+                                @foreach($inspectors as $inspector)
                                 <tr>
-                                    <td>{{$loop->iteration }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $inspector->name }}</td>
                                     <td>{{ $inspector->email }}</td>
                                     <td>{{ $inspector->mobile_no }}</td>
                                     <td class="actions-container">
-                                        <form method="POST" action="{{ route('admin.delete_inspector', ['inspector_id' => $inspector->id]) }}">
-                                            @csrf
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete' style="padding: 0.25rem 0.5rem;">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </form>
+                                    <!-- <a class="dropdown-item act-btn " href="#"  >
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a> -->
+                                    <form method="POST" action="{{ route('admin.delete_inspector', ['inspector_id' => $inspector->id]) }}">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete' style="padding: 0.25rem 0.5rem;">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                        <!-- <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked="">
+                                        </div> -->
                                     </td>
                                 </tr>
                                 @endforeach
@@ -89,7 +89,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    jQuery.noConflict(); 
+    jQuery.noConflict(); // Release control of the $ variable
     
     jQuery(document).ready(function($) {
         $('.show_confirm').click(function(event) {
@@ -99,7 +99,7 @@
                 title: `Are you sure you want to delete this record?`,
                 text: "If you delete this, it will be gone forever.",
                 icon: "warning",
-                showCancelButton: true, 
+                showCancelButton: true, // Show cancel button
                
                 cancelButtonColor: '#d33',
                 cancelButtonText: 'Cancel',
@@ -115,4 +115,5 @@
         });
     });
 </script>
+
 @endsection

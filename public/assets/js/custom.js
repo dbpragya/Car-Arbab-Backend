@@ -36,8 +36,6 @@ function previewImgs(event) {
     });
   }
 }
-// form 1 thmnail img
-
 //----------step-2 all img upload-----------
 // engine_upper_cover
 $(document).ready(function() {
@@ -2216,6 +2214,7 @@ $(document).ready(function() {
       }
   }
 });
+
 
 
 
